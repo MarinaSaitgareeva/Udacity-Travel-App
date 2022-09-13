@@ -1,0 +1,59 @@
+// Create an alias for the namespace
+@use 'variables' as v;
+
+header {
+  height: 13rem;
+  background-image: url(/src/client/assets/main-img.jpg);
+  background-size: 100% 100%;
+
+  display: flex;
+  justify-content: end;
+  align-items: end;
+
+  font-family: v.$title-font-family;
+  font-size: 1.7rem;
+
+  #header {
+    // % - to spread colors in linear-gradient.
+    background: linear-gradient(to right, #23966c 0%, #faaa54 30%, #e23b4a 60%, #db0768 80%, #360670 100%);
+    // The background is painted within (clipped to) the foreground text.
+    -webkit-background-clip: text;
+    // Specifies the fill color of characters of text. The text will to be transparent to see linear-gradient background.
+    -webkit-text-fill-color: transparent;
+    // Display: inline-block -> Text linear-gradient should be set on only the text, not its background.
+    display: inline-block;
+  
+    word-spacing: 1rem;
+    padding: 0.6rem;
+    margin: 0 2rem 1rem 0;
+  }
+}
+
+// 2nd option for gradient-text.
+// @mixin gradient-text($gradient) {
+//   // The mix-blend-mode CSS property sets how an element's content should blend with the content of the element's parent and the element's background.
+//   @supports(mix-blend-mode: lighten) {
+//     display: inline-block;
+//     position: relative;
+//     color: #000;
+//     background: $white;
+//     mix-blend-mode: multiply;
+//     &::before {
+//       content: '';
+//       display: block;
+//       position: absolute;
+//       top: 0; right: 0; bottom: 0; left: 0;
+//       background: unquote($gradient);
+//       mix-blend-mode: screen;
+//       // The element is never the target of pointer events
+//       pointer-events: none;
+//     }
+//   }
+// }
+
+// #header {
+//   @include gradient-text('linear-gradient(to right,#23966c, #faaa54, #e23b4a, #db0768, #360670)');
+//   word-spacing: 0.8rem;
+//   padding: 1.5rem 3rem;
+
+// }

@@ -1,8 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+// const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -38,12 +37,8 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './src/client/views/index.html',
       filename: './index.html',
+      favicon: './src/client/assets/favicon.png'
     }),
-    new WorkboxPlugin.GenerateSW(),
-    new FaviconsWebpackPlugin({
-      logo: './src/client/assets/favicon.png',
-      cache: true,
-      inject: true
-    })
+    // new WorkboxPlugin.GenerateSW()
   ]
 }

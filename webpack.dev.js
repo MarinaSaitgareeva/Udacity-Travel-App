@@ -2,8 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+// const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -41,6 +40,7 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './src/client/views/index.html',
       filename: './index.html',
+      favicon: './src/client/assets/favicon.png'
     }),
     new CleanWebpackPlugin({
       // Simulate the removal of files
@@ -51,11 +51,6 @@ module.exports = {
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: false
     }),
-    new WorkboxPlugin.GenerateSW(),
-    new FaviconsWebpackPlugin({
-      logo: './src/client/assets/favicon.png',
-      cache: true,
-      inject: true
-    })
+    // new WorkboxPlugin.GenerateSW()
   ]
 }

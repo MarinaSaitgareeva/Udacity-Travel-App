@@ -1,0 +1,17 @@
+// Create an alias for the namespace
+@use 'variables' as v;
+
+#trip-search {
+  height: 5rem;
+  width: 100%;
+  background-color: #FFB3B3;
+
+  #search-form {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    margin: 1.5rem auto;
+  }
+
+ 
+}
