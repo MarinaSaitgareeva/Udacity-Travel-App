@@ -1,4 +1,4 @@
-@use 'variables' as v;
+@use 'variables';
 
 /* Box sizing rules */
 *,
@@ -26,9 +26,9 @@ body {
 
 /* Set core body defaults */
 body {
-  background-color: v.$white-smoke;
-  font-family: v.$main-font-family;
-  color: v.$primary-text-color;
+  background-color: $white-smoke;
+  font-family: $main-font-family;
+  color: $primary-text-color;
   line-height: 1.5;
   text-rendering: optimizeSpeed;
 }
