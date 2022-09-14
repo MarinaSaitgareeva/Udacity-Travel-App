@@ -64,6 +64,12 @@
     flex-direction: column;
     gap: 1rem;
 
+    #trip-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem ;
+    }
+
 
     #search-form-btns {
       display: flex;

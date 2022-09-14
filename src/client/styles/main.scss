@@ -26,6 +26,11 @@ body {
 
 /* Set core body defaults */
 body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  
   background-color: $white-smoke;
   font-family: $main-font-family;
   color: $primary-text-color;

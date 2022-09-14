@@ -1,2 +1,7 @@
-@use 'variables' as v;
+@use 'variables';
 
+#saved-trips {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
