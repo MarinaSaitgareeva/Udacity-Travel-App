@@ -1,31 +1,83 @@
 // Create an alias for the namespace
-@use 'variables' as v;
+@use 'variables';
 
 header {
-  height: 13rem;
-  background-image: url(/src/client/assets/main-img.jpg);
-  background-size: 100% 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 99;
 
-  display: flex;
-  justify-content: end;
-  align-items: end;
+  #header-container {
+    width: 100%;
+    height: 12rem;
 
-  font-family: v.$title-font-family;
-  font-size: 1.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
 
-  #header {
-    // % - to spread colors in linear-gradient.
-    background: linear-gradient(to right, #23966c 0%, #faaa54 30%, #e23b4a 60%, #db0768 80%, #360670 100%);
-    // The background is painted within (clipped to) the foreground text.
-    -webkit-background-clip: text;
-    // Specifies the fill color of characters of text. The text will to be transparent to see linear-gradient background.
-    -webkit-text-fill-color: transparent;
-    // Display: inline-block -> Text linear-gradient should be set on only the text, not its background.
-    display: inline-block;
-  
+    background-image: url(/src/client/assets/main-img.jpg);
+    background-size: 100% 100%;
+
+    font-size: 1.5rem;
+    font-family: $title-font-family;
     word-spacing: 1rem;
-    padding: 0.6rem;
-    margin: 0 2rem 1rem 0;
+
+    #header {
+      // % - to spread colors in linear-gradient.
+      background: linear-gradient(to right, #23966c 0%, #faaa54 30%, #e23b4a 60%, #db0768 80%, #360670 100%);
+      // The background is painted within (clipped to) the foreground text.
+      -webkit-background-clip: text;
+      // Specifies the fill color of characters of text. The text will to be transparent to see linear-gradient background.
+      -webkit-text-fill-color: transparent;
+      // Display: inline-block -> Text linear-gradient should be set on only the text, not its background.
+  
+      padding: 0.4rem;
+      margin: 0 2rem 1rem 0;
+    }
+  }
+
+  #trip-add {
+    background-color: $white-smoke;
+
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  
+  #add-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-inline: 2rem;
+  
+    #add-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      background-color: $btn-background;
+      border: $btn-border;
+      border-radius: $btn-border-radius;
+      color: $btn-text;
+      padding: $btn-padding;
+      margin-right: 1rem;
+      cursor: pointer;
+      transition: 0.3s all ease-in-out;
+  
+      &:hover {
+          box-shadow: $btn-box-shadow-hover;
+          color: $btn-text-hover;
+          transform: scale(1.02);
+      }
+  
+      #add-btn-img {
+        height: 1rem;
+        width: 1rem;
+        background-image: url(/src/client/assets/add-btn.png);
+        background-size: 100% 100%;
+      }
+    }
   }
 }
 

@@ -9,10 +9,9 @@
 
 <body>
   <header>
-    <h1 id="header">Find you next destination</h1>
-  </header>
-
-  <main id="container">
+    <div id="header-container">
+      <h1 id="header">Find you next destination</h1>
+    </div>
 
     <section id="trip-add">
       <form id="add-form">
@@ -23,7 +22,9 @@
         </button>
       </form>
     </section>
+  </header>
 
+  <main id="container">
     <section id="trip-search">
       <form id="search-form">
         <label id="search-destination" for="destination">
@@ -40,62 +41,23 @@
           <div id="search-btn-img"></div>
           search
         </button>
-          
-        <!-- <button id="search-form-save-btn" type="submit" onclick="" onsubmit="">save trip</button>
-
-        <button id="search-form-remove-btn" type="submit" onclick="" onsubmit="">remove trip</button> -->
       </form>
-
-      <div id="trip-result">
-        <div id="photo-and-add-info">
-          <img id="destination-photo" alt="destination photo">
-          <button class="add-info-btn" type="submit" onclick="" onsubmit="">
-            <img class="add-info-btn-img" src="" alt="add info button">
-            <p class="add-info-btn-text">add lodging info</p>
-          </button>
-          <button class="add-info-btn" type="submit" onclick="" onsubmit="">
-            <img class="add-info-btn-img" src="" alt="add info button">
-            <p class="add-info-btn-text">add packing list</p>
-          </button>
-          <button class="add-info-btn" type="submit" onclick="" onsubmit="">
-            <img class="add-info-btn-img" src="" alt="add info button">
-            <p class="add-info-btn-text">add notes</p>
-          </button>
-        </div>
-  
-        <div id="trip-info">
-          <h3 id="destination-name">My trip to: </h3>
-  
-          <h3 id="departure-date-actual">Departing: </h3>
-  
-          <div id="flight-info">
-            <p id="flying-info-title">flying info:</p>
-            <p id="flying-info-data"></p>
-          </div>
-        </div>
-  
-        <button id="search-form-save-btn" type="submit" onclick="" onsubmit="">save trip</button>
-  
-        <button id="search-form-remove-btn" type="submit" onclick="" onsubmit="">remove trip</button>
-  
-        <p id="day-count"></p>
-  
-        <p id="weather-info">Typical weather for then is: </p>
-      </div>
-
     </section>
 
-    <!-- <section id="trip-result">
+    <section id="trip-result">
       <div id="photo-and-add-info">
         <img id="destination-photo" alt="destination photo">
+
         <button class="add-info-btn" type="submit" onclick="" onsubmit="">
           <img class="add-info-btn-img" src="" alt="add info button">
           <p class="add-info-btn-text">add lodging info</p>
         </button>
+
         <button class="add-info-btn" type="submit" onclick="" onsubmit="">
           <img class="add-info-btn-img" src="" alt="add info button">
           <p class="add-info-btn-text">add packing list</p>
         </button>
+
         <button class="add-info-btn" type="submit" onclick="" onsubmit="">
           <img class="add-info-btn-img" src="" alt="add info button">
           <p class="add-info-btn-text">add notes</p>
@@ -120,7 +82,7 @@
       <p id="day-count"></p>
 
       <p id="weather-info">Typical weather for then is: </p>
-    </section> -->
+    </section>
 
     <section id="saved-trips">
       <div id="saved-trips-field"></div>
