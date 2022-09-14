@@ -1,2 +1,117 @@
-@use 'variables' as v;
+@use 'variables';
 
+#trip-result {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+
+  background-color: #FAF1E6;
+  
+  padding: 1rem 2rem;
+
+
+  #photo-and-add-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    #destination-photo {
+      width: 100%;
+      height: 20rem;
+
+      margin-bottom: 1rem;
+    }
+
+    .add-info-btn {
+      width: fit-content;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.3rem;
+  
+      background-color: $btn-background;
+      border: $btn-border;
+      border-radius: $btn-border-radius;
+  
+      color: $btn-text;
+  
+      padding: $btn-padding-small ;
+      margin-right: 1rem;
+  
+      cursor: pointer;
+      transition: 0.3s all ease-in-out;
+  
+      &:hover {
+          box-shadow: $btn-box-shadow-hover;
+  
+          color: $btn-text-hover;
+  
+          transform: scale(1.02);
+      }
+  
+      .add-info-btn-img {
+        height: 1rem;
+        width: 1rem;
+  
+        background-image: url(/src/client/assets/add-btn.png);
+        background-size: 100% 100%;
+      }
+    }
+  }
+
+  #trip-detailes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+
+    #search-form-btns {
+      display: flex;
+
+      #search-form-save-btn,
+      #search-form-remove-btn {
+        width: fit-content;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.3rem;
+    
+        background-color: $btn-background;
+        border: $btn-border;
+        border-radius: $btn-border-radius;
+    
+        color: $btn-text;
+    
+        padding: $btn-padding-small ;
+        margin-right: 1rem;
+    
+        cursor: pointer;
+        transition: 0.3s all ease-in-out;
+  
+        &:hover {
+            box-shadow: $btn-box-shadow-hover;
+    
+            color: $btn-text-hover;
+    
+            transform: scale(1.02);
+        }
+
+        #save-btn-img {
+          height: 1rem;
+          width: 1rem;
+    
+          background-image: url(/src/client/assets/add-btn.png);
+          background-size: 100% 100%;
+        }
+
+        #remove-btn-img {
+          height: 1rem;
+          width: 1rem;
+    
+          background-image: url(/src/client/assets/remove-btn.png);
+          background-size: 100% 100%;
+        }
+      }
+    }
+  }
+}

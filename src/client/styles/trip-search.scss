@@ -62,7 +62,7 @@
 
     color: $btn-text;
 
-    padding: $btn-padding;
+    padding: $btn-padding-big;
     margin-right: 1rem;
 
     cursor: pointer;
@@ -84,10 +84,4 @@
       background-size: 100% 100%;
     }
   }
-}
-
-#trip-result {
-      background-color: #FAF1E6;
-      
-      padding: 1rem;
 }
