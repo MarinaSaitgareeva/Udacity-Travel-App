@@ -56,7 +56,19 @@
       // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
       outline: $btn-border;
     }
+
+    // Add own img for calendar picker
+    &::-webkit-calendar-picker-indicator {
+      // Remove img for calendar picker
+      // display: none;
+      // -webkit-appearance: none;
+      background-image: url(../assets/calendar.png);
+      padding: 0px;
+      margin: 0px;
+    }
   }
+
+
 
   #search-form-btn {
     display: flex;
