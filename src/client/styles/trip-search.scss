@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 3rem;
+    gap: 1rem;
 
     background-color: #FFE6E6;
 
@@ -22,6 +22,7 @@
     color: $primary-text-color;
   }
 
+  #departure,
   #destination {
     width: 15rem;
 
@@ -31,6 +32,11 @@
 
     padding: 0.3rem;
     margin-inline: 0.5rem;
+
+    &:focus {
+      // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
+      outline: $btn-border;
+    }
   }
 
   #start-date,
@@ -45,6 +51,11 @@
 
     padding: 0.3rem 1rem;
     margin: 0 0.5rem;
+
+    &:focus {
+      // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
+      outline: $btn-border;
+    }
   }
 
   #search-form-btn {
@@ -60,6 +71,7 @@
     color: $btn-text;
 
     padding: $btn-padding-big;
+    margin-left: 4rem;
     margin-right: 1rem;
 
     cursor: pointer;

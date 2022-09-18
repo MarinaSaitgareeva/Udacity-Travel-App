@@ -15,7 +15,7 @@
 
     <section id="trip-add">
       <form id="add-form">
-        <label id="add-btn-label" for="add-btn">My trip</label>
+        <!-- <label id="add-btn-label" for="add-btn">My trip</label> -->
         <button id="add-btn" type="submit" onclick="" onsubmit="">
           <div id="add-btn-img"></div>
           add trip
@@ -27,8 +27,13 @@
   <main id="container">
     <section id="trip-search">
       <form id="search-form">
+        <label id="search-departure" for="departure">
+          My trip from:
+          <input id="departure" type="text" name="departure"  value="" placeholder="" required>
+        </label>
+
         <label id="search-destination" for="destination">
-          My trip to:
+          to:
           <input id="destination" type="text" name="destination"  value="" placeholder="" required>
         </label>
 
