@@ -45,9 +45,7 @@ header {
   }
   
   #add-form {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    float: right;
 
     padding-inline: 2rem;
   
@@ -64,7 +62,7 @@ header {
       color: $btn-text;
 
       padding: $btn-padding-big;
-      margin-right: 1rem;
+        // margin-right: 1rem;
 
       cursor: pointer;
       transition: 0.3s all ease-in-out;
