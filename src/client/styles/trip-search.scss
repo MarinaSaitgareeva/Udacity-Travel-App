@@ -33,11 +33,8 @@
     margin-inline: 0.5rem;
   }
 
-  #search-start-date {
-
-  }
-
-  #start-date {
+  #start-date,
+  #end-date {
     background-color: $white-smoke;
     border: $btn-border;
     border-radius: $btn-border-radius;
