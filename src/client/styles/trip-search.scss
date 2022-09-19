@@ -29,8 +29,12 @@
     border: $btn-border;
     border-radius: $btn-border-radius;
 
-    padding: 0.3rem;
+    padding: 0.3rem 0.7rem;
     margin-inline: 0.5rem;
+
+    &::placeholder {
+      opacity: 0.3;
+    }
 
     &:focus {
       // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
