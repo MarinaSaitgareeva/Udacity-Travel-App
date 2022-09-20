@@ -39,12 +39,12 @@
 
         <label id="search-start-date" for="start-date">
           Start date:
-          <input id="start-date" type="date" name="start-date" required>
+          <input id="start-date" type="date" name="start-date" min="" required>
         </label>
 
         <label id="search-end-date" for="end-date">
           End date:
-          <input id="end-date" type="date" name="end-date" required>
+          <input id="end-date" type="date" name="end-date" min="" required>
         </label>
 
         <button id="search-form-btn" type="submit" onclick="" onsubmit="">
@@ -54,7 +54,7 @@
       </form>
     </section>
 
-    <section id="trip-result">
+    <section id="trip-result" class="hide">
       <div id="photo-and-add-info">
         <img id="destination-photo" alt="destination photo">
 
@@ -104,7 +104,7 @@
       </div>
     </section>
 
-    <section id="saved-trips">
+    <section id="saved-trips" class="hide">
       <div id="saved-trips-field"></div>
     </section>
   </main>
