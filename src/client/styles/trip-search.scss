@@ -5,7 +5,7 @@
 
   #search-form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -14,62 +14,84 @@
     background-color: #FFE6E6;
 
     padding: 1rem 0;
-  }
 
-  #search-destination {
-    font-family: $main-font-family;
-    color: $primary-text-color;
-  }
-
-  #departure,
-  #destination {
-    width: 15rem;
-
-    background-color: $white-smoke;
-    border: $btn-border;
-    border-radius: $btn-border-radius;
-
-    padding: 0.3rem 0.7rem;
-    margin-inline: 0.5rem;
-
-    &::placeholder {
-      opacity: 0.3;
+    #cities,
+    #dates {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      align-items: center;
+      gap: 1rem;
     }
 
-    &:focus {
-      // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
-      outline: $btn-border;
-    }
-  }
+    @media only screen and (max-width: 680px) {
+      #cities,
+      #dates {
+        display: grid;
+        grid-template-columns: repeat(2 , auto);
+        align-items: center;
+        gap: 1rem;
+      }
 
-  #start-date,
-  #end-date {
-    background-color: $white-smoke;
-    border: $btn-border;
-    border-radius: $btn-border-radius;
-
-    font-family: $main-font-family;
-    color: $primary-text-color;
-    text-align: center;
-
-    padding: 0.3rem 1rem;
-    margin: 0 0.5rem;
-
-    &:focus {
-      // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
-      outline: $btn-border;
+      #search-departure,
+      #search-destination,
+      #search-start-date,
+      #search-end-date {
+        justify-self: end;
+      }
     }
 
-    // Add own img for calendar picker
-    &::-webkit-calendar-picker-indicator {
-      // Remove img for calendar picker
-      // display: none;
-      // -webkit-appearance: none;
-      background-image: url(../assets/calendar.png);
-      padding: 0px;
-      margin: 0px;
+      #departure,
+      #destination {
+        width: 15rem;
+        height: 2rem;
+
+        background-color: $white-smoke;
+        border: $btn-border;
+        border-radius: $btn-border-radius;
+
+        padding-left: 1rem;
+
+        &::placeholder {
+          opacity: 0.3;
+        }
+
+        &:focus {
+          // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
+          outline: $btn-border;
+        }
+      }
+
+      #start-date,
+      #end-date {
+        height: 2rem;
+
+        background-color: $white-smoke;
+        border: $btn-border;
+        border-radius: $btn-border-radius;
+    
+        font-family: $main-font-family;
+        color: $primary-text-color;
+        text-align: center;
+    
+        padding: 0.3rem 1rem;
+        margin: 0 0.5rem;
+    
+        &:focus {
+          // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
+          outline: $btn-border;
+        }
+    
+        // Add own img for calendar picker
+        &::-webkit-calendar-picker-indicator {
+          // Remove img for calendar picker
+          // display: none;
+          // -webkit-appearance: none;
+          background-image: url(../assets/calendar.png);
+          padding: 0px;
+          margin: 0px;
+        }
+      }
     }
-  }
 
   #search-form-btn {
     display: flex;

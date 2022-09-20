@@ -27,25 +27,30 @@
   <main id="container">
     <section id="trip-search">
       <form id="search-form">
-        <label id="search-departure" for="departure">
-          My trip from:
+        
+        <div id="cities">
+          <label id="search-departure" for="departure">
+            My trip from:
+          </label>
           <input id="departure" type="text" name="departure"  value="" placeholder="Enter city name" required>
-        </label>
-
-        <label id="search-destination" for="destination">
-          to:
+  
+          <label id="search-destination" for="destination">
+            to:
+          </label>
           <input id="destination" type="text" name="destination"  value="" placeholder="Enter city name" required>
-        </label>
+        </div>
 
-        <label id="search-start-date" for="start-date">
-          Start date:
+        <div id="dates">
+          <label id="search-start-date" for="start-date">
+            Start date:
+          </label>
           <input id="start-date" type="date" name="start-date" required>
-        </label>
-
-        <label id="search-end-date" for="end-date">
-          End date:
+  
+          <label id="search-end-date" for="end-date">
+            End date:
+          </label>
           <input id="end-date" type="date" name="end-date" required>
-        </label>
+        </div>
 
         <button id="search-form-btn" type="submit" onclick="" onsubmit="">
           <div id="search-btn-img"></div>
