@@ -7,10 +7,10 @@
 import './styles/index.scss'
 
 // Set min date field to current date
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
-var yyyy = today.getFullYear();
+var currentDate = new Date();
+var dd = currentDate.getDate();
+var mm = currentDate.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+var yyyy = currentDate.getFullYear();
 // Add format for date to use it as 'min' attribute
 if(dd<10) {
   dd='0'+dd
@@ -18,10 +18,10 @@ if(dd<10) {
 if(mm<10) {
   mm='0'+mm
 }
-today = yyyy+'-'+mm+'-'+dd;
+currentDate = yyyy+'-'+mm+'-'+dd;
 
-document.querySelector('#start-date').setAttribute('min', today);
-document.querySelector('#end-date').setAttribute('min', today);
+document.querySelector('#start-date').setAttribute('min', currentDate);
+document.querySelector('#end-date').setAttribute('min', currentDate);
 
 
 // Add logo in App

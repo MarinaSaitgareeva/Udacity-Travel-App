@@ -42,13 +42,20 @@ app.get('/', (req, res) => {
 })
 
 // Import functions
+import { calculateDaysToGo } from './calculateDaysToGo';
 import { fetchGeonamesApi } from './geoNamesAPI';
 import { fetchWeatherbitApi } from './weatherbitAPI';
 import { fetchPixabayApi } from './pixabayAPI';
 
 // Set variable for trip data from different API
 const trip = {
-  departure: 'from',
+  departure: {
+    city: 'from',
+    country: '',
+    country_code: '',
+    latitude: '',
+    longitude: '',
+  },
   destination: {
     city: 'to',
     country: '',
@@ -58,8 +65,9 @@ const trip = {
     // population: ''
   },
   id: '',
-  date: '',
-  countdown: '',
+  startDate: '',
+  endDate: '',
+  daysToGo: '',
   weather: {
       temperature: '',
       icon: '',
@@ -80,10 +88,10 @@ const trip = {
 // POST route - trip data
 app.post('/tripInfo', async (req, res) => {
   // Set destination city and departing date
-  trip.departure = req.body.departure;
-  trip.date = req.body.date;
+  trip.departure.city = req.body.departure;
+  trip.startDate = req.body.date;
   // get countdown number
-  trip.countdown = countdown(req.body.date).toString();
+  trip.daysToGo = calculateDaysToGo(req.body.date).toString();
 
   // Fetch destination data by GeoNamesAPI
   let destinationData = await fetchGeonamesApi(req.body.destination, process.env.GEONAMES_USERNAME);
@@ -96,7 +104,7 @@ app.post('/tripInfo', async (req, res) => {
   let weatherData = await fetchWeatherbitApi(
     trip.destination.latitude,
     trip.destination.longitude,
-    trip.date,
+    trip.startDate,
     process.env.WEATHERBIT_API_KEY
   );
   // console.log(weatherData);
