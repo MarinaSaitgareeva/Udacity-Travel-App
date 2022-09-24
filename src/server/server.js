@@ -15,7 +15,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 /* Middleware */
-//Here we are configuring express to use body-parser as middle-ware.
+//Here we are configuring express to use body-parser as middle-ware
 app.use(bodyParser.urlencoded({ extended: false })); // to use url encoded values
 app.use(bodyParser.json()); // to use json
 
@@ -39,22 +39,26 @@ app.listen(port, () => {
 // GET route
 app.get('/', (req, res) => {
   res.sendFile(path.resolve('dist/index.html'))
+  // res.sendFile(path.resolve('src/client/views/index.html'))
 })
 
 // Import functions
-import { calculateDaysToGo } from './calculateDaysToGo';
-import { fetchGeonamesApi } from './geoNamesAPI';
-import { fetchWeatherbitApi } from './weatherbitAPI';
-import { fetchPixabayApi } from './pixabayAPI';
+const calculateDaysToGo = require('./calculateDaysToGo');
+const fetchGeonamesApi = require('./geoNamesAPI');
+const fetchWeatherbitApi = require('./weatherbitAPI');
+const fetchPixabayApi = require('./pixabayAPI');
+// import { calculateDaysToGo } from './calculateDaysToGo';
+// import { fetchGeonamesApi } from './geoNamesAPI';
+// import { fetchWeatherbitApi } from './weatherbitAPI';
+// import { fetchPixabayApi } from './pixabayAPI';
 
-// Set variable for trip data from different API
-const trip = {
+// Set variable for trip data from different API (to act as endpoint for GET route)
+let trip = {
+  // departure: 'from',
   departure: {
     city: 'from',
     country: '',
     country_code: '',
-    latitude: '',
-    longitude: '',
   },
   destination: {
     city: 'to',
@@ -62,21 +66,22 @@ const trip = {
     country_code: '',
     latitude: '',
     longitude: '',
-    // population: ''
+    population: ''
   },
   id: '',
   startDate: '',
   endDate: '',
   daysToGo: '',
+  daysLength: '',
   weather: {
-      temperature: '',
-      icon: '',
-      description: ''
+    temperature: '',
+    icon: '',
+    description: ''
   },
   // flight: {
-  //     price: '',
-  //     carrier: '',
-  //     direct: ''
+//     price: '',
+//     carrier: '',
+//     direct: ''
   // },
   image: '',
   // covid: {
@@ -87,33 +92,44 @@ const trip = {
 
 // POST route - trip data
 app.post('/tripInfo', async (req, res) => {
-  // Set destination city and departing date
-  trip.departure.city = req.body.departure;
-  trip.startDate = req.body.date;
-  // get countdown number
-  trip.daysToGo = calculateDaysToGo(req.body.date).toString();
+  // Set departure city, destination, start date and end date
+  trip.startDate = req.body.startDate;
+  trip.endDate = req.body.endDate;
+
+  // Get daysToGo number
+  trip.daysToGo = calculateDaysToGo(trip.startDate).toString();
+
+  // Fetch departure data by GeoNamesAPI
+  let departureData = await fetchGeonamesApi(req.body.departure, process.env.GEONAMES_USERNAME);
+  trip.departure.city = departureData.city;
+  trip.departure.country_code = departureData.country_code;
+  trip.departure.country = departureData.country_name;
 
   // Fetch destination data by GeoNamesAPI
   let destinationData = await fetchGeonamesApi(req.body.destination, process.env.GEONAMES_USERNAME);
   trip.destination.city = destinationData.city;
   trip.destination.country_code = destinationData.country_code;
+  trip.destination.country = destinationData.country_name;
   trip.destination.latitude = destinationData.latitude;
   trip.destination.longitude = destinationData.longitude;
+  trip.destination.population = destinationData.population;
+  console.log(destinationData);
 
-  // Fetch weather data from wWatherbit API
+  // Fetch weather data from Watherbit API
   let weatherData = await fetchWeatherbitApi(
     trip.destination.latitude,
     trip.destination.longitude,
     trip.startDate,
     process.env.WEATHERBIT_API_KEY
   );
-  // console.log(weatherData);
+  console.log(weatherData);
   trip.weather.temperature = weatherData.temperature;
   trip.weather.icon = weatherData.weather_icon;
   trip.weather.description = weatherData.weather_description;
 
   // Fetch image url by Pixabay API
-  trip.image = await fetchPixabayApi(req.body.destination, '', process.env.PIXABAY_API_KEY);
+  let img = await fetchPixabayApi(req.body.destination, '', process.env.PIXABAY_API_KEY);
+  trip.image = img;
 
   res.send(trip);
   console.info('** This request has been processed:\n', req.body, ' **');
