@@ -5,7 +5,7 @@ const fetch = (...args) =>
 
 // Fetch GeoNames API with city, country, latitude, longitude
 const fetchGeonamesApi = async (city = '', geoNamesId) => {
-  const baseUrl = `http://api.geonames.org/search?username=${geoNamesId}&type=json&name=`;
+  const baseUrl = `http://api.geonames.org/search?username=${geoNamesId}&type=json&maxRows=1&name=`;
 
   let response = await fetch(baseUrl + city);
   console.log('Geonames API: ', response.status, response.statusText, response.ok);
@@ -19,6 +19,8 @@ const fetchGeonamesApi = async (city = '', geoNamesId) => {
               latitude: data.lat.slice(0, 6),
               longitude: data.lng.slice(0, 6),
               country_code: data.countryCode,
+              country_name: data.countryName,
+              population: data.population,
               city: data.name
           };
       }
@@ -29,8 +31,11 @@ const fetchGeonamesApi = async (city = '', geoNamesId) => {
       latitude: 'no data',
       longitude: 'no data',
       country_code: 'no data',
+      country_name: 'no data',
+      population: 'no data',
       city: 'no data'
   };
 };
 
-export { fetchGeonamesApi }
+// Export js file
+module.exports = fetchGeonamesApi;
