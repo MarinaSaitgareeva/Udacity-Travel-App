@@ -32,4 +32,5 @@ const fetchWeatherbitApi = async (latitude, longitude, date, weatherbitApiKey) =
   }
 };
 
-export { fetchWeatherbitApi };
+// Export js file
+module.exports = fetchWeatherbitApi;
