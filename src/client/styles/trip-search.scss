@@ -5,15 +5,12 @@
 
   #search-form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 1rem;
 
     background-color: #FFE6E6;
-
-    padding: 1rem 0;
 
     #cities,
     #dates {
@@ -21,6 +18,7 @@
       grid-template-columns: repeat(4, auto);
       align-items: center;
       gap: 1rem;
+      margin: 1rem 0;
     }
 
     @media only screen and (max-width: 680px) {
@@ -106,8 +104,9 @@
     color: $btn-text;
 
     padding: $btn-padding-big;
-    margin-left: 4rem;
-    margin-right: 1rem;
+    // margin-left: 4rem;
+    // margin-right: 1rem;
+    margin: 1rem 1rem 1rem 4rem;
 
     cursor: pointer;
     transition: 0.3s all ease-in-out;

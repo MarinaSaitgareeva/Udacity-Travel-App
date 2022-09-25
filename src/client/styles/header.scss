@@ -38,10 +38,10 @@ header {
   }
 
   #trip-add {
-    background-color: $white-smoke;
+    // background-color: $white-smoke;
 
     padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 3.2rem;
   }
   
   #add-form {
@@ -55,7 +55,7 @@ header {
       align-items: center;
       gap: 0.8rem;
 
-      background-color: $btn-background;
+      background-color: $white-smoke;
       border: $btn-border;
       border-radius: $btn-border-radius;
 
