@@ -5,7 +5,7 @@ const fetch = (...args) =>
 
 // Fetch Pixabay API with img
 const fetchPixabayApi = async (city = '', country = '', pixabayApiKey) => {
-  let url = `https://pixabay.com/api/?key=${pixabayApiKey}&q=${city}+${country}&category=travel`;
+  let url = `https://pixabay.com/api/?key=${pixabayApiKey}&q=${city}+${country}&category=travel&image_type=photo`;
 
   let response = await fetch(url);
   console.log(`Pixabay API: ${response.status} ${response.statusText} ${response.ok}`);
