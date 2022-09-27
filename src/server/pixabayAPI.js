@@ -3,7 +3,7 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 
 // Fetch Pixabay API with img based on city and country name
 const fetchPixabayApi = async (city = '', country = '', pixabayApiKey) => {
-  let url = `https://pixabay.com/api/?key=${pixabayApiKey}&q=${city}+${country}&category=travel&image_type=photo`;
+  let url = `https://pixabay.com/api/?key=${pixabayApiKey}&q=${city}+${country}&category=travel&image_type=photo&orientation=horizontal`;
 
   let response = await fetch(url);
   console.log(`Pixabay API: ${response.status} ${response.statusText} ${response.ok}`);
