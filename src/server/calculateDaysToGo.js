@@ -4,7 +4,7 @@ const calculateDaysToGo = (tripStartDate) => {
   tripStartDate = new Date(tripStartDate);
   let differenceInDays = tripStartDate - currentDate;
   let daysToGo = new Date(differenceInDays) / (24 * 3600 * 1000);
-  return Number(Math.round(daysToGo));
+  return Number(Math.round(daysToGo) + 1); // +1 including current date
 };
 
 // Export js file
