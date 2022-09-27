@@ -63,13 +63,39 @@
     }
   }
 
-  #trip-detailes {
+  #trip-details {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 
     padding: 1rem;
 
+    .map {
+      text-decoration: none;
+      color: $primary-text-color;
+    }
+
+    .flag {
+      display: inline-block;
+
+      width: 1.5rem;
+      // height: 1rem;
+      // border-radius: 0.5rem;
+
+      margin-inline: 0.2rem;
+    }
+
+    #weather_historical_description {
+      display: inline-block;
+    }
+
+    #weather-icon {
+      display: inline-block;
+
+      width: 2.5rem;
+
+      margin-inline: 0.2rem;
+    }
 
     #search-form-btns {
       display: flex;
