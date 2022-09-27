@@ -22,5 +22,6 @@ function setMinAttributeToDate() {
   };
 };
 
+
 // Export js file
 export { setMinAttributeToDate };
