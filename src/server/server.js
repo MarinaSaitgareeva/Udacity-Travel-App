@@ -47,7 +47,8 @@ const calculateDaysToGo = require('./calculateDaysToGo');
 const calculateDaysLength = require('./calculateDaysLength');
 const fetchGeonamesApi = require('./geoNamesAPI');
 const restcountriesApi = require('./restcountriesAPI');
-const fetchWeatherbitApi = require('./weatherbitAPI');
+const fetchWeatherbitHistoricalApi = require('./weatherbitHistoricalAPI');
+const fetchWeatherbitCurrentApi = require('./weatherbitCurrentAPI');
 const fetchTimezonedbApi = require('./timezonedbAPI');
 const fetchPixabayApi = require('./pixabayAPI');
 
@@ -87,15 +88,20 @@ let trip = {
   daysToGo: '',
   daysLength: '',
   weather: {
-    temperature: '',
-    feels_like_temperature: '',
-    // max_temperature: '',
-    // min_temperature: '',
-    uv: '',
-    wind_speed: '',
-    wind_direction: '',
-    icon: '',
-    description: ''
+    historical_temperature: '',
+    historical_feels_like_temperature: '',
+    historical_uv: '',
+    historical_wind_speed: '',
+    historical_wind_direction: '',
+    historical_icon: '',
+    historical_description: '',
+    current_temperature: '',
+    current_feels_like_temperature: '',
+    current_uv: '',
+    current_wind_speed: '',
+    current_wind_direction: '',
+    current_icon: '',
+    current_description: ''
   },
   time: {
     zone_name: '',
@@ -162,22 +168,36 @@ app.post('/tripInfo', async (req, res) => {
     trip.destination.map = destinationCountryData.map;
   console.log(destinationCountryData);
 
-  // Fetch weather data from Watherbit API
-  let weatherData = await fetchWeatherbitApi(
+  // Fetch weather data from Watherbit API (historical)
+  let historicalWeatherData = await fetchWeatherbitHistoricalApi(
     trip.destination.latitude,
     trip.destination.longitude,
     trip.startDate,
     process.env.WEATHERBIT_API_KEY
   );
-    trip.weather.temperature = weatherData.temperature;
-    trip.weather.feels_like_temperature = weatherData.feels_like_temperature;
-    // trip.weather.max_temperature = weatherData.max_temperature;
-    // trip.weather.min_temperature = weatherData.min_temperature;
-    trip.weather.uv = weatherData.uv;
-    trip.weather.wind_speed = weatherData.wind_speed;
-    trip.weather.wind_direction = weatherData.wind_direction;trip.weather.icon = weatherData.weather_icon;
-    trip.weather.description = weatherData.weather_description;
-  console.log(weatherData);
+    trip.weather.historical_temperature = historicalWeatherData.historical_temperature;
+    trip.weather.historical_feels_like_temperature = historicalWeatherData.historical_feels_like_temperature;
+    trip.weather.historical_uv = historicalWeatherData.historical_uv;
+    trip.weather.historical_wind_speed = historicalWeatherData.historical_wind_speed;
+    trip.weather.historical_wind_direction = historicalWeatherData.historical_wind_direction;
+    trip.weather.historical_icon = historicalWeatherData.historical_icon;
+    trip.weather.historical_description = historicalWeatherData.historical_description;
+  console.log(historicalWeatherData);
+
+  // Fetch weather data from Watherbit API (current)
+  let currentWeatherData = await fetchWeatherbitCurrentApi(
+    trip.destination.latitude,
+    trip.destination.longitude,
+    process.env.WEATHERBIT_API_KEY
+  );
+    trip.weather.current_temperature = currentWeatherData.current_temperature;
+    trip.weather.current_feels_like_temperature = currentWeatherData.current_feels_like_temperature;
+    trip.weather.current_uv = currentWeatherData.current_uv;
+    trip.weather.current_wind_speed = currentWeatherData.current_wind_speed;
+    trip.weather.current_wind_direction = currentWeatherData.current_wind_direction;
+    trip.weather.current_icon = currentWeatherData.current_icon;
+    trip.weather.current_description = currentWeatherData.current_description;
+  console.log(currentWeatherData);
 
   // Fetch time data from Timezobedb API
   let destinationTimeData = await fetchTimezonedbApi(
