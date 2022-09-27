@@ -17,8 +17,8 @@ const fetchWeatherbitCurrentApi = async (latitude, longitude, weatherbitApiKey) 
       current_uv: data.data[0].uv,
       current_wind_speed: `${data.data[0].wind_spd.toFixed(1)} m/s`,
       current_wind_direction: getCardinalDirection(data.data[0].wind_dir),
-      current_weather_icon: 'https://www.weatherbit.io/static/img/icons/' + data.data[0].weather.icon + '.png',
-      current_weather_description: data.data[0].weather.description
+      current_icon: 'https://www.weatherbit.io/static/img/icons/' + data.data[0].weather.icon + '.png',
+      current_description: data.data[0].weather.description
     };
   } else {
     // Appropriately handle the error
@@ -29,8 +29,8 @@ const fetchWeatherbitCurrentApi = async (latitude, longitude, weatherbitApiKey) 
       current_uv: 'no data',
       current_wind_speed: 'no data',
       current_wind_direction: 'no data',
-      current_weather_icon: 'no data',
-      current_weather_description: 'no data'
+      current_icon: 'no data',
+      current_description: 'no data'
     };
   };
 };
