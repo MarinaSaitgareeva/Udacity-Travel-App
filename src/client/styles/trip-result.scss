@@ -78,25 +78,47 @@
     .flag {
       display: inline-block;
 
-      width: 1.5rem;
-      // height: 1rem;
-      // border-radius: 0.5rem;
+      height: 1rem;
 
       margin-inline: 0.2rem;
     }
 
-    #weather_historical_description {
-      display: inline-block;
+    #destination-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+
+      margin-top: 1.5rem;
+
+      #weather {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+  
+      #weather-assumption {
+        font-size: 0.7rem;
+      }
+  
+      #weather_historical_description {
+        display: flex;
+        align-items: center;
+      }
+  
+      #weather-icon {
+        display: inline-block;
+  
+        width: 1.5rem;
+  
+        margin-inline: 0.2rem;
+      }
+
+      #weather_current {
+        display: flex;
+        align-items: center;
+      }
     }
-
-    #weather-icon {
-      display: inline-block;
-
-      width: 2.5rem;
-
-      margin-inline: 0.2rem;
-    }
-
+    
     #search-form-btns {
       display: flex;
 
