@@ -61,10 +61,12 @@ header {
 
       color: $btn-text;
 
-      padding: $btn-padding-big;
+      padding: $btn-padding-small;
 
       cursor: pointer;
       transition: 0.3s all ease-in-out;
+
+      opacity: 0.2;
   
       &:hover {
           box-shadow: $btn-box-shadow-hover;
@@ -72,6 +74,8 @@ header {
           color: $btn-text-hover;
 
           transform: scale(1.02);
+
+          opacity: 1;
       }
   
       #add-btn-img {
