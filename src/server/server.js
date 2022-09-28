@@ -54,6 +54,7 @@ const fetchPixabayApi = require('./pixabayAPI');
 
 // Set variable for trip data from different API (to act as endpoint for GET route)
 let trip = {
+  id: '',
   departure: {
     city: 'to',
     country: '',
@@ -62,6 +63,7 @@ let trip = {
     latitude: '',
     longitude: '',
     city_population: '',
+    capital: '',
     country_population: '',
     currency: '',
     language: '',
@@ -76,13 +78,13 @@ let trip = {
     latitude: '',
     longitude: '',
     city_population: '',
+    capital: '',
     country_population: '',
     currency: '',
     language: '',
     flag: '',
     map: ''
   },
-  id: '',
   startDate: '',
   endDate: '',
   daysToGo: '',
@@ -91,6 +93,8 @@ let trip = {
     historical_temperature: '',
     historical_feels_like_temperature: '',
     historical_uv: '',
+    historical_humidity: '',
+    historical_pressure: '',
     historical_wind_speed: '',
     historical_wind_direction: '',
     historical_icon: '',
@@ -98,6 +102,8 @@ let trip = {
     current_temperature: '',
     current_feels_like_temperature: '',
     current_uv: '',
+    current_humidity: '',
+    current_pressure: '',
     current_wind_speed: '',
     current_wind_direction: '',
     current_icon: '',
@@ -114,7 +120,10 @@ let trip = {
   image: ''
 };
 
-// POST route - trip data
+// // Set variable (array) for saved trip data
+let savedTrips = [];
+
+// POST route for trip data
 app.post('/tripInfo', async (req, res) => {
   // Set departure city, destination, start date and end date
   trip.startDate = req.body.startDate;
@@ -178,6 +187,8 @@ app.post('/tripInfo', async (req, res) => {
     trip.weather.historical_temperature = historicalWeatherData.historical_temperature;
     trip.weather.historical_feels_like_temperature = historicalWeatherData.historical_feels_like_temperature;
     trip.weather.historical_uv = historicalWeatherData.historical_uv;
+    trip.weather.historical_humidity = historicalWeatherData.historical_humidity;
+    trip.weather.historical_pressure = historicalWeatherData.historical_pressure;
     trip.weather.historical_wind_speed = historicalWeatherData.historical_wind_speed;
     trip.weather.historical_wind_direction = historicalWeatherData.historical_wind_direction;
     trip.weather.historical_icon = historicalWeatherData.historical_icon;
@@ -193,6 +204,8 @@ app.post('/tripInfo', async (req, res) => {
     trip.weather.current_temperature = currentWeatherData.current_temperature;
     trip.weather.current_feels_like_temperature = currentWeatherData.current_feels_like_temperature;
     trip.weather.current_uv = currentWeatherData.current_uv;
+    trip.weather.current_humidity = currentWeatherData.current_humidity;
+    trip.weather.current_pressure = currentWeatherData.current_pressure;
     trip.weather.current_wind_speed = currentWeatherData.current_wind_speed;
     trip.weather.current_wind_direction = currentWeatherData.current_wind_direction;
     trip.weather.current_icon = currentWeatherData.current_icon;
@@ -215,9 +228,41 @@ app.post('/tripInfo', async (req, res) => {
 
 
   // Fetch image url by Pixabay API
-  let img = await fetchPixabayApi(req.body.destination, '', process.env.PIXABAY_API_KEY);
-    trip.image = img;
-
+  let img = await fetchPixabayApi(trip.destination.city, trip.destination.country, process.env.PIXABAY_API_KEY);
+    if (typeof img == 'undefined') {
+      trip.image = await fetchPixabayApi(trip.destination.capital, trip.destination.country, process.env.PIXABAY_API_KEY);;
+    } else {
+      trip.image = img;
+    };
+  console.log(trip.image);
+    
   res.send(trip);
-  console.log('** This request has been processed:\n', req.body, ' **');
+  console.log('**** This request has been processed:\n', req.body, ' ****');
+});
+
+// GET route for for trip data
+app.get('/getTripInfo', (req, res) => {
+  res.json(trip);
+});
+
+// POST route for saved trips (saving data)
+app.post('/saveTripInfo', (req, res) => {
+  savedTrips.push(trip);
+  res.send(trip);
+});
+
+// GET route for saved trips
+app.get('/getSavedTripInfo', (req, res) => {
+  res.json(savedTrips);
+});
+
+// POST route for saved trips (removing data)
+app.post('/removeSavedTripInfo', (req, res) => {
+  const tripId = trip.id;
+
+  savedTrips = savedTrips.filter((savedTrip) => {
+    return savedTrip.id != tripId;
+  });
+
+  res.json(savedTrips);
 });
