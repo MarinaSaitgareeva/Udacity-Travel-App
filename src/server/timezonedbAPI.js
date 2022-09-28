@@ -14,8 +14,8 @@ const fetchTimezonedbApi = async (latitude, longitude, timezonedbApiKey) => {
     return {
       zone_name: data.zoneName,
       abbreviation: data.abbreviation, // Abbreviation of the time zone
-      gmtOffset: `UTC ${data.gmtOffset / 60 / 60}:00`, // The time offset in seconds based on UTC time
-      current_time: data.formatted.toString().substr(11), // Formatted timestamp in Y-m-d h:i:s format. E.g.: 2022-09-26 16:23:22
+      gmtOffset: `UTC ${changeGmtOffSet(data.gmtOffset / 60 / 60)}:00`, // The time offset in seconds based on UTC time
+      current_time: data.formatted.toString().slice(11,16), // Formatted timestamp in Y-m-d h:i:s format. E.g.: 2022-09-26 16:23:22
       dst: data.dst, // Whether Daylight Saving Time (DST) is used. Either 0 (No) or 1 (Yes)
       nextAbbreviation: data.nextAbbreviation
     };
@@ -31,6 +31,15 @@ const fetchTimezonedbApi = async (latitude, longitude, timezonedbApiKey) => {
         nextAbbreviation: 'no data'
       };
     }
+};
+
+//
+function changeGmtOffSet (gmtOffset) {
+  if (gmtOffset > 0) {
+    return `+${gmtOffset}`;
+  } else {
+    return `${gmtOffset}`;
+  };
 };
 
 // Export js file
