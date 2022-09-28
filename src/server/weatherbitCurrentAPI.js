@@ -12,9 +12,11 @@ const fetchWeatherbitCurrentApi = async (latitude, longitude, weatherbitApiKey) 
   if (response.ok) {
     let data = await response.json();
     return {
-      current_temperature: `${data.data[0].temp} ℃`,
-      current_feels_like_temperature: `${data.data[0].app_temp} ℃`, // Apparent/"Feels Like" temperature
-      current_uv: data.data[0].uv,
+      current_temperature: `${data.data[0].temp}℃`,
+      current_feels_like_temperature: `${data.data[0].app_temp}℃`, // Apparent/"Feels Like" temperature
+      current_uv: data.data[0].uv.toFixed(1), // UV Index (0-11+)
+      current_humidity: `${data.data[0].rh}%`, // Relative humidity (%)
+      current_pressure: `${data.data[0].pres}mb`, // Pressure (mb)
       current_wind_speed: `${data.data[0].wind_spd.toFixed(1)} m/s`,
       current_wind_direction: getCardinalDirection(data.data[0].wind_dir),
       current_icon: 'https://www.weatherbit.io/static/img/icons/' + data.data[0].weather.icon + '.png',
@@ -27,6 +29,8 @@ const fetchWeatherbitCurrentApi = async (latitude, longitude, weatherbitApiKey) 
       current_temperature: 'no data',
       current_feels_like_temperature: 'no data',
       current_uv: 'no data',
+      current_humidity: 'no data',
+      current_pressure: 'no data',
       current_wind_speed: 'no data',
       current_wind_direction: 'no data',
       current_icon: 'no data',

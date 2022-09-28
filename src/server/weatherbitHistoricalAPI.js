@@ -16,9 +16,11 @@ const fetchWeatherbitHistoricalApi = async (latitude, longitude, date, weatherbi
   if (response.ok) {
     let data = await response.json();
     return {
-      historical_temperature: `${data.data[0].temp} ℃`,
-      historical_feels_like_temperature: `${data.data[0].app_temp} ℃`, // Apparent/"Feels Like" temperature
-      historical_uv: data.data[0].uv,
+      historical_temperature: `${data.data[0].temp}℃`,
+      historical_feels_like_temperature: `${data.data[0].app_temp}℃`, // Apparent/"Feels Like" temperature
+      historical_uv: data.data[0].uv.toFixed(1), // UV Index (0-11+)
+      historical_humidity: `${data.data[0].rh}%`, // Relative humidity (%)
+      historical_pressure: `${data.data[0].pres}mb`, // Pressure (mb)
       historical_wind_speed: `${data.data[0].wind_spd.toFixed(1)} m/s`,
       historical_wind_direction: getCardinalDirection(data.data[0].wind_dir),
       historical_icon: 'https://www.weatherbit.io/static/img/icons/' + data.data[0].weather.icon + '.png',
@@ -30,6 +32,8 @@ const fetchWeatherbitHistoricalApi = async (latitude, longitude, date, weatherbi
       historical_temperature: 'no data',
       historical_feels_like_temperature: 'no data',
       historical_uv: 'no data',
+      historical_humidity: 'no data',
+      historical_pressure: 'no data',
       historical_wind_speed: 'no data',
       historical_wind_direction: 'no data',
       historical_icon: 'no data',
