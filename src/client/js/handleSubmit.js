@@ -19,10 +19,12 @@ async function handleSubmit(event) {
     startDate: startDate,
     endDate: endDate,
   };
-  console.info(departure, destination, startDate, endDate);
+  console.log(departure, destination, startDate, endDate);
 
+  // Post the search results back to the Express server
   trip = await postTripInfo(formData).then((res) => {
     console.log(res);
+    // Then render the returned result in the UI
     displayNewSearch(res);
     return res;
   });
