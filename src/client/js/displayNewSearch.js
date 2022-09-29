@@ -1,3 +1,6 @@
+// Import js file
+import { saveTrip } from './saveTrip';
+
 // Function to render search result
 export const displayNewSearch = (trip) => {
 
@@ -71,8 +74,8 @@ export const displayNewSearch = (trip) => {
   });
 
   // Add Event Listener to save and delete buttons
-  document.querySelector('#search-form-save-btn').addEventListener('click', saveTrip());
-  document.querySelector('#search-form-remove-btn').addEventListener('click', removeTrip());
+  document.querySelector('#search-form-save-btn').addEventListener('click', saveTrip);
+  // document.querySelector('#search-form-remove-btn').addEventListener('click', removeTrip());
 
   // // Add function for saving trip
   // document.querySelector('#search-form-save-btn').onclick = 'return saveTrip()';
