@@ -117,7 +117,8 @@ let trip = {
     dst: '',
     nextAbbreviation: ''
   },
-  image: ''
+  image: '',
+  image_figcaption: ''
 };
 
 // // Set variable (array) for saved trip data
@@ -229,12 +230,21 @@ app.post('/tripInfo', async (req, res) => {
 
   // Fetch image url by Pixabay API
   let img = await fetchPixabayApi(trip.destination.city, trip.destination.country, process.env.PIXABAY_API_KEY);
+    // Set alternative image (image of destination's capital) if there is no image of city 
     if (typeof img == 'undefined') {
-      trip.image = await fetchPixabayApi(trip.destination.capital, trip.destination.country, process.env.PIXABAY_API_KEY);;
+      trip.image = await fetchPixabayApi(trip.destination.capital, trip.destination.country, process.env.PIXABAY_API_KEY);
+      trip.image_figcaption = trip.destination.capital + ', ' + trip.destination.country;
+      // Set alternative image (image of destination's country) if there is no image of capital 
+      if (typeof trip.image == 'undefined') {
+        trip.image = await fetchPixabayApi(trip.destination.country, trip.destination.country, process.env.PIXABAY_API_KEY);
+        trip.image_figcaption = trip.destination.country;
+      };
     } else {
       trip.image = img;
+      trip.image_figcaption = trip.destination.city + ', ' + trip.destination.country;
     };
   console.log(trip.image);
+  console.log(trip.image_figcaption);
     
   res.send(trip);
   console.log('**** This request has been processed:\n', req.body, ' ****');
@@ -244,6 +254,11 @@ app.post('/tripInfo', async (req, res) => {
 app.get('/getTripInfo', (req, res) => {
   res.json(trip);
 });
+
+
+
+
+
 
 // POST route for saved trips (saving data)
 app.post('/saveTripInfo', (req, res) => {
