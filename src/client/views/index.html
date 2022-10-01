@@ -25,7 +25,7 @@
 
   <main id="container">
     <section id="trip-search">
-      <form id="search-form">
+      <form id="search-form" method="post">
         
         <div id="cities-and-dates">
           <div id="cities">
@@ -66,7 +66,7 @@
 
         <button class="add-info-btn" type="submit">
           <div class="add-info-btn-img"></div>
-          add lodging info
+          add hotel & flight
         </button>
 
         <button class="add-info-btn" type="submit">
@@ -105,9 +105,59 @@
       </div>
     </section>
 
-    <section id="saved-trips" class="hide">
+    <section id="saved-trips">
       
     </section>
+
+    <!-- Template for creating saved trip containers -->
+    <template id="saved-trip-template">
+      <div id="" class="saved-trip-container">
+        
+        <div class="saved-photo-and-info">
+          <img class="saved-destination-photo" src="" alt="destination photo">
+
+          <button class="saved-add-info-btn" type="submit">
+            <div class="saved-add-info-btn-img"></div>
+            hotel & flight
+          </button>
+      
+          <button class="saved-add-info-btn" type="submit">
+            <div class="saved-add-info-btn-img"></div>
+            packing list
+          </button>
+      
+          <button class="saved-add-info-btn" type="submit">
+            <div class="saved-add-info-btn-img"></div>
+            notes
+          </button>
+        </div>
+
+        <div class="saved-trip-details">
+          <p class="saved-route"></p>
+          
+          <p class="saved-dates"></p>
+
+          <div class="saved-destination-info">
+            <p><strong>Destination info:</strong></p>
+            <p class="saved-destination-details"></p>
+            <p class="saved-current-time"></p>
+
+            <div class="saved-weather">
+              <p><strong>Weather Forecast </strong><i class="saved-weather-assumption">(based on historical data of previous year) </i> : </p>
+              <p class="saved-weather-forecast"></p>
+              <p><strong>Current Weather: </strong></p>
+              <p class="saved-weather-current"></p>
+            </div>
+          </div>
+          
+          <button class="saved-remove-btn" type="submit">
+            <div class="saved-remove-btn-img"></div>
+            remove trip
+          </button>
+        </div>
+
+      </div>
+    </template>
   </main>
 
   <footer>
