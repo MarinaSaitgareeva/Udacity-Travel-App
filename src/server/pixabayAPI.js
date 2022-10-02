@@ -15,7 +15,7 @@ const fetchPixabayApi = async (city = '', country = '', pixabayApiKey) => {
 
   if (response.ok) {
     let data = await response.json();
-    if (data.hits.length > 1) {
+    if (data.hits.length >= 10) {
       let imageUrl = data.hits[Math.floor(Math.random() * 10)].webformatURL;// Random number => different city's img
       return imageUrl
     } else {
@@ -23,8 +23,12 @@ const fetchPixabayApi = async (city = '', country = '', pixabayApiKey) => {
       let updatedUrl = `https://pixabay.com/api/?key=${pixabayApiKey}&q=${city}+${country}&image_type=photo&orientation=horizontal`;
       let updatedResponse = await fetch(updatedUrl);
       let updatedData = await updatedResponse.json();
-      let updatedImageUrl = updatedData.hits[Math.floor(Math.random() * 10)].webformatURL// Random number => different city's img
-      return updatedImageUrl
+      if (data.hits.length >= 10) {
+        let updatedImageUrl = updatedData.hits[Math.floor(Math.random() * 10)].webformatURL// Random number => different city's img
+        return updatedImageUrl
+      } else {
+        return undefined
+      }
     }
   } else {
       // Appropriately handle the error
