@@ -17,7 +17,7 @@
       <form id="add-form">
         <button id="add-btn" type="submit">
           <div id="add-btn-img"></div>
-          new
+          trip
         </button>
       </form>
     </section>
@@ -61,24 +61,10 @@
     </section>
 
     <section id="trip-result" class="hide">
-      <div id="photo-and-add-info">
+      <figure id="destination-photo-figure">
         <img id="destination-photo" alt="destination photo">
-
-        <button class="add-info-btn" type="submit">
-          <div class="add-info-btn-img"></div>
-          add hotel & flight
-        </button>
-
-        <button class="add-info-btn" type="submit">
-          <div class="add-info-btn-img"></div>
-          add packing list
-        </button>
-
-        <button class="add-info-btn" type="submit">
-          <div class="add-info-btn-img"></div>
-          add notes
-        </button>
-      </div>
+        <figcaption id="destination-photo-caption"></figcaption>
+      </figure>
 
       <div id="trip-details">
         <p id="destination-and-departure"></p>
@@ -114,20 +100,24 @@
       <div id="" class="saved-trip-container">
         
         <div class="saved-photo-and-info">
-          <img class="saved-destination-photo" src="" alt="destination photo">
+          <figure class="saved-destination-photo-figure">
+            <img class="saved-destination-photo" src="" alt="destination photo">
+            <figcaption class="saved-destination-photo-caption"></figcaption>
+          </figure>
+          
 
           <button class="saved-add-info-btn" type="submit">
-            <div class="saved-add-info-btn-img"></div>
+            <!-- <div class="saved-add-info-btn-img"></div> -->
             hotel & flight
           </button>
       
           <button class="saved-add-info-btn" type="submit">
-            <div class="saved-add-info-btn-img"></div>
+            <!-- <div class="saved-add-info-btn-img"></div> -->
             packing list
           </button>
       
           <button class="saved-add-info-btn" type="submit">
-            <div class="saved-add-info-btn-img"></div>
+            <!-- <div class="saved-add-info-btn-img"></div> -->
             notes
           </button>
         </div>
@@ -137,23 +127,30 @@
           
           <p class="saved-dates"></p>
 
-          <div class="saved-destination-info">
-            <p><strong>Destination info:</strong></p>
+          <div class="saved-trip-btns">
+            <button class="show-destination-info" type="submit">
+              <div class="saved-destination-info-btn-img"></div>
+              destination info
+            </button>
+
+            <button class="saved-remove-btn" type="submit">
+              <div class="saved-remove-btn-img"></div>
+            </button>
+          </div>
+
+
+          <div class="saved-destination-info hide">
             <p class="saved-destination-details"></p>
             <p class="saved-current-time"></p>
 
             <div class="saved-weather">
-              <p><strong>Weather Forecast </strong><i class="saved-weather-assumption">(based on historical data of previous year) </i> : </p>
-              <p class="saved-weather-forecast"></p>
-              <p><strong>Current Weather: </strong></p>
+              <p><strong>Historic weather </strong><i class="saved-weather-assumption">(previous year) </i> : </p>
+              <div class="saved-weather-historical"></div>
+              <p><strong>Current weather: </strong></p>
               <p class="saved-weather-current"></p>
             </div>
           </div>
           
-          <button class="saved-remove-btn" type="submit">
-            <div class="saved-remove-btn-img"></div>
-            remove trip
-          </button>
         </div>
 
       </div>
