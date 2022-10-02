@@ -3,6 +3,10 @@ import { saveTrip } from './saveTrip';
 
 // Function to render search result
 export const displayNewSearch = (trip) => {
+  // New image
+  document.querySelector('#destination-photo').src = trip.image;
+  // New image caption
+  document.querySelector('#destination-photo-caption').textContent = trip.image_figcaption;
 
   // New departure and destination
   document.querySelector('#destination-and-departure').innerHTML = `<strong>Route: </strong>from <strong><a class="map" href="${trip.departure.map}" target="_blank">${trip.departure.city} (${trip.departure.country_code}) <img class="flag" src="${trip.departure.flag}" alt="flag"></a></strong> to <strong><a class="map" href="${trip.destination.map}" target="_blank">${trip.destination.city} (${trip.destination.country_code}) <img class="flag" src="${trip.destination.flag}" alt="flag"></a></strong>`;
@@ -22,7 +26,7 @@ export const displayNewSearch = (trip) => {
       let newDate = curMonth + ' ' + curDay + ', ' + curYear + ' (' + dayOfWeek + ')';
       return newDate
     };
-    
+
     // Function to add text in daysToGo
     function daysToGoText() {
       if (trip.daysToGo > 0) {
@@ -43,26 +47,25 @@ export const displayNewSearch = (trip) => {
       <strong>Language: </strong>${trip.destination.language};&nbsp; &nbsp; 
       <strong>Currency: </strong>${trip.destination.currency};&nbsp; &nbsp; 
       <strong>Capital: </strong>${trip.destination.capital}
-    </p>`;
+    </p>
+  `;
 
-    document.querySelector('#current-time').innerHTML = `<strong>Current time: </strong>&nbsp;${trip.time.current_time} (${trip.time.abbreviation}: ${trip.time.gmtOffset})`;
+  // New current time (destination)
+  document.querySelector('#current-time').innerHTML = `<strong>Current time: </strong>&nbsp;${trip.time.current_time} (${trip.time.abbreviation}: ${trip.time.gmtOffset})`;
 
   // New weather
   document.querySelector('#weather').innerHTML = `
-    <p><strong>Weather Forecast </strong><i id="weather-assumption">(based on historical data of previous year) </i> : </p>
+    <p><strong>Historic weather </strong><i id="weather-assumption">(previous year) </i> : </p>
     <p>${trip.weather.historical_temperature} (feel likes = ${trip.weather.historical_feels_like_temperature}),</p>
-    <p>uv = ${trip.weather.historical_uv},&nbsp; rh = ${trip.weather.historical_humidity},</p>
-    <p>wind = ${trip.weather.historical_wind_speed} (${trip.weather.historical_wind_direction})</p>
-    <p id="weather_historical_description">
+    <p>uv = ${trip.weather.historical_uv},&nbsp; rh = ${trip.weather.historical_humidity}, wind = ${trip.weather.historical_wind_speed} (${trip.weather.historical_wind_direction})</p>
+    <p id="weather-historical-description">
       ${trip.weather.historical_description} 
       <img id="weather-icon" src="${trip.weather.historical_icon}" alt="weather icon">
     </p>
    
-    <p><strong>Current Weather: </strong></p>
-    <p id="weather_current">${trip.weather.current_temperature}, uv = ${trip.weather.current_uv}, rh = ${trip.weather.current_humidity}, wind = ${trip.weather.current_wind_speed} (${trip.weather.current_wind_direction}), ${trip.weather.current_description} <img id="weather-icon" src="${trip.weather.current_icon}" alt="weather icon"></p>`;
-
-  // New image
-  document.querySelector('#destination-photo').src = trip.image;
+    <p><strong>Current weather: </strong></p>
+    <p id="weather-current">${trip.weather.current_temperature}, uv = ${trip.weather.current_uv}, rh = ${trip.weather.current_humidity}, wind = ${trip.weather.current_wind_speed} (${trip.weather.current_wind_direction}), ${trip.weather.current_description} <img id="weather-icon" src="${trip.weather.current_icon}" alt="weather icon"></p>
+  `;
 
   // Show search result
   document.querySelector('#trip-result').classList.remove('hide');
