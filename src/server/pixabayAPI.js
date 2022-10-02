@@ -16,6 +16,7 @@ const fetchPixabayApi = async (city = '', country = '', pixabayApiKey) => {
   if (response.ok) {
     let data = await response.json();
     if (data.hits.length >= 10) {
+      console.log(url);
       let imageUrl = data.hits[Math.floor(Math.random() * 10)].webformatURL;// Random number => different city's img
       return imageUrl
     } else {
@@ -24,7 +25,12 @@ const fetchPixabayApi = async (city = '', country = '', pixabayApiKey) => {
       let updatedResponse = await fetch(updatedUrl);
       let updatedData = await updatedResponse.json();
       if (data.hits.length >= 10) {
+        console.log(updatedUrl);
         let updatedImageUrl = updatedData.hits[Math.floor(Math.random() * 10)].webformatURL// Random number => different city's img
+        return updatedImageUrl
+      } else if (data.hits.length > 0) {
+        console.log(updatedUrl);
+        let updatedImageUrl = updatedData.hits[0].webformatURL
         return updatedImageUrl
       } else {
         return undefined
