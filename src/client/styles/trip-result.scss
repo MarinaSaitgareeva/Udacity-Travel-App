@@ -150,6 +150,7 @@
 
   /* Medium devices (landscape tablets, 860px and up) */
   @media only screen and (max-width: 860px) {
+    grid-template-columns: 1fr;
     gap: 1rem;
 
     font-size: 0.8rem;
@@ -168,11 +169,17 @@
       }
 
       #search-form-btns {
+        gap: 1rem;
+
         margin-top: 0;
+
+        margin-inline: auto;
   
         #search-form-save-btn,
         #search-form-remove-btn {
           font-size: 0.8rem;
+
+          margin-right: 0;
         }
   
         #save-btn-img {
@@ -190,7 +197,6 @@
 
   /* Small devices (portrait tablets and large phones, 600px and up) */
   @media only screen and (max-width: 600px) {
-    grid-template-columns: 1fr;
 
     font-size: 0.7rem;
 
@@ -204,16 +210,11 @@
       }
 
       #search-form-btns {
-        gap: 1rem;
-  
-        margin-inline: auto;
-  
         #search-form-save-btn,
         #search-form-remove-btn {
           font-size: 0.7rem;
   
           padding: $btn-padding-xsmall;
-          margin-right: 0;
   
           #save-btn-img {
             height: 0.7rem;
