@@ -37,12 +37,11 @@
       border: $btn-border;
       border-radius: $btn-border-radius;
 
-      font-style: italic;
-
       padding-left: 1.5rem;
 
       &::placeholder {
         opacity: 0.3;
+        font-style: italic;
       }
 
       &:focus {
@@ -117,7 +116,7 @@
     }
   }
 
-  /* Medium devices (landscape tablets, 768px and up) */
+  /* Medium devices (landscape tablets, 860px and up) */
   @media only screen and (max-width: 860px) {
     margin-top: 8rem;
 
@@ -155,8 +154,8 @@
         padding: $btn-padding-medium;
 
         #search-btn-img {
-          height: 0.9rem;
-          width: 0.9rem;
+          height: 0.8rem;
+          width: 0.8rem;
         }
       }
     }

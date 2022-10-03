@@ -39,7 +39,6 @@
     }
   }
 
-
   #trip-details {
     display: flex;
     flex-direction: column;
@@ -77,7 +76,8 @@
         font-size: 0.7rem;
       }
   
-      #weather-historical-description {
+      #weather-historical-description,
+      #weather-current-description {
         display: flex;
         align-items: center;
       }
@@ -115,7 +115,7 @@
     
         color: $btn-text;
     
-        padding: $btn-padding-small ;
+        padding: $btn-padding-small;
         margin-right: 1rem;
     
         cursor: pointer;
@@ -143,6 +143,87 @@
     
           background-image: url(/src/client/assets/remove-btn.png);
           background-size: 100% 100%;
+        }
+      }
+    }
+  }
+
+  /* Medium devices (landscape tablets, 860px and up) */
+  @media only screen and (max-width: 860px) {
+    gap: 1rem;
+
+    font-size: 0.8rem;
+
+    #destination-photo-caption {
+      font-size: 0.8rem;
+    }
+
+    #trip-details {
+      #destination-info {
+        margin-top: 0;
+      }
+  
+      .flag {
+        height: 0.8rem;
+      }
+
+      #search-form-btns {
+        margin-top: 0;
+  
+        #search-form-save-btn,
+        #search-form-remove-btn {
+          font-size: 0.8rem;
+        }
+  
+        #save-btn-img {
+          height: 0.8rem;
+          width: 0.8rem;
+        }
+
+        #remove-btn-img {
+          height: 0.8rem;
+          width: 0.8rem;
+        }
+      }
+    }
+  }
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+
+    font-size: 0.7rem;
+
+    #destination-photo-caption {
+      font-size: 0.7rem;
+    }
+
+    #trip-details {
+      .flag {
+        height: 0.7rem;
+      }
+
+      #search-form-btns {
+        gap: 1rem;
+  
+        margin-inline: auto;
+  
+        #search-form-save-btn,
+        #search-form-remove-btn {
+          font-size: 0.7rem;
+  
+          padding: $btn-padding-xsmall;
+          margin-right: 0;
+  
+          #save-btn-img {
+            height: 0.7rem;
+            width: 0.7rem;
+          }
+  
+          #remove-btn-img {
+            height: 0.7rem;
+            width: 0.7rem;
+          }
         }
       }
     }
