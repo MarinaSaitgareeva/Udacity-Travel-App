@@ -31,7 +31,7 @@ header {
       // Specifies the fill color of characters of text. The text will to be transparent to see linear-gradient background.
       -webkit-text-fill-color: transparent;
       // Display: inline-block -> Text linear-gradient should be set on only the text, not its background.
-  
+      display: inline-block;
       padding: 0.4rem 0.5rem;
       margin-right: 1rem;
       margin-bottom: 0.5rem;
@@ -80,11 +80,19 @@ header {
   }
 
   /* Medium devices (landscape tablets, 768px and up) */
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 860px) {
     #header-container {
       height: 5.5rem;
       font-size: 1rem;
       word-spacing: 0.7rem;
+    }
+
+    #add-btn {
+      gap: 0.25rem;
+
+      font-size: 0.7rem;
+
+      padding: $btn-padding-xsmall;
     }
   }
 
@@ -99,14 +107,6 @@ header {
         margin-right: 0.2rem;
         margin-bottom: 0.2rem;
       }
-    }
-
-    #add-btn {
-      gap: 0.25rem;
-
-      font-size: 0.7rem;
-
-      padding: $btn-padding-xsmall;
     }
   }
 
