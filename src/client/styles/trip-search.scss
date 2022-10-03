@@ -1,7 +1,7 @@
 @use 'variables';
 
 #trip-search {
-  margin-top: 13.3rem;
+  margin-top: 9.9rem;
 
   #search-form {
     display: flex;
@@ -12,84 +12,75 @@
 
     background-color: #FFE6E6;
 
+    padding: 0.5rem 0;
+
     #cities,
     #dates {
       display: grid;
       grid-template-columns: repeat(4, auto);
       align-items: center;
       gap: 1rem;
-      margin: 1rem 0;
+      margin: 0.5rem 0;
     }
 
-    @media only screen and (max-width: 680px) {
-      #cities,
-      #dates {
-        display: grid;
-        grid-template-columns: repeat(2 , auto);
-        align-items: center;
-        gap: 1rem;
+    #search-start-date,
+    #search-end-date {
+      justify-self: end;
+    }
+
+    #departure,
+    #destination {
+      height: 1.7rem;
+      width: 13rem;
+
+      background-color: $white-smoke;
+      border: $btn-border;
+      border-radius: $btn-border-radius;
+
+      font-style: italic;
+
+      padding-left: 1.5rem;
+
+      &::placeholder {
+        opacity: 0.3;
       }
 
-      #search-departure,
-      #search-destination,
-      #search-start-date,
-      #search-end-date {
-        justify-self: end;
+      &:focus {
+        // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
+        outline: $btn-border;
       }
     }
 
-      #departure,
-      #destination {
-        width: 15rem;
-        height: 2rem;
+    #start-date,
+    #end-date {
+      height: 1.7rem;
+      width: fit-content;
 
-        background-color: $white-smoke;
-        border: $btn-border;
-        border-radius: $btn-border-radius;
+      background-color: $white-smoke;
+      border: $btn-border;
+      border-radius: $btn-border-radius;
+  
+      font-family: $main-font-family;
+      color: $primary-text-color;
+      text-align: center;
 
-        padding-left: 1rem;
-
-        &::placeholder {
-          opacity: 0.3;
-        }
-
-        &:focus {
-          // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
-          outline: $btn-border;
-        }
+      padding-left: 0.8rem;
+  
+      &:focus {
+        // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
+        outline: $btn-border;
       }
-
-      #start-date,
-      #end-date {
-        height: 2rem;
-
-        background-color: $white-smoke;
-        border: $btn-border;
-        border-radius: $btn-border-radius;
-    
-        font-family: $main-font-family;
-        color: $primary-text-color;
-        text-align: center;
-    
-        padding: 0.3rem 1rem;
-        margin: 0 0.5rem;
-    
-        &:focus {
-          // This border is used to show that the element is focused (i.e. you can type in the input or press the button with Enter). You can change it with outline property.
-          outline: $btn-border;
-        }
-    
-        // Add own img for calendar picker
-        &::-webkit-calendar-picker-indicator {
-          // Remove img for calendar picker
-          // display: none;
-          // -webkit-appearance: none;
-          background-image: url(../assets/calendar.png);
-          padding: 0px;
-          margin: 0px;
-        }
+  
+      // Add own img for calendar picker
+      &::-webkit-calendar-picker-indicator {
+        // Remove img for calendar picker
+        // display: none;
+        // -webkit-appearance: none;
+        background-image: url(../assets/calendar.png);
+        margin-right: 0.8rem;
       }
     }
+  }
 
   #search-form-btn {
     display: flex;
@@ -104,7 +95,7 @@
     color: $btn-text;
 
     padding: $btn-padding-big;
-    margin: 1rem 1rem 1rem 4rem;
+    margin: 0.5rem 0 0.5rem 3rem;
 
     cursor: pointer;
     transition: 0.3s all ease-in-out;
@@ -123,6 +114,125 @@
 
       background-image: url(/src/client/assets/search-btn.png);
       background-size: 100% 100%;
+    }
+  }
+
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (max-width: 860px) {
+    margin-top: 8rem;
+
+    #search-form {
+      font-size: 0.8rem;
+
+      padding: 0;
+
+      #cities,
+      #dates {
+        gap: 0.5rem;
+        margin: 0.7rem 0;
+      }
+      
+      #departure,
+      #destination {
+        font-size: 0.8rem;
+      }
+
+      #start-date,
+      #end-date {
+        font-size: 0.7rem;
+      }
+
+      #departure,
+      #destination {
+        width: 10rem;
+      }
+
+      #search-form-btn {
+        gap: 0.5rem;
+
+        font-size: 0.8rem;
+
+        padding: $btn-padding-medium;
+
+        #search-btn-img {
+          height: 0.9rem;
+          width: 0.9rem;
+        }
+      }
+    }
+  }
+
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (max-width: 600px) {
+    margin-top: 6.5rem;
+
+    #search-form {
+
+      #cities,
+      #dates {
+        grid-template-columns: repeat(2 , auto);
+        font-size: 0.7rem;
+        gap: 0.2rem;
+        margin: 0.4rem 0;
+      }
+
+      #search-departure,
+      #search-destination,
+      #search-start-date,
+      #search-end-date {
+        justify-self: end;
+      }
+
+      #departure,
+      #destination {
+        height: 1.4rem;
+
+        font-size: 0.6rem;
+        
+        margin-left: 0.5rem;
+      }
+
+      #start-date,
+      #end-date {
+        height: 1.4rem;
+
+        font-size: 0.6rem;
+
+        margin-left: 0.5rem;
+      }
+
+      #search-form-btn {
+        gap: 0.3rem;
+
+        font-size: 0.7rem;
+
+        padding: $btn-padding-small;
+        margin-left: 2rem;
+
+        #search-btn-img {
+          height: 0.7rem;
+          width: 0.7rem;
+        }
+      }
+    }
+  }
+
+  /* Extra small devices (phones, 400px and down) */
+  @media only screen and (max-width: 400px) {
+    margin-top: 6.2rem;
+
+    #search-form {
+      flex-direction: column;
+
+      #search-form-btn {
+
+        margin-top: 0.1rem;
+
+        #search-btn-img {
+          height: 0.7rem;
+          width: 0.7rem;
+        }
+      }
     }
   }
 }
