@@ -34,7 +34,7 @@ const restcountriesApi = async (code = '') => {
         language: 'no data',
         flag: 'no data',
         map: 'no data'
-      };
+      }
     };
 };
 
