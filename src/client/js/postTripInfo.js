@@ -11,7 +11,7 @@ const postTripInfo = async (formData) => {
   });
   try {
     const newData = await response.json();
-    console.log(newData);
+    // console.log(newData);
     return newData;
 
   } catch (error) {
