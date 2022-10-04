@@ -1,159 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Travel App</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel App</title>
+  </head>
 
-<body>
-  <header>
-    <div id="header-container">
-      <h1 id="header">Find your next destination</h1>
-    </div>
-
-    <button id="add-btn" type="submit">
-      <div id="add-btn-img"></div>
-      trip
-    </button>
-  </header>
-
-  <main id="container">
-    <section id="trip-search">
-      <form id="search-form" method="post">
-        <div id="cities-and-dates">
-          <div id="cities">
-            <label id="search-departure" for="departure">
-              My trip from:
-            </label>
-            <input id="departure" type="text" name="departure"  value="" placeholder="Enter city name" required>
-    
-            <label id="search-destination" for="destination">
-              to:
-            </label>
-            <input id="destination" type="text" name="destination"  value="" placeholder="Enter city name" required>
-          </div>
-  
-          <div id="dates">
-            <label id="search-start-date" for="start-date">
-              Start date:
-            </label>
-            <input id="start-date" type="date" name="start-date" required>
-    
-            <label id="search-end-date" for="end-date">
-              End date:
-            </label>
-            <input id="end-date" type="date" name="end-date" required>
-          </div>
-        </div>
-        
-        <button id="search-form-btn" type="submit">
-          <div id="search-btn-img"></div>
-          search
-        </button>
-      </form>
-    </section>
-
-    <section id="trip-result" class="hide">
-      <figure id="destination-photo-figure">
-        <img id="destination-photo" alt="destination photo">
-        <figcaption id="destination-photo-caption"></figcaption>
-      </figure>
-
-      <div id="trip-details">
-        <p id="destination-and-departure"></p>
-        <p id="start-and-end-date"></p>
-
-        <div id="destination-info">
-          <strong>Destination info:</strong>
-          <div id="destination-details"></div>
-          <p id="current-time"></p>
-          <div id="weather"></div>
-        </div>
-       
-        <div id="search-form-btns">
-          <button id="search-form-save-btn" type="submit">
-            <div id="save-btn-img"></div>
-            save trip
-          </button>
-    
-          <button id="search-form-remove-btn" type="submit">
-            <div id="remove-btn-img"></div>
-            remove trip
-          </button>
-        </div>
+  <body>
+    <header>
+      <div id="header-container">
+        <h1 id="header">Find your next destination</h1>
       </div>
-    </section>
 
-    <section id="saved-trips">
+      <button id="add-btn" type="submit">
+        <div id="add-btn-img"></div>
+        trip
+      </button>
+    </header>
+
+    <main id="container">
+      <section id="trip-search">
+        <form id="search-form" method="post">
+          <div id="cities-and-dates">
+            <div id="cities">
+              <label id="search-departure" for="departure">
+                My trip from:
+              </label>
+              <input id="departure" type="text" name="departure"  value="" placeholder="Enter city name" required>
       
-    </section>
-
-    <!-- Template for creating saved trip containers -->
-    <template id="saved-trip-template">
-      <div id="" class="saved-trip-container">
-        
-        <div class="saved-photo-and-info">
-          <figure class="saved-destination-photo-figure">
-            <img class="saved-destination-photo" src="" alt="destination photo">
-            <figcaption class="saved-destination-photo-caption"></figcaption>
-          </figure>
-          
-
-          <button class="saved-add-info-btn" type="submit">
-            <!-- <div class="saved-add-info-btn-img"></div> -->
-            hotel & flight
-          </button>
+              <label id="search-destination" for="destination">
+                to:
+              </label>
+              <input id="destination" type="text" name="destination"  value="" placeholder="Enter city name" required>
+            </div>
+    
+            <div id="dates">
+              <label id="search-start-date" for="start-date">
+                Start date:
+              </label>
+              <input id="start-date" type="date" name="start-date" required>
       
-          <button class="saved-add-info-btn" type="submit">
-            <!-- <div class="saved-add-info-btn-img"></div> -->
-            packing list
-          </button>
-      
-          <button class="saved-add-info-btn" type="submit">
-            <!-- <div class="saved-add-info-btn-img"></div> -->
-            notes
-          </button>
-        </div>
-
-        <div class="saved-trip-details">
-          <p class="saved-route"></p>
-          
-          <p class="saved-dates"></p>
-
-          <div class="saved-trip-btns">
-            <button class="show-destination-info" type="submit">
-              <div class="saved-destination-info-btn-img"></div>
-              destination info
-            </button>
-
-            <button class="saved-remove-btn" type="submit">
-              <div class="saved-remove-btn-img"></div>
-            </button>
-          </div>
-
-
-          <div class="saved-destination-info hide">
-            <p class="saved-destination-details"></p>
-            <p class="saved-current-time"></p>
-
-            <div class="saved-weather">
-              <p><strong>Historic weather </strong><i class="saved-weather-assumption">(previous year) </i> : </p>
-              <div class="saved-weather-historical"></div>
-              <p><strong>Current weather: </strong></p>
-              <p class="saved-weather-current"></p>
+              <label id="search-end-date" for="end-date">
+                End date:
+              </label>
+              <input id="end-date" type="date" name="end-date" required>
             </div>
           </div>
           
+          <button id="search-form-btn" type="submit">
+            <div id="search-btn-img"></div>
+            search
+          </button>
+        </form>
+      </section>
+
+      <section id="trip-result" class="hide">
+        <figure id="destination-photo-figure">
+          <img id="destination-photo" alt="destination photo">
+          <figcaption id="destination-photo-caption"></figcaption>
+        </figure>
+
+        <div id="trip-details">
+          <p id="destination-and-departure"></p>
+          <p id="start-and-end-date"></p>
+
+          <div id="destination-info">
+            <strong>Destination info:</strong>
+            <div id="destination-details"></div>
+            <p id="current-time"></p>
+            <div id="weather"></div>
+          </div>
+        
+          <div id="search-form-btns">
+            <button id="search-form-save-btn" type="submit">
+              <div id="save-btn-img"></div>
+              save trip
+            </button>
+      
+            <button id="search-form-remove-btn" type="submit">
+              <div id="remove-btn-img"></div>
+              remove trip
+            </button>
+          </div>
         </div>
+      </section>
 
-      </div>
-    </template>
-  </main>
+      <section id="saved-trips">
+        <!-- Saved trips will be here -->
+      </section>
 
-  <footer>
-      <p id="copyright">© 2022 <em>&nbsp; &nbsp; Marina Saitgareeva</em></p>
-  </footer>
-</body>
+      <!-- Template for creating saved trip container -->
+      <template id="saved-trip-template">
+        <div class="saved-trip-container">
+          
+          <div class="saved-photo-and-info">
+            <figure class="saved-destination-photo-figure">
+              <img class="saved-destination-photo" src="" alt="destination photo">
+              <figcaption class="saved-destination-photo-caption"></figcaption>
+            </figure>
+
+            <button class="saved-add-info-btn" type="submit">
+              hotel & flight
+            </button>
+        
+            <button class="saved-add-info-btn" type="submit">
+              packing list
+            </button>
+        
+            <button class="saved-add-info-btn" type="submit">
+              notes
+            </button>
+          </div>
+
+          <div class="saved-trip-details">
+            <p class="saved-route"></p>
+            
+            <p class="saved-dates"></p>
+
+            <div class="saved-trip-btns">
+              <button class="show-destination-info" type="submit">
+                <div class="saved-destination-info-btn-img"></div>
+                destination info
+              </button>
+
+              <button class="saved-remove-btn" type="submit">
+                <div class="saved-remove-btn-img"></div>
+              </button>
+            </div>
+
+            <div class="saved-destination-info hide">
+              <p class="saved-destination-details"></p>
+              
+              <p class="saved-current-time"></p>
+
+              <div class="saved-weather">
+                <p><strong>Historic weather </strong><i class="saved-weather-assumption">(previous year) </i> : </p>
+                <div class="saved-weather-historical"></div>
+                <p><strong>Current weather: </strong></p>
+                <p class="saved-weather-current"></p>
+              </div>
+            </div>
+            
+          </div>
+
+        </div>
+      </template>
+    </main>
+
+    <footer>
+        <p id="copyright">© 2022 <em>&nbsp; &nbsp; Marina Saitgareeva</em></p>
+    </footer>
+  </body>
 </html>
