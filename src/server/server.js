@@ -43,7 +43,6 @@ app.get('/', (req, res) => {
 })
 
 // Import functions
-const calculateDaysToGo = require('./calculateDaysToGo');
 const calculateDaysLength = require('./calculateDaysLength');
 const fetchGeonamesApi = require('./geoNamesAPI');
 const restcountriesApi = require('./restcountriesAPI');
@@ -55,6 +54,7 @@ const fetchPixabayApi = require('./pixabayAPI');
 // Set variable for trip data from different API (to act as endpoint for GET route)
 let trip = {
   id: '',
+  status: '',
   departure: {
     city: 'to',
     country: '',
@@ -121,17 +121,11 @@ let trip = {
   image_figcaption: ''
 };
 
-// // Set variable (array) for saved trip data
-let savedTrips = [];
-
 // POST route for trip data
 app.post('/tripInfo', async (req, res) => {
   // Set departure city, destination, start date and end date
   trip.startDate = req.body.startDate;
   trip.endDate = req.body.endDate;
-
-  // Get daysToGo number
-  trip.daysToGo = calculateDaysToGo(trip.startDate).toString();
 
   // Get daysLength number
   trip.daysLength = calculateDaysLength(trip.startDate, trip.endDate).toString();
