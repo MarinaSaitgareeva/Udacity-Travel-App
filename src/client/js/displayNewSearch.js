@@ -1,4 +1,5 @@
 // Import js file
+import { calculateDaysToGo } from './calculateDaysToGo';
 import { saveTrip } from './saveTrip';
 
 // Function to render search result in "trip-result" div
@@ -11,6 +12,9 @@ const displayNewSearch = (trip) => {
   // Add departure and destination: city, country code, flag and map url
   document.querySelector('#destination-and-departure').innerHTML = `<strong>Route: </strong>from <strong><a class="map" href="${trip.departure.map}" target="_blank">${trip.departure.city} (${trip.departure.country_code}) <img class="flag" src="${trip.departure.flag}" alt="flag"></a></strong> to <strong><a class="map" href="${trip.destination.map}" target="_blank">${trip.destination.city} (${trip.destination.country_code}) <img class="flag" src="${trip.destination.flag}" alt="flag"></a></strong>`;
   
+  // Calculate a number of days between trip start date and current date
+  trip.daysToGo = calculateDaysToGo(trip);
+
   // Add start and end dates (trip's length) - number of days between trip start date and current date
   document.querySelector('#start-and-end-date').innerHTML = `<strong>Dates: </strong>from <strong> ${formatDate(trip.startDate)} </strong> till <strong> ${formatDate(trip.endDate)} </strong> (${trip.daysLength} days) - <em style="color: #faaa54;">${daysToGoText(trip.daysToGo)}</em>`;
 
@@ -36,7 +40,7 @@ const displayNewSearch = (trip) => {
         return `Today! Are You Ready?`
       }
       else {
-        return `Expired, You missed your Trip!`
+        return `Your trip was ${trip.daysToGo * -1} days ago!`
       }
     };
 

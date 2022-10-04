@@ -1,16 +1,32 @@
 // Import js file
+import { calculateDaysToGo } from './calculateDaysToGo';
 import { renderSavedTripTemplate } from './renderSaveTripTemplate';
 
 // Function to save search result to "saved-trips" div
 const saveTrip = async () => {
   // Set variable for search result, get data from the Express Server
   const searchResult = await getSearchResult();
+
+  // Add "daysToGo" a number of days between trip start date and current date
+  searchResult.daysToGo = calculateDaysToGo(searchResult);
+
+  // Add "status" for save trip
+  searchResult.status = statusText(searchResult.daysToGo);
+  // Function to add text in "status" for save trip
+  function statusText () {
+    if (searchResult.daysToGo > 0) {
+      return searchResult.status = 'upcoming'
+    } else {
+      return searchResult.status = 'archived'
+    }
+  }
+
   // Set variable for ID
   let id = searchResult.daysToGo + '-' + searchResult.destination.city.replace(/ /g,'') + '-' + searchResult.departure.city.replace(/ /g,'');
   // Replace spaces " " in name of city and country with underscore "_"
   // city = city.replace(/ /g,'');
 
-  // Set ID for saved trips
+  // Set "ID" for saved trip
   searchResult.id = id;
 
   // Log with saved trip data
