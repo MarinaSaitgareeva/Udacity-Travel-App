@@ -54,7 +54,7 @@ const renderSavedTrips = () => {
   console.log('Saved trips from Local Storage:', savedTripArray);
 
   // Set variable to store upcoming saved trips in array
-  let savedTripArrayUpcomming = filteredArray (savedTripArray, 'status', 'upcoming');
+  let savedTripArrayUpcoming = filteredArray (savedTripArray, 'status', 'upcoming');
 
   // Set variable to store upcoming saved trips in array
   let savedTripArrayCurrent = filteredArray (savedTripArray, 'status', 'current');
