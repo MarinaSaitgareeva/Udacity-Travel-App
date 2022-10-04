@@ -35,11 +35,9 @@ const displayNewSearch = (trip) => {
     function daysToGoText() {
       if (trip.daysToGo > 0) {
         return `${trip.daysToGo} days left. Be Ready!`
-      }
-      else if (trip.daysToGo == 0) {
+      } else if (trip.daysToGo == 0) {
         return `Today! Are You Ready?`
-      }
-      else {
+      } else {
         return `Your trip was ${trip.daysToGo * -1} days ago!`
       }
     };
