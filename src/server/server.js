@@ -227,7 +227,6 @@ app.post('/tripInfo', async (req, res) => {
     trip.time.nextAbbreviation = destinationTimeData.nextAbbreviation;
   console.log(destinationTimeData);
 
-
   // Fetch image url by Pixabay API
   let img = await fetchPixabayApi(trip.destination.city, trip.destination.country, process.env.PIXABAY_API_KEY);
     // Set alternative image (image of destination's capital) if there is no image of city 
@@ -251,33 +250,6 @@ app.post('/tripInfo', async (req, res) => {
 });
 
 // GET route for for trip data
-app.get('/getTripInfo', (req, res) => {
+app.get('/tripInfo', (req, res) => {
   res.json(trip);
-});
-
-
-
-
-
-
-// POST route for saved trips (saving data)
-app.post('/saveTripInfo', (req, res) => {
-  savedTrips.push(trip);
-  res.send(trip);
-});
-
-// GET route for saved trips
-app.get('/getSavedTripInfo', (req, res) => {
-  res.json(savedTrips);
-});
-
-// POST route for saved trips (removing data)
-app.post('/removeSavedTripInfo', (req, res) => {
-  const tripId = trip.id;
-
-  savedTrips = savedTrips.filter((savedTrip) => {
-    return savedTrip.id != tripId;
-  });
-
-  res.json(savedTrips);
 });
