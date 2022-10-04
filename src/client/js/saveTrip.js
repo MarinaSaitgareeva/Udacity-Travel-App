@@ -16,6 +16,8 @@ const saveTrip = async () => {
   function statusText () {
     if (searchResult.daysToGo > 0) {
       return searchResult.status = 'upcoming'
+    } else if (searchResult.daysToGo == 0) {
+      return searchResult.status = 'current'
     } else {
       return searchResult.status = 'archived'
     }

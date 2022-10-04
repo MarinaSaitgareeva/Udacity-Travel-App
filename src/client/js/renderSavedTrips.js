@@ -30,6 +30,8 @@ const renderSavedTrips = () => {
     function statusText () {
       if (trip.daysToGo > 0) {
         return trip.status = 'upcoming'
+      } else if (trip.daysToGo == 0) {
+        return trip.status = 'current'
       } else {
         return trip.status = 'archived'
       }
@@ -50,6 +52,27 @@ const renderSavedTrips = () => {
 
   // Log with saved trip data from Local Storage
   console.log('Saved trips from Local Storage:', savedTripArray);
+
+  // Set variable to store upcoming saved trips in array
+  let savedTripArrayUpcomming = filteredArray (savedTripArray, 'status', 'upcoming');
+
+  // Set variable to store upcoming saved trips in array
+  let savedTripArrayCurrent = filteredArray (savedTripArray, 'status', 'current');
+
+   // Set variable to store upcoming saved trips in array
+   let savedTripArrayArchived = filteredArray (savedTripArray, 'status', 'archived');
+
+  // Function to filter array based on key and value
+  function filteredArray(array, key, value) {
+    const newArray = [];
+    for(i = 0, l = array.length; i < l; i++) {
+      if(array[i][key] === value) {
+        newArray.push(array[i]);
+      }
+    }
+   return newArray;
+  }
+
 };
 
 // Export js file
