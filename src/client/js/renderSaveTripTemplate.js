@@ -1,16 +1,14 @@
-// Create variable to render save trip template
+// Function to to render save trip template
 const renderSavedTripTemplate = (trip) => {
-  // Create variable to store "saved-trip-template" with all content inside of it
+  // Set variable to store "saved-trip-template" with all content inside of it
   let template = document.querySelector('#saved-trip-template').content;
-  // Create variable to clone "saved-trip-template" with all content inside of it
+  // Set variable to clone "saved-trip-template" with all content inside of it
   let templateCopy = template.cloneNode(true); // cloneNode is used to clone a node from current document
   // Alternative way
   // let templateCopy = document.importNode(template, true); //   importNode is used to clone a node from another document
 
-  // Create variable for "saved-trip-container" to set ID
-  let savedTriContainer = templateCopy.firstElementChild;
-  // Set ID for saved-trip-container
-  savedTriContainer.id = trip.id;
+  // Set ID for "saved-trip-container" div = a number of days between travel start date and current date + destination and departure city
+  templateCopy.firstChild.id = trip.daysToGo + '-' + trip.destination.city.replace(/ /g,'') + '-' + trip.departure.city.replace(/ /g,'');
 
   // Add image of destination city / capital / country
   templateCopy.querySelector('.saved-destination-photo').src = trip.image;
@@ -18,7 +16,7 @@ const renderSavedTripTemplate = (trip) => {
   // Add image caption
   templateCopy.querySelector('.saved-destination-photo-caption').textContent = trip.image_figcaption;
 
-  // Add departure and destination
+  // Add departure and destination: city, country code, flag and map url
   templateCopy.querySelector('.saved-route').innerHTML = `
     <a class="saved-map" href="${trip.departure.map}" target="_blank">
       <strong>${trip.departure.city}</strong> (${trip.departure.country_code}) 
@@ -33,14 +31,15 @@ const renderSavedTripTemplate = (trip) => {
     </a>
   `;
 
-  // Add start and end date (trip's length) - daysToGo
+  // Add start and end dates (trip's length) - a number of days between trip start date and current date
   templateCopy.querySelector('.saved-dates').innerHTML = `
     <strong> ${formatDate(trip.startDate)} </strong> 
     &#8211;  
     <strong> ${formatDate(trip.endDate)} </strong> (${trip.daysLength} days) <br>
     <em class="saved-day-to-go-text">${daysToGoText(trip.daysToGo)}</em>
   `;
-    // Function to change format of date (start and end dates)
+
+    // Function to change format of date
     function formatDate (date) {
       let d = new Date(date);
       let months = new Array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec');
@@ -78,7 +77,7 @@ const renderSavedTripTemplate = (trip) => {
     <strong>Current time: </strong>&nbsp;${trip.time.current_time} (${trip.time.abbreviation}: ${trip.time.gmtOffset})
   `;
 
-  // Add historic weather
+  // Add historic weather in destination
   templateCopy.querySelector('.saved-weather-historical').innerHTML = `
    ${trip.weather.historical_temperature}, uv = ${trip.weather.historical_uv},&nbsp; rh = ${trip.weather.historical_humidity}, wind = ${trip.weather.historical_wind_speed} (${trip.weather.historical_wind_direction}),
   <span class="saved-weather-historical-description">
@@ -87,7 +86,7 @@ const renderSavedTripTemplate = (trip) => {
   </span>
   `;
 
-  // Add current weather
+  // Add current weather in destination
   templateCopy.querySelector('.saved-weather-current').innerHTML = `
   ${trip.weather.current_temperature}, uv = ${trip.weather.current_uv}, rh = ${trip.weather.current_humidity}, wind = ${trip.weather.current_wind_speed} (${trip.weather.current_wind_direction}), 
   <span class="saved-weather-current-description">
@@ -98,7 +97,7 @@ const renderSavedTripTemplate = (trip) => {
 
   // Add Event Listener to show or hide destination info when click on "show-destination-info" button in saved trip
   templateCopy.querySelector('.show-destination-info').addEventListener('click', showDestinationInfo);
-  // ALternative way with setting HTML attribute onclick to button
+  // Alternative way with setting HTML attribute onclick to button
   // templateCopy.querySelector('.show-destination-info').onclick = showDestinationInfo;
 
   function showDestinationInfo(event) {
@@ -126,34 +125,39 @@ const renderSavedTripTemplate = (trip) => {
     }
   };
 
-  // Create variable to store "saved-trips" <section>
+  // Add Event Listener to delete saved trip when click on "saved-remove-btn" button
+  templateCopy.querySelector('.saved-remove-btn').addEventListener('click', deleteSavedTrip);
+
+  function deleteSavedTrip(event) {
+    event.preventDefault();
+    let savedTripArray = JSON.parse(localStorage.trips);
+
+    savedTripArray.forEach((trip) => {
+      // Set variable for "saved-trip-container" div
+      let savedTriContainer = this.parentElement.parentElement.parentElement;
+      // Check if saved trip ID equals to "saved-trip-container" div ID
+      if (trip.id == savedTriContainer.id) {
+        // Log with deleted saved trip
+        console.log('Delete trip:', trip);
+        // Delete saved trip
+        savedTripArray.splice(savedTripArray.indexOf(trip), 1);
+
+        // Set the Local Storage to the new, updated value
+        localStorage.setItem('trips', JSON.stringify(savedTripArray));
+        // Log with updated saved trips from Local Storage
+        console.log('Updated saved trips:', savedTripArray);
+
+        // Add class "hide" to "saved-trip-container" div with deleted saved trip
+        savedTriContainer.classList.add('hide');
+      }
+    });
+  };
+
+  // Set variable to store "saved-trips" <section>
   let savedTrips = document.querySelector('#saved-trips');
   // Insert clone of saved-trip-template to "saved-trips" section before the first child of this section
   savedTrips.appendChild(templateCopy);
-
-  // Add Event Listener to delete saved trip when click on "saved-remove-btn" button
-  // templateCopy.querySelector('.saved-remove-btn').addEventListener('click', deleteSavedTrip);
-
-  // function deleteSavedTrip(event) {
-  //   event.preventDefault();
-  //   let trips = JSON.parse(localStorage.trips);
-  //   console.log(trips);
-  //   trips.forEach((trip) => {
-  //     trips.splice(trips.indexOf(trip), 1);
-  //     localStorage.trips = JSON.stringify(trips);
-  //     console.log(trips);
-  //     let savedTriContainer = this.parentElement.parentElement.parentElement;
-  //     savedTriContainer.classList.add('hide');
-  //     });
-  // };
-
-  // Smoothly scrolls to Div with saved trip
-  // document.querySelector('#${trip.id}').scrollIntoView(false, {
-  //   behavior: 'smooth',
-  //   block: 'end'
-  // });
 };
-
 
 // Export js file
 export { renderSavedTripTemplate };
