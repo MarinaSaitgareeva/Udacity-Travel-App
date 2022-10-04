@@ -1,12 +1,16 @@
 // Import js files
 import { setMinAttributeToDate } from './js/setMinAttributeToDate';
 import { handleSubmit } from './js/handleSubmit';
+import { renderSavedTrips } from './js/renderSavedTrips';
 
 // Import style sass files
 import './styles/index.scss'
 
-// Set attribute "min" = current date to start-date and end-date
-document.addEventListener('DOMContentLoaded', setMinAttributeToDate);
+// Set attribute "min" = current date to start-date and end-date, display all saved trips from Local Storage when the HTML document has been completely parsed
+document.addEventListener('DOMContentLoaded', () => {
+  setMinAttributeToDate();
+  renderSavedTrips()
+});
 
 // Add Event Listener to search button
 document.querySelector('#search-form-btn').addEventListener('click', handleSubmit);
@@ -23,5 +27,6 @@ document.querySelector('#add-btn').addEventListener('click', function addNewTrip
 // Export js files
 export {
   setMinAttributeToDate,
+  renderSavedTrips,
   handleSubmit
 }
