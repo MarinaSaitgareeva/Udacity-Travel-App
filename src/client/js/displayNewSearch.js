@@ -2,7 +2,7 @@
 import { calculateDaysToGo } from './calculateDaysToGo';
 import { saveTrip } from './saveTrip';
 
-// Function to render search result in "trip-result" div
+// Function to render search result in "trip-result" <section>
 const displayNewSearch = (trip) => {
   // Add image
   document.querySelector('#destination-photo').src = trip.image;
@@ -70,17 +70,21 @@ const displayNewSearch = (trip) => {
     <p id="weather-current-description"> ${trip.weather.current_description} <img id="weather-icon" src="${trip.weather.current_icon}" alt="weather icon"></p>
   `;
 
-  // Show search result in "trip-result" div
+  // Show search result in "trip-result" <section>
   document.querySelector('#trip-result').classList.remove('hide');
 
-  // Smoothly scrolls to "trip-result" div with search result
+  // Smoothly scrolls to "trip-result" <section> with search result
   document.querySelector('#trip-result').scrollIntoView(false, {
     behavior: 'smooth',
     block: 'end'
   });
 
-  // Add Event Listener (click) to "search-form-save-btn" button (save trip in "saved-trips" div)
+  // Add Event Listener on click to "search-form-save-btn" <button> (save search result in "saved-trips" <section>)
   document.querySelector('#search-form-save-btn').addEventListener('click', saveTrip);
+
+  // Add Event Listener on click to "search-form-remove-btn" <button> (hide "trip-result" <section> with search result)
+  document.querySelector('#search-form-remove-btn').addEventListener('click', () => document.querySelector('#trip-result').classList.add('hide'));
+
 };
 
 // Export js file
