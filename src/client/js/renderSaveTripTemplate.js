@@ -1,13 +1,13 @@
-// Function to to render save trip template
+// Function to render saved trip template
 const renderSavedTripTemplate = (trip) => {
   // Set variable to store "saved-trip-template" with all content inside of it
   let template = document.querySelector('#saved-trip-template').content;
   // Set variable to clone "saved-trip-template" with all content inside of it
   let templateCopy = template.cloneNode(true); // cloneNode is used to clone a node from current document
   // Alternative way
-  // let templateCopy = document.importNode(template, true); //   importNode is used to clone a node from another document
+  // let templateCopy = document.importNode(template, true); //importNode is used to clone a node from another document
 
-  // Set ID for "saved-trip-container" div = a number of days between travel start date and current date + destination and departure city
+  // Set ID for "saved-trip-container" <article> = "a number of days between travel start date and current date" + "destination city" + "departure city"
   templateCopy.firstChild.id = trip.daysToGo + '-' + trip.destination.city.replace(/ /g,'') + '-' + trip.departure.city.replace(/ /g,'');
 
   // Add image of destination city / capital / country
@@ -51,6 +51,7 @@ const renderSavedTripTemplate = (trip) => {
       let newDate = curMonth + ' ' + curDay + ', ' + curYear + ' (' + dayOfWeek + ')';
       return newDate
     };
+
     // Function to add text in daysToGo
     function daysToGoText() {
       if (trip.daysToGo > 0) {
@@ -95,29 +96,31 @@ const renderSavedTripTemplate = (trip) => {
   </span>
   `;
 
-  // Add Event Listener to show or hide destination info when click on "show-destination-info" button in saved trip
+  // Add Event Listener to show or hide destination info when click on "show-destination-info" <button> in the saved trip
   templateCopy.querySelector('.show-destination-info').addEventListener('click', showDestinationInfo);
   // Alternative way with setting HTML attribute onclick to button
   // templateCopy.querySelector('.show-destination-info').onclick = showDestinationInfo;
 
+  // Function to show or hide destination info when click on "show-destination-info" <button> in the saved trip
   function showDestinationInfo(event) {
     event.preventDefault();
+    // Check if "saved-destination-info" <div> has class="hide"
     if (this.parentElement.nextSibling.classList.contains('hide')) {
       // Change background-image in "show-destination-info" button when click on it
       this.firstChild.style.backgroundImage = 'url("http://localhost:8080/show-info.png")';
-      // Remove class="hide" from "saved-destination-info" div when click on "show-destination-info" button in saved trip
+      // Remove class="hide" from "saved-destination-info" <div> when click on "show-destination-info" <button> in the saved trip
       this.parentElement.nextSibling.classList.remove('hide');
-      // Smoothly scrolls to "saved-destination-info" div in saved trip
+      // Smoothly scrolls to "saved-destination-info" <div> in the saved trip
       this.parentElement.nextSibling.scrollIntoView(false, {
         behavior: 'smooth',
         block: 'end'
       });
     } else {
-      // Change background-image in "show-destination-info" button when click on it
+      // Change background-image in "show-destination-info" <button> when click on it
       this.firstChild.style.backgroundImage = 'url("http://localhost:8080/open-info.png")';
-      // Add class="hide" to "saved-destination-info" div when click on "show-destination-info" button in saved trip
+      // Add class="hide" to "saved-destination-info" <div> when click on "show-destination-info" <button> in the saved trip
       this.parentElement.nextSibling.classList.add('hide');
-      // Smoothly scrolls to "saved-trip-btns" div in saved trip
+      // Smoothly scrolls to "saved-trip-btns" <div> in the saved trip
       this.parentElement.scrollIntoView(false, {
         behavior: 'smooth',
         block: 'end'
@@ -125,38 +128,50 @@ const renderSavedTripTemplate = (trip) => {
     }
   };
 
-  // Add Event Listener to delete saved trip when click on "saved-remove-btn" button
+  // Add Event Listener to delete the saved trip when click on "saved-remove-btn" <button> in the saved trip
   templateCopy.querySelector('.saved-remove-btn').addEventListener('click', deleteSavedTrip);
 
+  // Function to delete the saved trip when click on "saved-remove-btn" <button> in the saved trip
   function deleteSavedTrip(event) {
     event.preventDefault();
+    // Set variable to store saved trips from the Local Storage (construct the JavaScript value or object described by the string)
     let savedTripArray = JSON.parse(localStorage.trips);
-
+    // Execute a provided function once for each array element
     savedTripArray.forEach((trip) => {
-      // Set variable for "saved-trip-container" div
+      // Set variable to store <div> with saved trips (based on the trip.status)
       let savedTriContainer = this.parentElement.parentElement.parentElement;
-      // Check if saved trip ID equals to "saved-trip-container" div ID
+      // Check if saved trip ID equals to <div> ID (with saved trips (based on the trip.status))
       if (trip.id == savedTriContainer.id) {
         // Log with deleted saved trip
         console.log('Delete trip:', trip);
         // Delete saved trip
         savedTripArray.splice(savedTripArray.indexOf(trip), 1);
-
         // Set the Local Storage to the new, updated value
         localStorage.setItem('trips', JSON.stringify(savedTripArray));
-        // Log with updated saved trips from Local Storage
+        // Log with updated saved trips from the Local Storage
         console.log('Updated saved trips:', savedTripArray);
-
-        // Add class "hide" to "saved-trip-container" div with deleted saved trip
-        savedTriContainer.classList.add('hide');
+        // Remove "saved-trip-container" <div> with deleted saved trip from the DOM
+        savedTriContainer.remove();
       }
     });
   };
 
-  // Set variable to store "saved-trips" <section>
-  let savedTrips = document.querySelector('#saved-trips');
-  // Insert clone of saved-trip-template to "saved-trips" section before the first child of this section
-  savedTrips.appendChild(templateCopy);
+  // Set variable to store <div> to save trip based on the trip.status
+  let savedTripsDiv = selectDiv ();
+  // Function to select <div> to save trip based on the trip.status
+  function selectDiv () {
+    if (trip.status == 'current') {
+      let savedTripsDiv;
+      return savedTripsDiv = document.querySelector('#current-container')
+    } else if (trip.status == 'upcoming') {
+      return savedTripsDiv = document.querySelector('#upcoming-container')
+    } else {
+      return savedTripsDiv = document.querySelector('#archived-container')
+    };
+  };
+
+  // Insert templateCopy to the end of the list of children <div> with saved trips (based on the trip.status)
+  savedTripsDiv.appendChild(templateCopy);
 };
 
 // Export js file
