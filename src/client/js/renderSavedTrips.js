@@ -47,32 +47,52 @@ const renderSavedTrips = () => {
   // Update saved trips in Local Storage
   localStorage.setItem('trips', JSON.stringify(savedTripArray));
 
-  // Create "saved-trip-container" div for each saved trip from Local Storage
-  savedTripArray.forEach(renderSavedTripTemplate);
-
   // Log with saved trip data from Local Storage
   console.log('Saved trips from Local Storage:', savedTripArray);
 
-  // Set variable to store upcoming saved trips in array
-  let savedTripArrayUpcoming = filteredArray (savedTripArray, 'status', 'upcoming');
+  // Create "saved-trip-container" <article> for each saved trips from the Local Storage
+  savedTripArray.forEach(renderSavedTripTemplate);
 
-  // Set variable to store upcoming saved trips in array
-  let savedTripArrayCurrent = filteredArray (savedTripArray, 'status', 'current');
+  // Set variable for saved trips containers
+  let savedTripsContainer = document.querySelectorAll('#saved-trips > div > div');
 
-   // Set variable to store upcoming saved trips in array
-   let savedTripArrayArchived = filteredArray (savedTripArray, 'status', 'archived');
-
-  // Function to filter array based on key and value
-  function filteredArray(array, key, value) {
-    const newArray = [];
-    for(i = 0, l = array.length; i < l; i++) {
-      if(array[i][key] === value) {
-        newArray.push(array[i]);
-      }
+  // Loop through saved trips containers array to find empty saved trips container (without saved trips) -> hide this container
+  for (let i = 0; i < savedTripsContainer.length; i++) {
+    // Check if number on child elements in saved trips container = 0 (there are no saved trips in this container)
+    if (savedTripsContainer[i].childElementCount === 0) {
+      // Add class "hide" for parent element of this container
+      savedTripsContainer[i].parentElement.classList.add('hide');
+      // Add class "hide" for <hr> which is next to parent element of this container
+      savedTripsContainer[i].parentElement.nextElementSibling.classList.add('hide');
     }
-   return newArray;
   }
+ 
 
+  // // Set variable to store upcoming saved trips in array
+  // let savedTripArrayUpcoming = filteredArray (savedTripArray, 'status', 'upcoming');
+  // // Create "saved-trip-container" <article> for each upcoming saved trip from Local Storage
+  // savedTripArrayUpcoming.forEach(renderSavedTripUpcomingTemplate);
+
+  // // Set variable to store upcoming saved trips in array
+  // let savedTripArrayCurrent = filteredArray (savedTripArray, 'status', 'current');
+  // // Create "saved-trip-container" <article> for each current saved trip from Local Storage
+  // savedTripArrayCurrent.forEach(renderSavedTripTemplate);
+
+  // // Set variable to store upcoming saved trips in array
+  // let savedTripArrayArchived = filteredArray (savedTripArray, 'status', 'archived');
+  // // Create "saved-trip-container" <article> for each archived saved trip from Local Storage
+  // savedTripArrayArchived.forEach(renderSavedTripArchivedTemplate);
+
+  // // Function to filter array based on key and value
+  // function filteredArray(array, key, value) {
+  //   const newArray = [];
+  //   for (let i = 0, l = array.length; i < l; i++) {
+  //     if (array[i][key] === value) {
+  //       newArray.push(array[i]);
+  //     }
+  //   }
+  //  return newArray;
+  // }
 };
 
 // Export js file
