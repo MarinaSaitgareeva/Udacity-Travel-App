@@ -1,6 +1,6 @@
 // Import js file
 import { calculateDaysToGo } from './calculateDaysToGo';
-import { renderSavedTripTemplate } from './renderSaveTripTemplate';
+import { renderSavedTripTemplate, hideEmptyDivs } from './renderSaveTripTemplate';
 
 // Function to save search result to "saved-trips" div
 const saveTrip = async () => {
@@ -31,9 +31,6 @@ const saveTrip = async () => {
   // Set "ID" for saved trip
   searchResult.id = id;
 
-  // Log with saved trip data
-  console.log('Save trip:', searchResult);
-
   // Set variable to store saved trips in an array
   let savedTripArray = [];
 
@@ -59,10 +56,7 @@ const saveTrip = async () => {
   // Set the Local Storage to the new, updated value
   localStorage.setItem('trips', JSON.stringify(savedTripArray));
 
-  // Log with updated saved trips from Local Storage
-  console.log('Updated saved trips:', savedTripArray);
-
-  // Clear "saved-trips" div (delete rendered saved trips from Local Storage)
+  // Clear "saved-trips" <div>
   document.querySelector('#current-container').textContent = '';
   document.querySelector('#upcoming-container').textContent = '';
   document.querySelector('#archived-container').textContent = '';
@@ -74,21 +68,13 @@ const saveTrip = async () => {
   // Hide search result "trip-result" div
   document.querySelector('#trip-result').classList.add('hide');
 
-  // Set variable for saved trips containers
-  let savedTripsContainer = document.querySelectorAll('#saved-trips > div > div');
+  // Hide empty saved trip <div>
+  hideEmptyDivs();
 
-  // Loop through saved trips containers array to find empty saved trips container (without saved trips) -> hide this container
-  for (let i = 0; i < savedTripsContainer.length; i++) {
-    // Check if number on child elements in saved trips container = 0 (there are no saved trips in this container)
-    if (savedTripsContainer[i].childElementCount === 0) {
-      // Add class "hide" for parent element of this container
-      savedTripsContainer[i].parentElement.classList.add('hide');
-      // Add class "hide" for <hr> which is next to parent element of this container
-      savedTripsContainer[i].parentElement.nextElementSibling.classList.add('hide');
-    } else {
-      savedTripsContainer[i].parentElement.nextElementSibling.classList.remove('hide');
-    }
-  }
+  // Log with saved trip
+  console.log('Save trip:', searchResult);
+  // Log with updated saved trips array from the Local Storage
+  console.log('Updated saved trips:', savedTripArray);
 };
 
 // GET route for search result, fetch data from the Express Server

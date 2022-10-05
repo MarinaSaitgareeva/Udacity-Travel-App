@@ -61,7 +61,7 @@ const renderSavedTripTemplate = (trip) => {
         return `Today! Are You Ready?`
       }
       else {
-        return `Expired, You missed your Trip!`
+        return `Your trip was ${trip.daysToGo * -1} days ago!`
       }
     };
 
@@ -142,24 +142,26 @@ const renderSavedTripTemplate = (trip) => {
       let savedTriContainer = this.parentElement.parentElement.parentElement;
       // Check if saved trip ID equals to <div> ID (with saved trips (based on the trip.status))
       if (trip.id == savedTriContainer.id) {
-        // Log with deleted saved trip
-        console.log('Delete trip:', trip);
         // Delete saved trip
         savedTripArray.splice(savedTripArray.indexOf(trip), 1);
         // Set the Local Storage to the new, updated value
         localStorage.setItem('trips', JSON.stringify(savedTripArray));
+        // Log with deleted saved trip
+        console.log('Delete trip: ', trip);
         // Log with updated saved trips from the Local Storage
-        console.log('Updated saved trips:', savedTripArray);
+        console.log('Updated saved trips: ', savedTripArray);
         // Remove "saved-trip-container" <div> with deleted saved trip from the DOM
         savedTriContainer.remove();
-      }
+        // Hide empty saved trip <div>
+        hideEmptyDivs();
+      };
     });
   };
 
   // Set variable to store <div> to save trip based on the trip.status
-  let savedTripsDiv = selectDiv ();
+  let savedTripsDiv = selectDiv();
   // Function to select <div> to save trip based on the trip.status
-  function selectDiv () {
+  function selectDiv() {
     if (trip.status == 'current') {
       let savedTripsDiv;
       return savedTripsDiv = document.querySelector('#current-container')
@@ -170,9 +172,39 @@ const renderSavedTripTemplate = (trip) => {
     };
   };
 
+  // Remove class = "hide" from <div> with saved trips container
+  savedTripsDiv.parentElement.classList.remove('hide');
+
   // Insert templateCopy to the end of the list of children <div> with saved trips (based on the trip.status)
   savedTripsDiv.appendChild(templateCopy);
+
+  // Hide empty saved trip <div>
+  hideEmptyDivs();
+};
+
+// Function to hide empty saved trip <div>
+function hideEmptyDivs() {
+  // Set variable for saved trips containers
+  let savedTripsContainer = document.querySelectorAll('#saved-trips > div > div');
+  // Loop through saved trips containers array to find empty saved trips container (without saved trips) -> hide this container
+  for (let i = 0; i < savedTripsContainer.length; i++) {
+    // Check if number on child elements in saved trips container = 0 (there are no saved trips in this container)
+    if (savedTripsContainer[i].childElementCount === 0) {
+      // Add class "hide" for parent element of this container
+      savedTripsContainer[i].parentElement.classList.add('hide');
+      // Add class "hide" for <hr> which is next to parent element of this container
+      savedTripsContainer[i].parentElement.nextElementSibling.classList.add('hide');
+    } else {
+      // Remove class "hide" for parent element of this container
+      savedTripsContainer[i].parentElement.classList.remove('hide');
+      // Remove class "hide" for <hr> which is next to parent element of this container
+      savedTripsContainer[i].parentElement.nextElementSibling.classList.remove('hide');
+    };
+  };
 };
 
 // Export js file
-export { renderSavedTripTemplate };
+export { 
+  renderSavedTripTemplate,
+  hideEmptyDivs
+};
