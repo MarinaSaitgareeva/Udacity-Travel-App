@@ -90,24 +90,51 @@
         <!-- Saved trips will be here -->
 
         <!-- Current trips -->
-        <div id="current" class="hide">
+        <div id="current">
+          <h2 class="title">My current trips:</h2>
+          <button class="delete-btn" type="submit">
+            <div class="delete-btn-img"></div>
+            delete all
+          </button>
 
+          <div id="current-container">
+
+          </div>
         </div>
+        <hr class="separate-line">
 
         <!-- Upcoming trips -->
-        <div id="upcoming" class="hide">
+        <div id="upcoming">
+          <h2 class="title">My upcoming trips:</h2>
+          <button class="delete-btn" type="submit">
+            <div class="delete-btn-img"></div>
+            delete all
+          </button>
 
+          <div id="upcoming-container">
+
+          </div>
         </div>
+        <hr class="separate-line">
 
         <!-- Archived trips -->
-        <div id="archive" class="hide">
+        <div id="archived">
+          <h2 class="title">My archived trips:</h2>
+          <button class="delete-btn" type="submit">
+            <div class="delete-btn-img"></div>
+            delete all
+          </button>
 
+          <div id="archived-container">
+
+          </div>
         </div>
+        <hr class="separate-line">
       </section>
 
       <!-- Template for creating saved trip container -->
       <template id="saved-trip-template">
-        <div class="saved-trip-container">
+        <article class="saved-trip-container">
           
           <div class="saved-photo-and-info">
             <figure class="saved-destination-photo-figure">
@@ -159,7 +186,7 @@
             
           </div>
 
-        </div>
+        </article>
       </template>
     </main>
 
