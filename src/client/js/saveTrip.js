@@ -50,22 +50,25 @@ const saveTrip = async () => {
   // Push new saved trip into the array
   savedTripArray.push(searchResult);
 
-  // Set the Local Storage to the new, updated value
-  localStorage.setItem('trips', JSON.stringify(savedTripArray));
-
   // Function to sort saved trips by their start date, destination city and departure city
   const sortSavedTrips = (savedTrip1, savedTrip2) => (new Date(savedTrip1.startDate) - new Date(savedTrip2.startDate) || savedTrip1.destination.city.localeCompare(savedTrip2.destination.city) || savedTrip1.departure.city.localeCompare(savedTrip2.departure.city));
 
   // Update savedTripArray with sorted saved trips
   savedTripArray = savedTripArray.sort(sortSavedTrips);
 
+  // Set the Local Storage to the new, updated value
+  localStorage.setItem('trips', JSON.stringify(savedTripArray));
+
   // Log with updated saved trips from Local Storage
   console.log('Updated saved trips:', savedTripArray);
 
   // Clear "saved-trips" div (delete rendered saved trips from Local Storage)
-  document.querySelector('#saved-trips').innerHTML = '';
+  document.querySelector('#current-container').textContent = '';
+  document.querySelector('#upcoming-container').textContent = '';
+  document.querySelector('#archived-container').textContent = '';
 
-  // Create "saved-trip-container" div with saved trip's data for each saved trip in Local Storage
+
+  // Create "saved-trip-container" div with saved trip's data for each saved trips from Local Storage
   savedTripArray.forEach(renderSavedTripTemplate);
 
   // Hide search result "trip-result" div
