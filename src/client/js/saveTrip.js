@@ -73,6 +73,22 @@ const saveTrip = async () => {
 
   // Hide search result "trip-result" div
   document.querySelector('#trip-result').classList.add('hide');
+
+  // Set variable for saved trips containers
+  let savedTripsContainer = document.querySelectorAll('#saved-trips > div > div');
+
+  // Loop through saved trips containers array to find empty saved trips container (without saved trips) -> hide this container
+  for (let i = 0; i < savedTripsContainer.length; i++) {
+    // Check if number on child elements in saved trips container = 0 (there are no saved trips in this container)
+    if (savedTripsContainer[i].childElementCount === 0) {
+      // Add class "hide" for parent element of this container
+      savedTripsContainer[i].parentElement.classList.add('hide');
+      // Add class "hide" for <hr> which is next to parent element of this container
+      savedTripsContainer[i].parentElement.nextElementSibling.classList.add('hide');
+    } else {
+      savedTripsContainer[i].parentElement.nextElementSibling.classList.remove('hide');
+    }
+  }
 };
 
 // GET route for search result, fetch data from the Express Server
