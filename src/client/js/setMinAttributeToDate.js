@@ -1,9 +1,9 @@
-// Set attribute "min" = current date to start-date and end-date
+// Function to set attribute "min" = current date to start-date and end-date
 function setMinAttributeToDate() {
   document.querySelector('#start-date').setAttribute('min', getDay());
   document.querySelector('#end-date').setAttribute('min', getDay());
 
-  // Function that identifies current date and add date format to it so we can use it as attribute "min" for start-date and end-date
+  // Function to identify current date and add date format to it so we can use it as attribute "min" for start-date and end-date
   function getDay() {
     // Identify current date
     let currentDate = new Date();
@@ -21,7 +21,6 @@ function setMinAttributeToDate() {
     return currentDate;
   };
 };
-
 
 // Export js file
 export { setMinAttributeToDate };
