@@ -36,7 +36,7 @@ const renderSavedTripTemplate = (trip) => {
     <strong> ${formatDate(trip.startDate)} </strong> 
     &#8211;  
     <strong> ${formatDate(trip.endDate)} </strong> (${trip.daysLength} days) <br>
-    <em class="saved-day-to-go-text">${daysToGoText(trip.daysToGo)}</em>
+    <p class="saved-day-to-go-text"><em>${daysToGoText(trip.daysToGo)}</em></p>
   `;
 
     // Function to change format of date
@@ -95,6 +95,11 @@ const renderSavedTripTemplate = (trip) => {
     <img class="saved-weather-icon" src="${trip.weather.current_icon}" alt="weather icon">
   </span>
   `;
+
+  // Remove class = "hide" from "saved-destination-info" <div> for trip.status = "current"
+  if (trip.status == 'current') {
+    templateCopy.querySelector('.saved-destination-info').classList.remove('hide');
+  };
 
   // Add Event Listener to show or hide destination info when click on "show-destination-info" <button> in the saved trip
   templateCopy.querySelector('.show-destination-info').addEventListener('click', showDestinationInfo);
@@ -163,12 +168,11 @@ const renderSavedTripTemplate = (trip) => {
   // Function to select <div> to save trip based on the trip.status
   function selectDiv() {
     if (trip.status == 'current') {
-      let savedTripsDiv;
-      return savedTripsDiv = document.querySelector('#current-container')
+      return document.querySelector('#current-container')
     } else if (trip.status == 'upcoming') {
-      return savedTripsDiv = document.querySelector('#upcoming-container')
+      return document.querySelector('#upcoming-container')
     } else {
-      return savedTripsDiv = document.querySelector('#archived-container')
+      return document.querySelector('#archived-container')
     };
   };
 
