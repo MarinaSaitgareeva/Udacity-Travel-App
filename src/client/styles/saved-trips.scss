@@ -15,8 +15,7 @@
   #upcoming,
   #archived {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.7rem;
+    grid-template-columns: 70% 30%;
 
     .title {
       font-family: $title-font-family;
@@ -33,6 +32,7 @@
       width: fit-content;
 
       padding: 0 2rem 0.5rem;
+      margin-bottom: 0.2rem;
     }
 
     .delete-btn {
@@ -75,343 +75,775 @@
         background-size: 100% 100%;
       }
     }
+
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media only screen and (max-width: 600px) {
+      .title {
+        font-size: 1.2rem;
+
+        padding: 0 1rem 0.3rem;
+      }
+
+      .delete-btn {
+        .delete-btn-img {
+          height: 1rem;
+          width: 1rem;
+        }
+      }
+    }
+
+    /* Extra small devices (phones, 420px and down) */
+    @media only screen and (max-width: 420px) {
+      .title {
+        font-size: 0.9rem;
+        word-spacing: 0.3rem;
+
+        padding: 0 0.5rem 0.3rem;
+      }
+
+      .delete-btn {
+        font-size: 0.6rem;
+
+        .delete-btn-img {
+          height: 0.8rem;
+          width: 0.8rem;
+        }
+      }
+    }
+
+    /* Extra extra small devices (phones, 300px and down) */
+    @media only screen and (max-width: 300px) {
+      .title {
+        font-size: 0.75rem;
+
+        .delete-btn {
+          font-size: 0.55rem;
+        }
+      }
   }
 
-  #current-container,
-  #upcoming-container,
-  #archived-container {
-    grid-column: span 2;
-
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-auto-rows: min-content;
-    gap: 1rem;
-
-    height: fit-content;
-
-    font-size: 0.8rem;
-
-    .saved-trip-container {
+    #current-container {
+      grid-column: span 2;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
 
-      height: fit-content;
+      .saved-trip-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
 
-      border: 1px solid #E7EBED;
-      border-radius: 1rem;
-
-      padding: 0.4rem;
-
-      transition: 0.2s all ease-in-out;
-
-      &:hover {
-        transform: scale(1.01);
-        box-shadow: 0 0 1rem 0 rgb(50 50 50 / 10%);
-      }
-    }
-
-    .saved-photo-and-info {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      gap: 0.5rem;
-
-      .saved-destination-photo-figure {
-        flex-basis: 100%;
-      }
-
-      .saved-destination-photo {
-        width: 100%;
-        height: 15rem;
-
-        border-radius: 1.5rem;
-      }
-
-      .saved-destination-photo-caption {
-        display: inline-block;
-        position: relative;
-        bottom: 2rem;
-        left: 1rem;
-
-        background: #0000004a;
+        border: 1px solid #E7EBED;
         border-radius: 1rem;
 
-        color: #ffffffad;
-        font-size: 0.6rem;
-        font-style: italic;
-        
-        padding: 0.1rem 0.5rem;
+        padding: 0.4rem;
       }
-
-      .saved-add-info-btn {
-        width: fit-content;
-        height: fit-content;
-
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.2rem;
-    
-        background-color: transparent;
-        border: none;
-        border-radius: $btn-border-radius;
-
-        opacity: 0.3;
-    
-        font-size: 0.7rem;
-        color: $primary-text-color;
-    
-        padding: $btn-padding-xsmall;
-        margin-top: -1.8rem;
-    
-        cursor: pointer;
-        transition: 0.3s all ease-in-out;
-    
-        &:hover {
-            opacity: 1;
-    
-            color: $btn-text-hover;
-    
-            transform: scale(1.02);
-        }
-    
-        .saved-add-info-btn-img {
-          height: 0.7rem;
-          width: 0.7rem;
-    
-          background-image: url(/src/client/assets/add-btn.png);
-          background-size: 100% 100%;
-        }
-      }
-    }
-
-    .saved-route,
-    .saved-dates {
-      text-align: center;
-
-      margin-top: 0.3rem;
-
-      .saved-map {
-        text-decoration: none;
-        color: $primary-text-color;
-      }
-
-      .saved-flag {
-        display: inline-block;
-
-        height: 0.7rem;
-
-        margin-inline: 0.2rem;
-      }
-
-      .saved-day-to-go-text {
-        color: #faaa54;
-      }
-    }
-
-    .saved-trip-btns {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-
-      margin: 0.8rem auto;
-
-      .show-destination-info {
-        width: fit-content;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.3rem;
-    
-        background-color: transparent;
-        border: none;
-        border-radius: $btn-border-radius;
-    
-        opacity: 0.5;
-    
-        font-size: 0.7rem;
-        color: $primary-text-color;
-    
-        padding: $btn-padding-xsmall;
-
-        margin-left: 1rem;
-    
-        cursor: pointer;
-        transition: 0.3s all ease-in-out;
-    
-        &:hover {
-          opacity: 1;
-    
-          color: $btn-text-hover;
-    
-          transform: scale(1.02);
-        }
-    
-        .saved-destination-info-btn-img {
-          height: 1.2rem;
-          width: 1.2rem;
-
-          background-image: url(/src/client/assets/show-info.png); // add this line for webpack processing -> use this image in addEventListener for "show-destination-info" button
-          background-image: url(/src/client/assets/open-info.png);
-
-          background-size: 100% 100%;
-        }
-      }
-
-      .saved-remove-btn {
-        width: fit-content;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.3rem;
-
-        background-color: transparent;
-        border: none;
-        border-radius: $btn-border-radius;
-
-        opacity: 0.5;
-    
-        font-size: 0.7rem;
-        color: $btn-text;
-    
-        padding: $btn-padding-xsmall;
-
-        margin-right: 0.5rem;
-    
-        cursor: pointer;
-        transition: 0.3s all ease-in-out;
-
-        &:hover {
-            opacity: 1;
-
-            color: $btn-text-hover;
-    
-            transform: scale(1.02);
-        }
-
-        .saved-remove-btn-img {
-          height: 1.2rem;
-          width: 1.2rem;
-    
-          background-image: url(/src/client/assets/bin.png);
-          background-size: 100% 100%;
-        }
-      }
-    }
-    
-    .saved-destination-info {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-
-      padding: 1rem 0.5rem;
-      margin-top: 0.5rem;
-
-      .saved-weather {
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-      }
-
-      .saved-weather-assumption {
-        font-size: 0.5rem;
-      }
-
-      .saved-weather-historical-description,
-      .saved-weather-current-description {
-        text-align: center;
-      }
-
-      .saved-weather-icon {
-        display: inline-block;
-
-        position: relative;
-        top: 0.3rem;
-
-        width: 1.5rem;
-
-        margin-inline: 0.2rem;
-        margin-top: -0.5rem;
-      }
-    }
-
-    @media only screen and (max-width: 1190px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    @media only screen and (max-width: 900px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @media only screen and (max-width: 600px) {
-      font-size: 0.6rem;
 
       .saved-photo-and-info {
-        margin-bottom: -0.7rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 0.5rem;
 
-        .saved-destination-photo{
-          height: 13rem;
+        .saved-destination-photo-figure {
+          flex-basis: 100%;
+        }
+
+        .saved-destination-photo {
+          width: 100%;
+          max-height: 420px;
+          min-height: 350px;
+
+          border-radius: 2rem;
+        }
+
+        .saved-destination-photo-caption {
+          display: inline-block;
+          position: relative;
+          bottom: 3rem;
+          left: 2rem;
+
+          background: #0000004a;
+          border-radius: 5rem;
+
+          color: #ffffffad;
+          font-size: 0.8rem;
+          font-style: italic;
+          
+          padding: 0.2rem 0.5rem;
         }
 
         .saved-add-info-btn {
-          gap: 0.1rem;
-          font-size: 0.6rem;
+          width: fit-content;
+          height: fit-content;
+
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 0.2rem;
+      
+          background-color: transparent;
+          border: none;
+          border-radius: $btn-border-radius;
+
+          opacity: 0.3;
+      
+          font-size: 0.8rem;
+          color: $primary-text-color;
+      
+          padding: $btn-padding-xsmall;
+          margin-top: -1.8rem;
+      
+          cursor: pointer;
+          transition: 0.3s all ease-in-out;
+      
+          &:hover {
+              opacity: 1;
+      
+              color: $btn-text-hover;
+      
+              transform: scale(1.02);
+          }
+      
+          .saved-add-info-btn-img {
+            height: 0.7rem;
+            width: 0.7rem;
+      
+            background-image: url(/src/client/assets/add-btn.png);
+            background-size: 100% 100%;
+          }
+        }
+      }
+
+      .saved-trip-details {
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .saved-route,
+      .saved-dates {
+        text-align: center;
+
+        margin-top: 0.3rem;
+
+        .saved-map {
+          text-decoration: none;
+          color: $primary-text-color;
+        }
+
+        .saved-flag {
+          display: inline-block;
+
+          height: 0.7rem;
+
+          margin-inline: 0.2rem;
+        }
+
+        .saved-day-to-go-text {
+          color: #23966c;
+
+          margin-top: 1rem;
         }
       }
 
       .saved-trip-btns {
-        margin-bottom: 0.2rem;
+        width: 80%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+
+        margin: 0.8rem auto;
 
         .show-destination-info {
-          font-size: 0.6rem;
+          width: fit-content;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 0.3rem;
+      
+          background-color: transparent;
+          border: none;
+          border-radius: $btn-border-radius;
+      
+          opacity: 0.5;
+      
+          font-size: 0.9rem;
+          color: $primary-text-color;
+      
+          padding: $btn-padding-xsmall;
 
+          margin-left: 1rem;
+      
+          cursor: pointer;
+          transition: 0.3s all ease-in-out;
+      
+          &:hover {
+            opacity: 1;
+      
+            color: $btn-text-hover;
+      
+            transform: scale(1.02);
+          }
+      
           .saved-destination-info-btn-img {
-            height: 1rem;
-            width: 1rem;
+            height: 1.5rem;
+            width: 1.5rem;
+
+            background-image: url(/src/client/assets/show-info.png);
+
+            background-size: 100% 100%;
           }
         }
 
         .saved-remove-btn {
-          margin-right: 0;
+          width: fit-content;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 0.3rem;
+
+          background-color: transparent;
+          border: none;
+          border-radius: $btn-border-radius;
+
+          opacity: 0.5;
+      
+          font-size: 0.7rem;
+          color: $btn-text;
+      
+          padding: $btn-padding-xsmall;
+
+          margin-right: 0.5rem;
+      
+          cursor: pointer;
+          transition: 0.3s all ease-in-out;
+
+          &:hover {
+              opacity: 1;
+
+              color: $btn-text-hover;
+      
+              transform: scale(1.02);
+          }
 
           .saved-remove-btn-img {
-            height: 1rem;
-            width: 1rem;
+            height: 1.5rem;
+            width: 1.5rem;
+      
+            background-image: url(/src/client/assets/bin.png);
+            background-size: 100% 100%;
+          }
+        }
+      }
+      
+      .saved-destination-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+
+        padding: 1rem 0.5rem;
+        margin-top: 0.5rem;
+
+        .saved-weather {
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+        }
+
+        .saved-weather-assumption {
+          font-size: 0.5rem;
+        }
+
+        .saved-weather-historical-description,
+        .saved-weather-current-description {
+          text-align: center;
+        }
+
+        .saved-weather-icon {
+          display: inline-block;
+
+          position: relative;
+          top: 0.3rem;
+
+          width: 1.5rem;
+
+          margin-inline: 0.2rem;
+          margin-top: -0.5rem;
+        }
+      }
+
+      @media only screen and (max-width: 1190px) {
+        .saved-trip-container {
+          gap: 1rem;
+      
+          font-size: 0.8rem;
+        }
+      }
+
+      /* Medium devices (landscape tablets, 860px and up) */
+      @media only screen and (max-width: 860px) {
+        .saved-trip-container {
+          grid-template-columns: 60% 40%;
+        }
+
+        .saved-trip-btns {
+          margin-bottom: 0;
+
+          .show-destination-info {
+            font-size: 0.7rem;
+
+            .saved-destination-info-btn-img {
+              height: 1.3rem;
+              width: 1.3rem;
+            }
+          }
+
+          .saved-remove-btn {
+            .saved-remove-btn-img {
+              height: 1.2rem;
+              width: 1.2rem;
+            }
+          }
+        }
+
+        .saved-destination-info {
+          margin-top: 0;
+        }
+      }
+
+      /* Small devices (portrait tablets and large phones, 600px and up) */
+      @media only screen and (max-width: 600px) {
+        .saved-trip-container {
+          grid-template-columns: 1fr;
+
+          font-size: 0.7rem;
+
+          .saved-trip-btns {  
+            width: 90%;
+            .show-destination-info {
+              font-size: 0.6rem;
+  
+              .saved-destination-info-btn-img {
+                height: 1.2rem;
+                width: 1.2rem;
+              }
+            }
+  
+            .saved-remove-btn {
+              .saved-remove-btn-img {
+                height: 1.1rem;
+                width: 1.1rem;
+              }
+            }
+          }
+
+          .saved-destination-info {
+            padding: 0.5rem;
+          }
+
+          .saved-photo-and-info {
+            .saved-add-info-btn {
+              font-size: 0.6rem;
+            }
           }
         }
       }
 
-      .saved-destination-info {
-        padding: 0.5rem 0.2rem;
+      /* Extra small devices (phones, 420px and down) */
+      @media only screen and (max-width: 420px) {
+        .saved-trip-container {
+          gap: 0.3rem;
+
+          font-size: 0.6rem;
+          
+          .saved-photo-and-info {
+            .saved-destination-photo {
+              min-height: 210px;
+            }
+
+            .saved-destination-photo-caption {
+              bottom: 2.2rem;
+              left: 1.5rem;
+
+              font-size: 0.6rem;
+            }
+          }
+          .saved-trip-details {
+            gap: 0.3rem;
+
+            .saved-day-to-go-text {
+              margin-top: 0.8rem;
+            }
+          }
+        }
       }
     }
 
-    @media only screen and (max-width: 400px) {
-      grid-template-columns: repeat(1, 1fr);
+    #upcoming-container,
+    #archived-container {
+      grid-column: span 2;
+
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: min-content;
+      gap: 1rem;
+
+      height: fit-content;
+
+      font-size: 0.8rem;
 
       .saved-trip-container {
-        flex-direction: row;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
 
-        .saved-photo-and-info {
-          flex-basis: 60%;
+        height: fit-content;
+
+        border: 1px solid #E7EBED;
+        border-radius: 1rem;
+
+        padding: 0.4rem;
+
+        transition: 0.2s all ease-in-out;
+
+        &:hover {
+          transform: scale(1.01);
+          box-shadow: 0 0 1rem 0 rgb(50 50 50 / 10%);
+        }
+      }
+
+      .saved-photo-and-info {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 0.5rem;
+
+        .saved-destination-photo-figure {
+          flex-basis: 100%;
         }
 
-        .saved-route,
-        .saved-dates {
+        .saved-destination-photo {
+          width: 100%;
+          height: 15rem;
+
+          border-radius: 1.5rem;
+        }
+
+        .saved-destination-photo-caption {
+          display: inline-block;
+          position: relative;
+          bottom: 2rem;
+          left: 1rem;
+
+          background: #0000004a;
+          border-radius: 1rem;
+
+          color: #ffffffad;
+          font-size: 0.6rem;
+          font-style: italic;
+          
+          padding: 0.1rem 0.5rem;
+        }
+
+        .saved-add-info-btn {
+          width: fit-content;
+          height: fit-content;
+
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 0.2rem;
+      
+          background-color: transparent;
+          border: none;
+          border-radius: $btn-border-radius;
+
+          opacity: 0.3;
+      
+          font-size: 0.7rem;
+          color: $primary-text-color;
+      
+          padding: $btn-padding-xsmall;
+          margin-top: -1.8rem;
+      
+          cursor: pointer;
+          transition: 0.3s all ease-in-out;
+      
+          &:hover {
+              opacity: 1;
+      
+              color: $btn-text-hover;
+      
+              transform: scale(1.02);
+          }
+      
+          .saved-add-info-btn-img {
+            height: 0.7rem;
+            width: 0.7rem;
+      
+            background-image: url(/src/client/assets/add-btn.png);
+            background-size: 100% 100%;
+          }
+        }
+      }
+
+      .saved-route,
+      .saved-dates {
+        text-align: center;
+
+        margin-top: 0.3rem;
+
+        .saved-map {
+          text-decoration: none;
+          color: $primary-text-color;
+        }
+
+        .saved-flag {
+          display: inline-block;
+
+          height: 0.7rem;
+
+          margin-inline: 0.2rem;
+        }
+
+        .saved-day-to-go-text {
+          color: #faaa54;
+        }
+      }
+
+      .saved-trip-btns {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+
+        margin: 0.8rem auto;
+
+        .show-destination-info {
+          width: fit-content;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 0.3rem;
+      
+          background-color: transparent;
+          border: none;
+          border-radius: $btn-border-radius;
+      
+          opacity: 0.5;
+      
+          font-size: 0.7rem;
+          color: $primary-text-color;
+      
+          padding: $btn-padding-xsmall;
+
+          margin-left: 1rem;
+      
+          cursor: pointer;
+          transition: 0.3s all ease-in-out;
+      
+          &:hover {
+            opacity: 1;
+      
+            color: $btn-text-hover;
+      
+            transform: scale(1.02);
+          }
+      
+          .saved-destination-info-btn-img {
+            height: 1.2rem;
+            width: 1.2rem;
+
+            background-image: url(/src/client/assets/open-info.png);
+
+            background-size: 100% 100%;
+          }
+        }
+
+        .saved-remove-btn {
+          width: fit-content;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 0.3rem;
+
+          background-color: transparent;
+          border: none;
+          border-radius: $btn-border-radius;
+
+          opacity: 0.5;
+      
+          font-size: 0.7rem;
+          color: $btn-text;
+      
+          padding: $btn-padding-xsmall;
+
+          margin-right: 0.5rem;
+      
+          cursor: pointer;
+          transition: 0.3s all ease-in-out;
+
+          &:hover {
+              opacity: 1;
+
+              color: $btn-text-hover;
+      
+              transform: scale(1.02);
+          }
+
+          .saved-remove-btn-img {
+            height: 1.2rem;
+            width: 1.2rem;
+      
+            background-image: url(/src/client/assets/bin.png);
+            background-size: 100% 100%;
+          }
+        }
+      }
+      
+      .saved-destination-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+
+        padding: 1rem 0.5rem;
+        margin-top: 0.5rem;
+
+        .saved-weather {
           display: flex;
           flex-direction: column;
+          gap: 0.3rem;
+        }
+
+        .saved-weather-assumption {
+          font-size: 0.5rem;
+        }
+
+        .saved-weather-historical-description,
+        .saved-weather-current-description {
+          text-align: center;
+        }
+
+        .saved-weather-icon {
+          display: inline-block;
+
+          position: relative;
+          top: 0.3rem;
+
+          width: 1.5rem;
+
+          margin-inline: 0.2rem;
+          margin-top: -0.5rem;
+        }
+      }
+
+      @media only screen and (max-width: 1190px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      /* Medium devices (landscape tablets, 900px and up) */
+      @media only screen and (max-width: 900px) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* Small devices (portrait tablets and large phones, 600px and up) */
+      @media only screen and (max-width: 600px) {
+        font-size: 0.6rem;
+
+        .saved-photo-and-info {
+          margin-bottom: -0.7rem;
+
+          .saved-destination-photo{
+            height: 13rem;
+          }
+
+          .saved-add-info-btn {
+            gap: 0.1rem;
+            font-size: 0.6rem;
+          }
         }
 
         .saved-trip-btns {
-          flex-direction: column;
+          margin-bottom: 0.2rem;
+
+          .show-destination-info {
+            font-size: 0.6rem;
+
+            .saved-destination-info-btn-img {
+              height: 1rem;
+              width: 1rem;
+            }
+          }
 
           .saved-remove-btn {
-            align-self: flex-end;
-            margin-top: 2rem;
+            margin-right: 0;
+
+            .saved-remove-btn-img {
+              height: 1rem;
+              width: 1rem;
+            }
+          }
+        }
+
+        .saved-destination-info {
+          padding: 0.5rem 0.2rem;
+        }
+      }
+
+      /* Extra small devices (phones, 420px and down) */
+      @media only screen and (max-width: 420px) {
+        grid-template-columns: repeat(1, 1fr);
+
+        .saved-trip-container {
+          flex-direction: row;
+
+          .saved-photo-and-info {
+            flex-basis: 120%;
+          }
+
+          .saved-route,
+          .saved-dates {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .saved-trip-btns {
+            flex-direction: column;
+
+            .show-destination-info {
+              margin-left: 0;
+            }
+
+            .saved-remove-btn {
+              align-self: flex-end;
+              margin-top: 2rem;
+            }
+          }
+        }
+      }
+
+      /* Extra extra small devices (phones, 300px and down) */
+      @media only screen and (max-width: 300px) {
+        .saved-trip-container {
+          flex-direction: column;
+
+          .saved-route,
+          .saved-dates {
+            display: block;
+          }
+
+          .saved-trip-btns {
+            flex-direction: row;
+
+            .saved-remove-btn {  
+              margin-top: 0;
+            }
           }
         }
       }

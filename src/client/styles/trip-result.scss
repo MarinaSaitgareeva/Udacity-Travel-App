@@ -9,7 +9,6 @@
   
   padding: 1rem 2rem;
 
-
   #destination-photo-figure {
     width: 100%;
     display: flex;
@@ -148,12 +147,17 @@
     }
   }
 
-  /* Medium devices (landscape tablets, 860px and up) */
-  @media only screen and (max-width: 860px) {
-    grid-template-columns: 1fr;
+  @media only screen and (max-width: 1190px) {
     gap: 1rem;
 
     font-size: 0.8rem;
+
+    padding: 1rem;
+  }
+
+  /* Medium devices (landscape tablets, 860px and up) */
+  @media only screen and (max-width: 860px) {
+    grid-template-columns: 60% 40%;
 
     #destination-photo-caption {
       font-size: 0.8rem;
@@ -197,6 +201,7 @@
 
   /* Small devices (portrait tablets and large phones, 600px and up) */
   @media only screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
 
     font-size: 0.7rem;
 

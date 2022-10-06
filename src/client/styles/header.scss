@@ -79,8 +79,8 @@ header {
     }
   }
 
-  /* Medium devices (landscape tablets, 860px and up) */
-  @media only screen and (max-width: 860px) {
+  /* Medium devices (landscape tablets, 900px and up) */
+  @media only screen and (max-width: 900px) {
     #header-container {
       height: 5.5rem;
       font-size: 1rem;
@@ -110,8 +110,8 @@ header {
     }
   }
 
-  /* Extra small devices (phones, 400px and down) */
-  @media only screen and (max-width: 400px) {
+  /* Extra small devices (phones, 420px and down) */
+  @media only screen and (max-width: 420px) {
     #header-container {
       font-size: 0.65rem;
 
