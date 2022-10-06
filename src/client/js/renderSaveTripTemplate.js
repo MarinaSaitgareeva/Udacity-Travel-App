@@ -97,8 +97,15 @@ const renderSavedTripTemplate = (trip) => {
   `;
 
   // Remove class = "hide" from "saved-destination-info" <div> for trip.status = "current"
-  if (trip.status == 'current') {
+  if (trip.status === 'current') {
     templateCopy.querySelector('.saved-destination-info').classList.remove('hide');
+  };
+
+  // Remove current time and current weather from "saved-destination-info" <div> for trip.status = "archived"
+  if (trip.status === 'archived') {
+    templateCopy.querySelector('.saved-current-time').remove();
+    templateCopy.querySelector('.saved-weather-current').previousSibling.remove();
+    templateCopy.querySelector('.saved-weather-current').remove();
   };
 
   // Add Event Listener to show or hide destination info when click on "show-destination-info" <button> in the saved trip
@@ -167,9 +174,9 @@ const renderSavedTripTemplate = (trip) => {
   let savedTripsDiv = selectDiv();
   // Function to select <div> to save trip based on the trip.status
   function selectDiv() {
-    if (trip.status == 'current') {
+    if (trip.status === 'current') {
       return document.querySelector('#current-container')
-    } else if (trip.status == 'upcoming') {
+    } else if (trip.status === 'upcoming') {
       return document.querySelector('#upcoming-container')
     } else {
       return document.querySelector('#archived-container')
