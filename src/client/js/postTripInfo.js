@@ -1,5 +1,5 @@
 // Post trip info
-const postTripInfo = async (formData) => {
+const postTripInfo = async (formInputs) => {
   const response = await fetch('/tripInfo', {
     method: 'POST',
     credentials: 'same-origin',
@@ -7,17 +7,17 @@ const postTripInfo = async (formData) => {
       'Content-Type': 'application/json',
     },
     mode: 'cors',
-    body: JSON.stringify(formData)
+    body: JSON.stringify(formInputs)
   });
   try {
     const newData = await response.json();
     // console.log(newData);
     return newData;
-
-  } catch (error) {
+  }
+  catch (error) {
     // Appropriately handle the error
     console.log('Error: ', error);
-  }
+  };
 };
 
 // Export js file
