@@ -18,6 +18,7 @@ const restcountriesApi = async (code = '') => {
       region: data[0].region,
       country_population: convertPopulation(data[0].population),
       currency: Object.values(data[0].currencies)[0].symbol,
+      currency_name: Object.values(data[0].currencies)[0].name,
       language: Object.values(data[0].languages)[0],
       flag: data[0].flags.svg,
       map: data[0].maps.googleMaps
@@ -31,6 +32,7 @@ const restcountriesApi = async (code = '') => {
         region: 'no data',
         country_population: 'no data',
         currency: 'no data',
+        currency_name: 'no data',
         language: 'no data',
         flag: 'no data',
         map: 'no data'
