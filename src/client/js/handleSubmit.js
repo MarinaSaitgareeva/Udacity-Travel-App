@@ -23,16 +23,16 @@ async function handleSubmit(event) {
     };
     // console.log(departure, destination, startDate, endDate);
 
-    // Set variable to store trip data
-    let trip;
-
     // Post the search result back to the Express server
-    trip = await postTripInfo(formInputs).then((response) => {
+    let trip = await postTripInfo(formInputs).then((response) => {
       // console.log(response);
       // Then render the returned result in the UI (add search result to "trip-result" div)
       displayNewSearch(response);
       return response;
     });
+
+    // Save data to sessionStorage
+    sessionStorage.setItem('searchResult', JSON.stringify(trip));
   };
 };
 
