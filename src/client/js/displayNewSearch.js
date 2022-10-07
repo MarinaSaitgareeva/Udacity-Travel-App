@@ -47,8 +47,8 @@ const displayNewSearch = (trip) => {
     <p>
       <strong>Population: </strong>${trip.destination.city_population};&nbsp; &nbsp; 
       <strong>Language: </strong>${trip.destination.language};&nbsp; &nbsp; 
-      <strong>Currency: </strong>${trip.destination.currency};&nbsp; &nbsp; 
-      <strong>Capital: </strong>${trip.destination.capital}
+      <strong>Currency: </strong>${trip.destination.currency} (${trip.destination.currency_name});&nbsp; &nbsp; 
+      <strong>Capital: </strong>${trip.destinationF.capital}
     </p>
   `;
 
