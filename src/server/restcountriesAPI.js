@@ -15,8 +15,6 @@ const restcountriesApi = async (code = '') => {
     return {
       country: Object.values(data[0].name)[0],
       capital: data[0].capital[0],
-      region: data[0].region,
-      country_population: convertPopulation(data[0].population),
       currency: Object.values(data[0].currencies)[0].symbol,
       currency_name: Object.values(data[0].currencies)[0].name,
       language: Object.values(data[0].languages)[0],
@@ -29,8 +27,6 @@ const restcountriesApi = async (code = '') => {
       return {
         country: 'no data',
         capital: 'no data',
-        region: 'no data',
-        country_population: 'no data',
         currency: 'no data',
         currency_name: 'no data',
         language: 'no data',

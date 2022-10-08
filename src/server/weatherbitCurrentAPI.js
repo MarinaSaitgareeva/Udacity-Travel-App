@@ -13,7 +13,6 @@ const fetchWeatherbitCurrentApi = async (latitude, longitude, weatherbitApiKey) 
     let data = await response.json();
     return {
       current_temperature: `${data.data[0].temp}℃`,
-      current_feels_like_temperature: `${data.data[0].app_temp}℃`, // Apparent/"Feels Like" temperature
       current_uv: data.data[0].uv.toFixed(1), // UV Index (0-11+)
       current_humidity: `${data.data[0].rh}%`, // Relative humidity (%)
       current_pressure: `${data.data[0].pres}mb`, // Pressure (mb)
@@ -27,7 +26,6 @@ const fetchWeatherbitCurrentApi = async (latitude, longitude, weatherbitApiKey) 
     console.log(`Error: code ${response.status} ${response.statusText}!!!`);
     return {
       current_temperature: 'no data',
-      current_feels_like_temperature: 'no data',
       current_uv: 'no data',
       current_humidity: 'no data',
       current_pressure: 'no data',
