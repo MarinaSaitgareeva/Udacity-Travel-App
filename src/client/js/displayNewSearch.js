@@ -48,12 +48,21 @@ const displayNewSearch = (trip) => {
       <strong>Population: </strong>${trip.destination.city_population};&nbsp; &nbsp; 
       <strong>Language: </strong>${trip.destination.language};&nbsp; &nbsp; 
       <strong>Currency: </strong>${trip.destination.currency} (${trip.destination.currency_name});&nbsp; &nbsp; 
-      <strong>Capital: </strong>${trip.destinationF.capital}
+      <strong>Capital: </strong>${trip.destination.capital}
     </p>
   `;
 
   // Add current time (destination)
-  document.querySelector('#current-time').innerHTML = `<strong>Current time: </strong>&nbsp;${trip.time.current_time} (${trip.time.abbreviation}: ${trip.time.gmtOffset})`;
+  document.querySelector('#current-time').innerHTML = `<strong>Current time: </strong>&nbsp;<span class="current-time">${trip.time.current_time} </span>(${trip.time.abbreviation}: ${changeGmtOffSet(trip.time.gmtOffset)})`;
+
+
+  function changeGmtOffSet (gmtOffset) {
+    if (gmtOffset > 0) {
+      return `UTC +${gmtOffset}:00`;
+    } else {
+      return `UTC ${gmtOffset}:00`;
+    };
+  };
 
   // Add weather (historic and current weather in destination)
   document.querySelector('#weather').innerHTML = `
