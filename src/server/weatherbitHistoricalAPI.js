@@ -8,39 +8,39 @@ const fetchWeatherbitHistoricalApi = async (latitude, longitude, date, weatherbi
   let historicalUrl = 'https://api.weatherbit.io/v2.0/history/hourly?';
   // Set variable to store date
   let currentDate = new Date(date);
-  // Change date year to last year
+  // Set variable to calculate last year date
   let lastYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear()-1));
   // Convert last year date to format "2022-01-01" (without time)
   lastYearDate = lastYearDate.toISOString().split('T')[0];
-  // Update url to fetch API data
+  // // Update url to fetch API data
   historicalUrl = `${historicalUrl}key=${weatherbitApiKey}&lat=${latitude}&lon=${longitude}&start_date=${lastYearDate}:12&end_date=${lastYearDate}:13`;
   // Fetch API data with update url
   let response = await fetch(historicalUrl);
-  console.log('Weatherbit API (historical):', response.status, response.statusText, response.ok);
+  console.log('Weatherbit API (historical copy):', response.status, response.statusText, response.ok);
 
   if (response.ok) {
     let data = await response.json();
     return {
-      historical_temperature: `${data.data[0].temp}℃`,
-      historical_uv: data.data[0].uv.toFixed(1), // UV Index (0-11+)
-      historical_humidity: `${data.data[0].rh}%`, // Relative humidity (%)
-      historical_pressure: `${data.data[0].pres}mb`, // Pressure (mb)
-      historical_wind_speed: `${data.data[0].wind_spd.toFixed(1)} m/s`,
-      historical_wind_direction: getCardinalDirection(data.data[0].wind_dir),
-      historical_icon: 'https://www.weatherbit.io/static/img/icons/' + data.data[0].weather.icon + '.png',
-      historical_description: data.data[0].weather.description
+      temp: `${data.data[0].temp}℃`,
+      uv: data.data[0].uv.toFixed(1), // Maximum UV Index (0-11+)
+      humidity: `${data.data[0].rh}%`, // Relative humidity (%)
+      pressure: `${data.data[0].pres}mb`, // Pressure (mb)
+      wind_speed: `${data.data[0].wind_spd.toFixed(1)} m/s`, // Wind speed (Default m/s)
+      wind_dir: getCardinalDirection(data.data[0].wind_dir), // Wind direction (degrees)
+      icon: 'https://www.weatherbit.io/static/img/icons/' + data.data[0].weather.icon + '.png', // URL for Weather icon
+      description: data.data[0].weather.description // Text weather description
     };
   } else {
-    console.log(`ERROR: code ${response.status} ${response.statusText}.`);
+    console.log(`Error: code ${response.status} ${response.statusText}!!!`);
     return {
-      historical_temperature: 'no data',
-      historical_uv: 'no data',
-      historical_humidity: 'no data',
-      historical_pressure: 'no data',
-      historical_wind_speed: 'no data',
-      historical_wind_direction: 'no data',
-      historical_icon: 'no data',
-      historical_description: 'no data'
+      temp: 'no data',
+      uv: 'no data',
+      humidity: 'no data',
+      pressure: 'no data',
+      wind_speed: 'no data',
+      wind_dir: 'no data',
+      icon: 'no data',
+      description: 'no data'
     };
   };
 };

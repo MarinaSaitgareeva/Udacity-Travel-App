@@ -18,10 +18,10 @@ const fetchWeatherbitCurrentApi = async (latitude, longitude, weatherbitApiKey) 
       uv: data.data[0].uv.toFixed(1), // UV Index (0-11+)
       humidity: `${data.data[0].rh}%`, // Relative humidity (%)
       pressure: `${data.data[0].pres}mb`, // Pressure (mb)
-      wind_speed: `${data.data[0].wind_spd.toFixed(1)} m/s`,
-      wind_dir: getCardinalDirection(data.data[0].wind_dir),
-      icon: 'https://www.weatherbit.io/static/img/icons/' + data.data[0].weather.icon + '.png',
-      description: data.data[0].weather.description
+      wind_speed: `${data.data[0].wind_spd.toFixed(1)} m/s`, // Wind speed (Default m/s)
+      wind_dir: getCardinalDirection(data.data[0].wind_dir), // Wind direction (degrees)
+      icon: 'https://www.weatherbit.io/static/img/icons/' + data.data[0].weather.icon + '.png', // URL for Weather icon
+      description: data.data[0].weather.description // Text weather description
     };
   } else {
     // Appropriately handle the error
