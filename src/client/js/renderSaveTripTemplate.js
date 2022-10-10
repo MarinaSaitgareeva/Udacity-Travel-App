@@ -95,20 +95,25 @@ const renderSavedTripTemplate = (trip) => {
 
   // Add historic weather in destination
   templateCopy.querySelector('.saved-weather-historical').innerHTML = `
-   ${trip.weather.historical_temperature}, uv = ${trip.weather.historical_uv},&nbsp; rh = ${trip.weather.historical_humidity}, wind = ${trip.weather.historical_wind_speed} (${trip.weather.historical_wind_direction}),
-  <span class="saved-weather-historical-description">
-    ${trip.weather.historical_description} 
-    <img class="saved-weather-icon" src="${trip.weather.historical_icon}" alt="weather icon">
-  </span>
+    <table class="historical-weather-table">
+      <tr>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+      <tr>
+        <td>${trip.startDateLastYear_weather.temp}, uv = ${trip.startDateLastYear_weather.uv},&nbsp; rh = ${trip.startDateLastYear_weather.humidity}, wind = ${trip.startDateLastYear_weather.wind_speed} (${trip.startDateLastYear_weather.wind_dir}), ${trip.startDateLastYear_weather.description} <img class="saved-weather-icon" src="${trip.startDateLastYear_weather.icon}" alt="weather icon"></td>
+        <td>${trip.endDateLastYear_weather.temp}, uv = ${trip.endDateLastYear_weather.uv},&nbsp; rh = ${trip.endDateLastYear_weather.humidity}, wind = ${trip.endDateLastYear_weather.wind_speed} (${trip.endDateLastYear_weather.wind_dir}), ${trip.endDateLastYear_weather.description} <img class="saved-weather-icon" src="${trip.endDateLastYear_weather.icon}" alt="weather icon"></td>
+      </tr>
+    </table>
   `;
 
   // Add current weather in destination
   templateCopy.querySelector('.saved-weather-current').innerHTML = `
-  ${trip.current_weather.temp}, uv = ${trip.current_weather.uv}, rh = ${trip.current_weather.humidity}, wind = ${trip.current_weather.wind_speed} (${trip.current_weather.wind_dir}), 
-  <span class="saved-weather-current-description">
-    ${trip.current_weather.description} 
-    <img class="saved-weather-icon" src="${trip.current_weather.icon}" alt="weather icon">
-  </span>
+    ${trip.current_weather.temp}, uv = ${trip.current_weather.uv}, rh = ${trip.current_weather.humidity}, wind = ${trip.current_weather.wind_speed} (${trip.current_weather.wind_dir}), 
+    <span class="saved-weather-current-description">
+      ${trip.current_weather.description} 
+      <img class="saved-weather-icon" src="${trip.current_weather.icon}" alt="weather icon">
+    </span>
   `;
 
   // Remove class = "hide" from "saved-destination-info" <div> for trip.status = "current"

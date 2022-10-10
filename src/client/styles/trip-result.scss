@@ -17,6 +17,7 @@
     #destination-photo {
       width: 100%;
       max-height: 420px;
+      min-height: 350px;
       border-radius: 2rem;
 
       margin-bottom: -2.5rem;
@@ -74,14 +75,13 @@
       #weather-assumption {
         font-size: 0.7rem;
       }
-  
-      #weather-historical-description,
-      #weather-current-description {
-        display: flex;
-        align-items: center;
+
+      #historical-weather {
+        border-collapse: separate;
+        border-spacing: 0.3rem 0;
       }
   
-      #weather-icon {
+      .weather-icon {
         display: inline-block;
   
         width: 1.5rem;

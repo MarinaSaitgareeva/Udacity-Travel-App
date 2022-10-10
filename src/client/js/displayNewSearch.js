@@ -71,16 +71,19 @@ const displayNewSearch = (trip) => {
   // Add weather (historic and current weather in destination)
   document.querySelector('#weather').innerHTML = `
     <p><strong>Historic weather </strong><i id="weather-assumption">(previous year) </i> : </p>
-    <p>${trip.weather.historical_temperature} (feel likes = ${trip.weather.historical_feels_like_temperature}),</p>
-    <p>uv = ${trip.weather.historical_uv},&nbsp; rh = ${trip.weather.historical_humidity}, wind = ${trip.weather.historical_wind_speed} (${trip.weather.historical_wind_direction})</p>
-    <p id="weather-historical-description">
-      ${trip.weather.historical_description} 
-      <img id="weather-icon" src="${trip.weather.historical_icon}" alt="weather icon">
-    </p>
+    <table id="historical-weather">
+      <tr>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+      <tr>
+        <td>${trip.startDateLastYear_weather.temp}, uv = ${trip.startDateLastYear_weather.uv},&nbsp; rh = ${trip.startDateLastYear_weather.humidity}, wind = ${trip.startDateLastYear_weather.wind_speed} (${trip.startDateLastYear_weather.wind_dir}), ${trip.startDateLastYear_weather.description} <img class="weather-icon" src="${trip.startDateLastYear_weather.icon}" alt="weather icon"></td>
+        <td>${trip.endDateLastYear_weather.temp}, uv = ${trip.endDateLastYear_weather.uv},&nbsp; rh = ${trip.endDateLastYear_weather.humidity}, wind = ${trip.endDateLastYear_weather.wind_speed} (${trip.endDateLastYear_weather.wind_dir}), ${trip.endDateLastYear_weather.description} <img class="weather-icon" src="${trip.endDateLastYear_weather.icon}" alt="weather icon"></td>
+      </tr>
+    </table>
    
     <p><strong>Current weather: </strong></p>
-    <p id="weather-current">${trip.current_weather.temp}, uv = ${trip.current_weather.uv}, rh = ${trip.current_weather.humidity}, wind = ${trip.current_weather.wind_speed} (${trip.current_weather.wind_dir}),</p>
-    <p id="weather-current-description"> ${trip.current_weather.description} <img id="weather-icon" src="${trip.current_weather.icon}" alt="weather icon"></p>
+    <p id="weather-current">${trip.current_weather.temp}, uv = ${trip.current_weather.uv}, rh = ${trip.current_weather.humidity}, wind = ${trip.current_weather.wind_speed} (${trip.current_weather.wind_dir}), ${trip.current_weather.description} <img class="weather-icon" src="${trip.current_weather.icon}" alt="weather icon"></p>
   `;
 
   // Show search result in "trip-result" <section>

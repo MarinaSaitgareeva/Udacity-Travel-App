@@ -359,9 +359,9 @@
           font-size: 0.5rem;
         }
 
-        .saved-weather-historical-description,
-        .saved-weather-current-description {
-          text-align: center;
+        .historical-weather-table {
+          border-collapse: separate;
+          border-spacing: 0.3rem 0;
         }
 
         .saved-weather-icon {
@@ -724,11 +724,6 @@
 
         .saved-weather-assumption {
           font-size: 0.5rem;
-        }
-
-        .saved-weather-historical-description,
-        .saved-weather-current-description {
-          text-align: center;
         }
 
         .saved-weather-icon {
