@@ -200,7 +200,6 @@ let weatherEndDateLastYear = await fetchWeatherbitHistoricalApi(
   trip.endDateLastYear_weather.description = weatherEndDateLastYear.description;
 console.log(weatherEndDateLastYear);
 
-
 // Fetch weather data from Watherbit API (current)
 let currentWeatherData = await fetchWeatherbitCurrentApi(
   trip.destination.latitude,
@@ -306,64 +305,60 @@ app.post('/weather', async (req, res) => {
   updatedWeatherData.startDate = req.body.startDate;
   updatedWeatherData.endDate = req.body.endDate;
 
-  // Fetch weather data from Watherbit API (historical)
-  let historicalWeatherData = await fetchWeatherbitHistoricalApi(
+
+  // Fetch weather data from Watherbit API (historical start-date last year)
+  let weatherStartDateLastYear = await fetchWeatherbitHistoricalApi(
     updatedWeatherData.latitude,
     updatedWeatherData.longitude,
     updatedWeatherData.startDate,
     process.env.WEATHERBIT_API_KEY
   );
-    trip.weather.historical_temperature = historicalWeatherData.historical_temperature;
-    trip.weather.historical_feels_like_temperature = historicalWeatherData.historical_feels_like_temperature;
-    trip.weather.historical_uv = historicalWeatherData.historical_uv;
-    trip.weather.historical_humidity = historicalWeatherData.historical_humidity;
-    trip.weather.historical_pressure = historicalWeatherData.historical_pressure;
-    trip.weather.historical_wind_speed = historicalWeatherData.historical_wind_speed;
-    trip.weather.historical_wind_direction = historicalWeatherData.historical_wind_direction;
-    trip.weather.historical_icon = historicalWeatherData.historical_icon;
-    trip.weather.historical_description = historicalWeatherData.historical_description;
-  console.log(historicalWeatherData);
+    updatedWeatherData.startDateLastYear_weather.temp = weatherStartDateLastYear.temp;
+    updatedWeatherData.startDateLastYear_weather.uv = weatherStartDateLastYear.uv;
+    updatedWeatherData.startDateLastYear_weather.humidity = weatherStartDateLastYear.humidity;
+    updatedWeatherData.startDateLastYear_weather.pressure = weatherStartDateLastYear.pressure;
+    updatedWeatherData.startDateLastYear_weather.wind_speed = weatherStartDateLastYear.wind_speed;
+    updatedWeatherData.startDateLastYear_weather.wind_dir = weatherStartDateLastYear.wind_dir;
+    updatedWeatherData.startDateLastYear_weather.icon = weatherStartDateLastYear.icon;
+    updatedWeatherData.startDateLastYear_weather.description = weatherStartDateLastYear.description;
+  console.log(weatherStartDateLastYear);
+
+  // Fetch weather data from Watherbit API (historical end-date last year)
+  let weatherEndDateLastYear = await fetchWeatherbitHistoricalApi(
+  updatedWeatherData.destination.latitude,
+  updatedWeatherData.destination.longitude,
+  updatedWeatherData.endDate,
+  process.env.WEATHERBIT_API_KEY
+  );
+    updatedWeatherData.endDateLastYear_weather.temp = weatherEndDateLastYear.temp;
+    updatedWeatherData.endDateLastYear_weather.uv = weatherEndDateLastYear.uv;
+    updatedWeatherData.endDateLastYear_weather.humidity = weatherEndDateLastYear.humidity;
+    updatedWeatherData.endDateLastYear_weather.pressure = weatherEndDateLastYear.pressure;
+    updatedWeatherData.endDateLastYear_weather.wind_speed = weatherEndDateLastYear.wind_speed;
+    updatedWeatherData.endDateLastYear_weather.wind_dir = weatherEndDateLastYear.wind_dir;
+    updatedWeatherData.endDateLastYear_weather.icon = weatherEndDateLastYear.icon;
+    updatedWeatherData.endDateLastYear_weather.description = weatherEndDateLastYear.description;
+  console.log(weatherEndDateLastYear);
 
   // Fetch weather data from Watherbit API (current)
   let currentWeatherData = await fetchWeatherbitCurrentApi(
-    trip.destination.latitude,
-    trip.destination.longitude,
+    updatedWeatherData.latitude,
+    updatedWeatherData.longitude,
     process.env.WEATHERBIT_API_KEY
   );
-    trip.weather.date = currentWeatherData.date;
-    trip.weather.current_temperature = currentWeatherData.current_temperature;
-    trip.weather.current_feels_like_temperature = currentWeatherData.current_feels_like_temperature;
-    trip.weather.current_uv = currentWeatherData.current_uv;
-    trip.weather.current_humidity = currentWeatherData.current_humidity;
-    trip.weather.current_pressure = currentWeatherData.current_pressure;
-    trip.weather.current_wind_speed = currentWeatherData.current_wind_speed;
-    trip.weather.current_wind_direction = currentWeatherData.current_wind_direction;
-    trip.weather.current_icon = currentWeatherData.current_icon;
-    trip.weather.current_description = currentWeatherData.current_description;
+    updatedWeatherData.current_weather.date = currentWeatherData.date;
+    updatedWeatherData.current_weather.temp = currentWeatherData.temp;
+    updatedWeatherData.current_weather.uv = currentWeatherData.uv;
+    updatedWeatherData.current_weather.humidity = currentWeatherData.humidity;
+    updatedWeatherData.current_weather.pressure = currentWeatherData.pressure;
+    updatedWeatherData.current_weather.wind_speed = currentWeatherData.wind_speed;
+    updatedWeatherData.current_weather.wind_dir = currentWeatherData.wind_dir;
+    updatedWeatherData.current_weather.icon = currentWeatherData.icon;
+    updatedWeatherData.current_weather.description = currentWeatherData.description;
   console.log(currentWeatherData);
 
-
-
-
-
-  // Fetch image url by Pixabay API
-  let updatedWeather = await fetchPixabayApi(updatedImgData.city, updatedImgData.country, process.env.PIXABAY_API_KEY);
-   // Set alternative image (image of destination's city without country) if there is no image of city with country
-    if (typeof updatedImg == 'undefined') {
-      updatedImgData.image = await fetchPixabayApi(updatedImgData.city, updatedImgData.city, process.env.PIXABAY_API_KEY);
-      updatedImgData.image_figcaption = updatedImgData.city + ', ' + updatedImgData.country;
-      // Set alternative image (image of destination's capital) if there is no image of city
-      if (typeof updatedImgData.image == 'undefined') {
-        updatedImgData.image = await fetchPixabayApi(trip.destination.country, trip.destination.country, process.env.PIXABAY_API_KEY);
-        updatedImgData.image_figcaption = updatedImgData.country;
-      };
-    } else {
-      updatedImgData.image = updatedImg;
-      updatedImgData.image_figcaption = updatedImgData.city + ', ' + updatedImgData.country;
-    };
-  console.log(updatedImgData.image);
-  console.log(updatedImgData.image_figcaption);
-  res.send(updatedImgData);
+  res.send(updatedWeatherData);
+  console.log('**** This request has been processed:\n', req.body, ' ****');
 });
 
 // POST route for updated image
