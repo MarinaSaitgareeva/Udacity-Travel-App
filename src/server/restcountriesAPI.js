@@ -4,8 +4,9 @@ const fetch = (...args) =>
 
 // Fetch rest countries API (https://restcountries.com/) with country data based on country_code
 const restcountriesApi = async (code = '') => {
+  // Set variable to store url to fetch API data
   const url = 'https://restcountries.com/v3.1/alpha/';
-
+  // Fetch API data
   let response = await fetch(url + code);
   console.log('Rest Countries API: ', response.status, response.statusText, response.ok);
 
