@@ -4,7 +4,7 @@ const fetch = (...args) =>
 
 // Fetch Weatherbit API with weather historical data based on city, country and date
 const fetchWeatherbitHistoricalApi = async (latitude, longitude, date, weatherbitApiKey) => {
-  // Set variable to store url for Weatherbit API
+  // Set variable to store url to fetch API data
   let historicalUrl = 'https://api.weatherbit.io/v2.0/history/hourly?';
   // Set variable to store date
   let currentDate = new Date(date);
@@ -12,9 +12,9 @@ const fetchWeatherbitHistoricalApi = async (latitude, longitude, date, weatherbi
   let lastYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear()-1));
   // Convert last year date to format "2022-01-01" (without time)
   lastYearDate = lastYearDate.toISOString().split('T')[0];
-  // Update url for Weatherbit API
+  // Update url to fetch API data
   historicalUrl = `${historicalUrl}key=${weatherbitApiKey}&lat=${latitude}&lon=${longitude}&start_date=${lastYearDate}:12&end_date=${lastYearDate}:13`;
-  // Fetch weather historical data from Weatherbit API with update url
+  // Fetch API data with update url
   let response = await fetch(historicalUrl);
   console.log('Weatherbit API (historical):', response.status, response.statusText, response.ok);
 
