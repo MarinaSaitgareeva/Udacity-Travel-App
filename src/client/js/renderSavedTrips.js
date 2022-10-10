@@ -1,5 +1,6 @@
 // Import js file
 import { calculateDaysToGo } from './calculateDaysToGo';
+import { updateInvalidImageUrl, renderCurrentTime } from './refreshApiData'
 import { renderSavedTripTemplate } from './renderSaveTripTemplate';
 
 // Function to display all saved trips from Local Storage
@@ -38,6 +39,9 @@ const renderSavedTrips = () => {
     }
   });
 
+  // Update saved trip image url if image was deleted from the previously fetch Pixabay API url
+  updateInvalidImageUrl();
+
   // Function to sort saved trips by their start date, destination city and departure city
   const sortSavedTrips = (savedTrip1, savedTrip2) => (new Date(savedTrip1.startDate) - new Date(savedTrip2.startDate) || savedTrip1.destination.city.localeCompare(savedTrip2.destination.city) || savedTrip1.departure.city.localeCompare(savedTrip2.departure.city));
 
@@ -49,6 +53,14 @@ const renderSavedTrips = () => {
 
   // Create "saved-trip-container" <article> for each saved trips from the Local Storage
   savedTripArray.forEach(renderSavedTripTemplate);
+
+  // Call a function renderCurrentTime for saved trips from the Local Storage with status = "current" at specified intervals (each 5 seconds)
+  savedTripArray.forEach((trip) => {
+    if (trip.status === 'current') {
+      let id = trip.id;
+      setInterval(renderCurrentTime, 5000, id);
+    };
+  });
 
   // Log with saved trips array from the Local Storage
   console.log('Saved trips from Local Storage:', savedTripArray);
