@@ -7,7 +7,7 @@ const fetchPixabayApi = async (city = '', country = '', pixabayApiKey) => {
   // city = city.replace(/ /g,'_');
   // country = country.replace(/ /g,'_');
 
-  // Set variable for url to fetch API data
+  // Set variable to store url to fetch API data
   let url = `https://pixabay.com/api/?key=${pixabayApiKey}&q=${city}+${country}&image_type=photo&orientation=horizontal&category=places`;
   // Fetch API data
   let response = await fetch(url);
