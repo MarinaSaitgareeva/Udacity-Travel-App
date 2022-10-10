@@ -61,7 +61,7 @@ const renderSavedTrips = () => {
   savedTripArray.forEach((trip) => {
     if (trip.status === 'current') {
       let id = trip.id;
-      setInterval(renderCurrentTime, 5000, id);
+      setInterval(renderCurrentTime, 1000, id);
     };
   });
 
