@@ -3,7 +3,7 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 
 // Fetch GeoNames API with city data based on city name
 const fetchGeonamesApi = async (city = '', geoNamesId) => {
-  // Set variable for url to fetch API data
+  // Set variable to store url to fetch API data
   let baseUrl = `http://api.geonames.org/search?username=${geoNamesId}&type=json&maxRows=1&name=`; // maxRows=1 - fetch only 1st result
   // Fetch API data
   let response = await fetch(baseUrl + city);
