@@ -1,5 +1,6 @@
 // Import js file
 import { calculateDaysToGo } from './calculateDaysToGo';
+import { calculateCurrentTime } from './refreshApiData';
 import { saveTrip } from './saveTrip';
 
 // Function to render search result in "trip-result" <section>
@@ -52,8 +53,11 @@ const displayNewSearch = (trip) => {
     </p>
   `;
 
+  // Calculate current time (destination)
+  calculateCurrentTime(trip);
+
   // Add current time (destination)
-  document.querySelector('#current-time').innerHTML = `<strong>Current time: </strong>&nbsp;<span class="current-time">${trip.time.current_time} </span>(${trip.time.abbreviation}: ${changeGmtOffSet(trip.time.gmtOffset)})`;
+  document.querySelector('#current-time').innerHTML = `<strong>Current time: </strong>&nbsp;<span class="current-time">${trip.time.current_time}</span> (${trip.time.abbreviation}: ${changeGmtOffSet(trip.time.gmtOffset)})`;
 
 
   function changeGmtOffSet (gmtOffset) {
@@ -75,8 +79,8 @@ const displayNewSearch = (trip) => {
     </p>
    
     <p><strong>Current weather: </strong></p>
-    <p id="weather-current">${trip.weather.current_temperature}, uv = ${trip.weather.current_uv}, rh = ${trip.weather.current_humidity}, wind = ${trip.weather.current_wind_speed} (${trip.weather.current_wind_direction}),</p>
-    <p id="weather-current-description"> ${trip.weather.current_description} <img id="weather-icon" src="${trip.weather.current_icon}" alt="weather icon"></p>
+    <p id="weather-current">${trip.current_weather.temp}, uv = ${trip.current_weather.uv}, rh = ${trip.current_weather.humidity}, wind = ${trip.current_weather.wind_speed} (${trip.current_weather.wind_dir}),</p>
+    <p id="weather-current-description"> ${trip.current_weather.description} <img id="weather-icon" src="${trip.current_weather.icon}" alt="weather icon"></p>
   `;
 
   // Show search result in "trip-result" <section>

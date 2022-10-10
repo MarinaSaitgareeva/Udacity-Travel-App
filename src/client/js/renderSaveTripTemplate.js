@@ -1,3 +1,5 @@
+import { calculateCurrentTime, renderCurrentTime } from "./refreshApiData";
+
 // Function to render saved trip template
 const renderSavedTripTemplate = (trip) => {
   // Set variable to store "saved-trip-template" with all content inside of it
@@ -69,14 +71,25 @@ const renderSavedTripTemplate = (trip) => {
   templateCopy.querySelector('.saved-destination-details').innerHTML = `
     <strong>Population: </strong>${trip.destination.city_population};&nbsp; 
     <strong>Language: </strong>${trip.destination.language};&nbsp;
-    <strong>Currency: </strong>${trip.destination.currency};&nbsp;
+    <strong>Currency: </strong>${trip.destination.currency} (${trip.destination.currency_name});&nbsp;
     <strong>Capital: </strong>${trip.destination.capital}
   `;
 
+  // Calculate current time (destination)
+  calculateCurrentTime(trip);
+
   // Add current time (destination)
   templateCopy.querySelector('.saved-current-time').innerHTML = `
-    <strong>Current time: </strong>&nbsp;${trip.time.current_time} (${trip.time.abbreviation}: ${trip.time.gmtOffset})
+    <strong>Current time: </strong>&nbsp;<span class="current-time">${trip.time.current_time}</span> (${trip.time.abbreviation}: ${changeGmtOffSet(trip.time.gmtOffset)})
   `;
+
+    function changeGmtOffSet (gmtOffset) {
+      if (gmtOffset > 0) {
+        return `UTC +${gmtOffset}:00`;
+      } else {
+        return `UTC ${gmtOffset}:00`;
+      };
+    };
 
   // Add historic weather in destination
   templateCopy.querySelector('.saved-weather-historical').innerHTML = `
@@ -89,10 +102,10 @@ const renderSavedTripTemplate = (trip) => {
 
   // Add current weather in destination
   templateCopy.querySelector('.saved-weather-current').innerHTML = `
-  ${trip.weather.current_temperature}, uv = ${trip.weather.current_uv}, rh = ${trip.weather.current_humidity}, wind = ${trip.weather.current_wind_speed} (${trip.weather.current_wind_direction}), 
+  ${trip.current_weather.temp}, uv = ${trip.current_weather.uv}, rh = ${trip.current_weather.humidity}, wind = ${trip.current_weather.wind_speed} (${trip.current_weather.wind_dir}), 
   <span class="saved-weather-current-description">
-    ${trip.weather.current_description} 
-    <img class="saved-weather-icon" src="${trip.weather.current_icon}" alt="weather icon">
+    ${trip.current_weather.description} 
+    <img class="saved-weather-icon" src="${trip.current_weather.icon}" alt="weather icon">
   </span>
   `;
 
@@ -116,6 +129,19 @@ const renderSavedTripTemplate = (trip) => {
   // Function to show or hide destination info when click on "show-destination-info" <button> in the saved trip
   function showDestinationInfo(event) {
     event.preventDefault();
+    // Set variable to store saved trip ID
+    let savedTripId = this.parentElement.parentElement.parentElement.id;
+    //
+    let realTime;
+    function startStuff(func, time, arg) {
+      alert('set real time for: ', savedTripId);
+      realTime = setInterval(func, time, arg);
+    };
+    function stopStuff() {
+      clearInterval(realTime);
+      realTime = false;
+      alert('clear real time for: ', savedTripId);
+    }
     // Check if "saved-destination-info" <div> has class="hide"
     if (this.parentElement.nextSibling.classList.contains('hide')) {
       // Change background-image in "show-destination-info" button when click on it
@@ -127,6 +153,11 @@ const renderSavedTripTemplate = (trip) => {
         behavior: 'smooth',
         block: 'end'
       });
+      startStuff(renderCurrentTime, 5000, savedTripId);
+      // Set variable to store saved trip ID
+      // let savedTripId = this.parentElement.parentElement.parentElement.id;
+      // 
+      // var realTime = setInterval(renderCurrentTime, 5000, savedTripId);
     } else {
       // Change background-image in "show-destination-info" <button> when click on it
       this.firstChild.style.backgroundImage = 'url("http://localhost:8080/open-info.png")';
@@ -137,7 +168,10 @@ const renderSavedTripTemplate = (trip) => {
         behavior: 'smooth',
         block: 'end'
       });
-    }
+      if (trip.id == savedTripId) {
+        stopStuff();
+      };
+    };
   };
 
   // Add Event Listener to delete the saved trip when click on "saved-remove-btn" <button> in the saved trip
@@ -150,10 +184,10 @@ const renderSavedTripTemplate = (trip) => {
     let savedTripArray = JSON.parse(localStorage.trips);
     // Execute a provided function once for each array element
     savedTripArray.forEach((trip) => {
-      // Set variable to store <div> with saved trips (based on the trip.status)
-      let savedTriContainer = this.parentElement.parentElement.parentElement;
-      // Check if saved trip ID equals to <div> ID (with saved trips (based on the trip.status))
-      if (trip.id == savedTriContainer.id) {
+      // Set variable to store <div> with saved trip
+      let savedTripContainer = this.parentElement.parentElement.parentElement;
+      // Check if saved trip ID equals to <div> ID (with saved trip)
+      if (trip.id == savedTripContainer.id) {
         // Delete saved trip
         savedTripArray.splice(savedTripArray.indexOf(trip), 1);
         // Set the Local Storage to the new, updated value
@@ -163,7 +197,7 @@ const renderSavedTripTemplate = (trip) => {
         // Log with updated saved trips from the Local Storage
         console.log('Updated saved trips: ', savedTripArray);
         // Remove "saved-trip-container" <div> with deleted saved trip from the DOM
-        savedTriContainer.remove();
+        savedTripContainer.remove();
         // Hide empty saved trip <div>
         hideEmptyDivs();
       };
@@ -171,7 +205,7 @@ const renderSavedTripTemplate = (trip) => {
   };
 
   // Set variable to store <div> to save trip based on the trip.status
-  let savedTripsDiv = selectDiv();
+  let savedTripDiv = selectDiv();
   // Function to select <div> to save trip based on the trip.status
   function selectDiv() {
     if (trip.status === 'current') {
@@ -184,10 +218,10 @@ const renderSavedTripTemplate = (trip) => {
   };
 
   // Remove class = "hide" from <div> with saved trips container
-  savedTripsDiv.parentElement.classList.remove('hide');
+  savedTripDiv.parentElement.classList.remove('hide');
 
   // Insert templateCopy to the end of the list of children <div> with saved trips (based on the trip.status)
-  savedTripsDiv.appendChild(templateCopy);
+  savedTripDiv.appendChild(templateCopy);
 
   // Hide empty saved trip <div>
   hideEmptyDivs();
