@@ -83,7 +83,9 @@ const renderSavedTripTemplate = (trip) => {
     <strong>Current time: </strong>&nbsp;<span class="current-time">${trip.time.current_time}</span> (${trip.time.abbreviation}: ${changeGmtOffSet(trip.time.gmtOffset)})
   `;
 
+    // Function to add GmtOffSet text
     function changeGmtOffSet (gmtOffset) {
+      // If gmtOffset > 0, add "+" sign, otherwise no need "+" sign
       if (gmtOffset > 0) {
         return `UTC +${gmtOffset}:00`;
       } else {
@@ -129,48 +131,39 @@ const renderSavedTripTemplate = (trip) => {
   // Function to show or hide destination info when click on "show-destination-info" <button> in the saved trip
   function showDestinationInfo(event) {
     event.preventDefault();
-    // Set variable to store saved trip ID
+    // Set variable to store ID for "saved-trip-container" <article> for the saved trip
     let savedTripId = this.parentElement.parentElement.parentElement.id;
-    //
-    let realTime;
-    function startStuff(func, time, arg) {
-      alert('set real time for: ', savedTripId);
-      realTime = setInterval(func, time, arg);
+    // Set variable to store "saved-destination-info" <div> for the saved trip
+    let destinationInfoDiv = this.parentElement.nextSibling;
+    // Check if "saved-destination-info" <div> have class = "hide"
+    if(!destinationInfoDiv.classList.contains('hide')) {
+      // Clear Interval for rendering of real time for the saved trip
+      clearInterval(destinationInfoDiv._someInterval);
     };
-    function stopStuff() {
-      clearInterval(realTime);
-      realTime = false;
-      alert('clear real time for: ', savedTripId);
-    }
+
     // Check if "saved-destination-info" <div> has class="hide"
-    if (this.parentElement.nextSibling.classList.contains('hide')) {
+    if (destinationInfoDiv.classList.contains('hide')) {
       // Change background-image in "show-destination-info" button when click on it
       this.firstChild.style.backgroundImage = 'url("http://localhost:8080/show-info.png")';
       // Remove class="hide" from "saved-destination-info" <div> when click on "show-destination-info" <button> in the saved trip
-      this.parentElement.nextSibling.classList.remove('hide');
+      destinationInfoDiv.classList.remove('hide');
       // Smoothly scrolls to "saved-destination-info" <div> in the saved trip
-      this.parentElement.nextSibling.scrollIntoView(false, {
+      destinationInfoDiv.scrollIntoView(false, {
         behavior: 'smooth',
         block: 'end'
       });
-      startStuff(renderCurrentTime, 5000, savedTripId);
-      // Set variable to store saved trip ID
-      // let savedTripId = this.parentElement.parentElement.parentElement.id;
-      // 
-      // var realTime = setInterval(renderCurrentTime, 5000, savedTripId);
+      // Set Interval for rendering of real time for the saved trip
+      destinationInfoDiv._someInterval = setInterval(renderCurrentTime, 1000, savedTripId);
     } else {
       // Change background-image in "show-destination-info" <button> when click on it
       this.firstChild.style.backgroundImage = 'url("http://localhost:8080/open-info.png")';
       // Add class="hide" to "saved-destination-info" <div> when click on "show-destination-info" <button> in the saved trip
-      this.parentElement.nextSibling.classList.add('hide');
+      destinationInfoDiv.classList.add('hide');
       // Smoothly scrolls to "saved-trip-btns" <div> in the saved trip
       this.parentElement.scrollIntoView(false, {
         behavior: 'smooth',
         block: 'end'
       });
-      if (trip.id == savedTripId) {
-        stopStuff();
-      };
     };
   };
 
@@ -181,7 +174,7 @@ const renderSavedTripTemplate = (trip) => {
   function deleteSavedTrip(event) {
     event.preventDefault();
     // Set variable to store saved trips from the Local Storage (construct the JavaScript value or object described by the string)
-    let savedTripArray = JSON.parse(localStorage.trips);
+    let savedTripArray = JSON.parse(localStorage.getItem('trips'));
     // Execute a provided function once for each array element
     savedTripArray.forEach((trip) => {
       // Set variable to store <div> with saved trip
