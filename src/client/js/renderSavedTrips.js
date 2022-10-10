@@ -1,7 +1,7 @@
 // Import js file
 import { calculateDaysToGo } from './calculateDaysToGo';
 import { updateInvalidImageUrl, renderCurrentTime } from './refreshApiData'
-import { renderSavedTripTemplate } from './renderSaveTripTemplate';
+import { renderSavedTripTemplate, hideEmptyDivs } from './renderSaveTripTemplate';
 
 // Function to display all saved trips from Local Storage
 const renderSavedTrips = () => {
@@ -13,6 +13,9 @@ const renderSavedTrips = () => {
   } else {
     savedTripArray = []
   };
+
+  // Hide empty saved trip <div>
+  hideEmptyDivs();
 
   // Update a number of days between trip start date and current date for each saved trip from Local Storage
   savedTripArray.forEach(calculateDaysToGo);
