@@ -9,7 +9,7 @@ const refreshApiData = async () => {
   if (localStorage.getItem('trips')) {
     savedTripArray = JSON.parse(localStorage.getItem('trips'))
   } else {
-    savedTripArray = []
+    savedTripArray = [];
   };
   // Set variable to store updated saved trips array
   let updatedSavedTripArray = [];
@@ -35,12 +35,10 @@ const refreshApiData = async () => {
       return updatedSavedTripArray.push(response);
     });
   };
-
+  // Update savedTripArray
   savedTripArray = updatedSavedTripArray;
-
   // Update saved trips in Local Storage
   localStorage.setItem('trips', JSON.stringify(savedTripArray));
-
   // Log with saved trips array from the Local Storage
   console.log('Update API data in saved trips from the Local Storage:', savedTripArray);
 };
@@ -53,7 +51,7 @@ const updateInvalidImageUrl = () => {
   if (localStorage.getItem('trips')) {
     savedTripArray = JSON.parse(localStorage.getItem('trips'))
   } else {
-    savedTripArray = []
+    savedTripArray = [];
   };
   // For each saved trip from the Local Storage check image url and fetch new one, if it's invalid
   savedTripArray.forEach(async (trip) => {
@@ -114,9 +112,9 @@ function calculateCurrentTime (trip) {
   let minutes = currentTimeDate.getUTCMinutes();
   minutes = minutes < 10 ? '0'+minutes : minutes;
   let AMPM = hours < 12 ? 'AM' : 'PM';
-  if (hours === 12){
+  if (hours === 12) {
     hours = 12;
-  } else{
+  } else {
     hours = hours%12;
   };
   let currentTime = `${hours}:${minutes} ${AMPM}`;
@@ -131,7 +129,7 @@ function renderCurrentTime(id) {
   if (localStorage.getItem('trips')) {
     savedTripArray = JSON.parse(localStorage.getItem('trips'))
   } else {
-    savedTripArray = []
+    savedTripArray = [];
   };
   // Set variable to store saved trip which is selected based on it's ID from savedTripArray
   let selectedTrip = savedTripArray.find(array => array.id === id);
@@ -153,7 +151,7 @@ async function refreshCurrentWeather(id) {
   if (localStorage.getItem('trips')) {
     savedTripArray = JSON.parse(localStorage.getItem('trips'))
   } else {
-    savedTripArray = []
+    savedTripArray = [];
   };
   // Set variable to store saved trip which is selected based on it's ID from savedTripArray
   let selectedTrip = savedTripArray.find(array => array.id === id);
@@ -181,7 +179,7 @@ async function refreshCurrentWeather(id) {
   let today = new Date();
   let yearToday = today.getUTCFullYear;
   let monthToday = today.getUTCMonth + 1;
-  let dayToday = today.getUTCDate()
+  let dayToday = today.getUTCDate();
   // Check if weather date does not equal to current date then fetch new weather data and update current weather for the saved trip
   if (yearWeather != yearToday && monthWeather != monthToday && dayWeather != dayToday) {
     // Fetch Weather API for updated current weather data
@@ -212,9 +210,8 @@ async function refreshCurrentWeather(id) {
     console.log('Current weather for the saved trips was updated', selectedTrip);
   } else {
     // Log with message
-    console.log('Current weather is up-to-date', , selectedTrip);
+    console.log('Current weather is up-to-date', selectedTrip);
   };
-
 };
 
 // Export js file

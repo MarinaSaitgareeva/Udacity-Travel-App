@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to refresh all saved trips data from Local Storage
   // refreshApiData();
   // Function to display all saved trips from Local Storage
-  renderSavedTrips()
+  renderSavedTrips();
 });
 
 // Add Event Listener to "search-form-btn" <button> on click to display search result in "trip-result" <section>
@@ -34,7 +34,6 @@ document.querySelector('#add-btn').addEventListener('click', function scrollToSe
 const deleteAllBtns = document.querySelectorAll('.delete-btn');
 // Add Event Listener to each "delete-btn" <button>
 deleteAllBtns.forEach(deleteAllBtn => deleteAllBtn.addEventListener('click', deleteAllSavedTrips));
-
 
 // Export js files
 export {

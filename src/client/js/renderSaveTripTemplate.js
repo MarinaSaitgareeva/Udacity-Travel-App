@@ -8,16 +8,12 @@ const renderSavedTripTemplate = (trip) => {
   let templateCopy = template.cloneNode(true); // cloneNode is used to clone a node from current document
   // Alternative way
   // let templateCopy = document.importNode(template, true); //importNode is used to clone a node from another document
-
   // Set ID for "saved-trip-container" <article> = "a number of days between travel start date and current date" + "destination city" + "departure city"
   templateCopy.firstChild.id = trip.daysToGo + '-' + trip.destination.city.replace(/ /g,'') + '-' + trip.departure.city.replace(/ /g,'');
-
   // Add image of destination city / capital / country
   templateCopy.querySelector('.saved-destination-photo').src = trip.image;
-
   // Add image caption
   templateCopy.querySelector('.saved-destination-photo-caption').textContent = trip.image_figcaption;
-
   // Add departure and destination: city, country code, flag and map url
   templateCopy.querySelector('.saved-route').innerHTML = `
     <a class="saved-map" href="${trip.departure.map}" target="_blank">
@@ -32,7 +28,6 @@ const renderSavedTripTemplate = (trip) => {
       <img class="saved-flag" src="${trip.destination.flag}" alt="flag">
     </a>
   `;
-
   // Add start and end dates (trip's length) - a number of days between trip start date and current date
   templateCopy.querySelector('.saved-dates').innerHTML = `
     <strong> ${formatDate(trip.startDate)} </strong> 
@@ -40,7 +35,6 @@ const renderSavedTripTemplate = (trip) => {
     <strong> ${formatDate(trip.endDate)} </strong> (${trip.daysLength} days) <br>
     <p class="saved-day-to-go-text"><em>${daysToGoText(trip.daysToGo)}</em></p>
   `;
-
     // Function to change format of date
     function formatDate (date) {
       let d = new Date(date);
@@ -51,22 +45,20 @@ const renderSavedTripTemplate = (trip) => {
       let weekday = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
       let dayOfWeek = weekday[d.getDay()];
       let newDate = curMonth + ' ' + curDay + ', ' + curYear + ' (' + dayOfWeek + ')';
-      return newDate
+      return newDate;
     };
-
     // Function to add text in daysToGo
     function daysToGoText() {
       if (trip.daysToGo > 0) {
-        return `${trip.daysToGo} days left. Be Ready!`
+        return `${trip.daysToGo} days left. Be Ready!`;
       }
       else if (trip.daysToGo == 0) {
-        return `Today! Are You Ready?`
+        return `Today! Are You Ready?`;
       }
       else {
-        return `Your trip was ${trip.daysToGo * -1} days ago!`
-      }
+        return `Your trip was ${trip.daysToGo * -1} days ago!`;
+      };
     };
-
   // Add destination details
   templateCopy.querySelector('.saved-destination-details').innerHTML = `
     <strong>Population: </strong>${trip.destination.city_population};&nbsp; 
@@ -74,15 +66,12 @@ const renderSavedTripTemplate = (trip) => {
     <strong>Currency: </strong>${trip.destination.currency} (${trip.destination.currency_name});&nbsp;
     <strong>Capital: </strong>${trip.destination.capital}
   `;
-
   // Calculate current time (destination)
   calculateCurrentTime(trip);
-
   // Add current time (destination)
   templateCopy.querySelector('.saved-current-time').innerHTML = `
     <strong>Current time: </strong>&nbsp;<span class="current-time">${trip.time.current_time}</span> (${trip.time.abbreviation}: ${changeGmtOffSet(trip.time.gmtOffset)})
   `;
-
     // Function to add GmtOffSet text
     function changeGmtOffSet (gmtOffset) {
       // If gmtOffset > 0, add "+" sign, otherwise no need "+" sign
@@ -92,7 +81,6 @@ const renderSavedTripTemplate = (trip) => {
         return `UTC ${gmtOffset}:00`;
       };
     };
-
   // Add historic weather in destination
   templateCopy.querySelector('.saved-weather-historical').innerHTML = `
     <table class="historical-weather-table">
@@ -106,13 +94,11 @@ const renderSavedTripTemplate = (trip) => {
       </tr>
     </table>
   `;
-
   // Update current weather for saved trips from the Local Storage (if weather date does not equal to current date)
   if (trip.status === 'current') {
     let id = trip.id;
     refreshCurrentWeather(id);
   };
-
   // Add current weather in destination
   templateCopy.querySelector('.saved-weather-current').innerHTML = `
     ${trip.current_weather.temp}, uv = ${trip.current_weather.uv}, rh = ${trip.current_weather.humidity}, wind = ${trip.current_weather.wind_speed} (${trip.current_weather.wind_dir}), 
@@ -121,24 +107,20 @@ const renderSavedTripTemplate = (trip) => {
       <img class="saved-weather-icon" src="${trip.current_weather.icon}" alt="weather icon">
     </span>
   `;
-
   // Remove class = "hide" from "saved-destination-info" <div> for trip.status = "current"
   if (trip.status === 'current') {
     templateCopy.querySelector('.saved-destination-info').classList.remove('hide');
   };
-
   // Remove current time and current weather from "saved-destination-info" <div> for trip.status = "archived"
   if (trip.status === 'archived') {
     templateCopy.querySelector('.saved-current-time').remove();
     templateCopy.querySelector('.saved-weather-current').previousSibling.remove();
     templateCopy.querySelector('.saved-weather-current').remove();
   };
-
   // Add Event Listener to show or hide destination info when click on "show-destination-info" <button> in the saved trip
   templateCopy.querySelector('.show-destination-info').addEventListener('click', showDestinationInfo);
   // Alternative way with setting HTML attribute onclick to button
   // templateCopy.querySelector('.show-destination-info').onclick = showDestinationInfo;
-
   // Function to show or hide destination info when click on "show-destination-info" <button> in the saved trip
   function showDestinationInfo(event) {
     event.preventDefault();
@@ -151,7 +133,6 @@ const renderSavedTripTemplate = (trip) => {
       // Clear Interval for rendering of real time for the saved trip
       clearInterval(destinationInfoDiv._someInterval);
     };
-
     // Check if "saved-destination-info" <div> has class="hide"
     if (destinationInfoDiv.classList.contains('hide')) {
       // Change background-image in "show-destination-info" button when click on it
@@ -188,10 +169,8 @@ const renderSavedTripTemplate = (trip) => {
       });
     };
   };
-
   // Add Event Listener to delete the saved trip when click on "saved-remove-btn" <button> in the saved trip
   templateCopy.querySelector('.saved-remove-btn').addEventListener('click', deleteSavedTrip);
-
   // Function to delete the saved trip when click on "saved-remove-btn" <button> in the saved trip
   function deleteSavedTrip(event) {
     event.preventDefault();
@@ -218,26 +197,22 @@ const renderSavedTripTemplate = (trip) => {
       };
     });
   };
-
   // Set variable to store <div> to save trip based on the trip.status
   let savedTripDiv = selectDiv();
   // Function to select <div> to save trip based on the trip.status
   function selectDiv() {
     if (trip.status === 'current') {
-      return document.querySelector('#current-container')
+      return document.querySelector('#current-container');
     } else if (trip.status === 'upcoming') {
-      return document.querySelector('#upcoming-container')
+      return document.querySelector('#upcoming-container');
     } else {
-      return document.querySelector('#archived-container')
+      return document.querySelector('#archived-container');
     };
   };
-
   // Remove class = "hide" from <div> with saved trips container
   savedTripDiv.parentElement.classList.remove('hide');
-
   // Insert templateCopy to the end of the list of children <div> with saved trips (based on the trip.status)
   savedTripDiv.appendChild(templateCopy);
-
   // Hide empty saved trip <div>
   hideEmptyDivs();
 };

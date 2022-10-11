@@ -18,7 +18,7 @@ const fetchPixabayApi = async (city = '', country = '', pixabayApiKey) => {
     if (data.hits.length >= 10) {
       console.log(url);
       let imageUrl = data.hits[Math.floor(Math.random() * 10)].webformatURL;// Random number => different city's img
-      return imageUrl
+      return imageUrl;
     } else {
       // Set updated variable to fetch API data, if there are no images in previous response from API 
       let updatedUrl = `https://pixabay.com/api/?key=${pixabayApiKey}&q=${city}+${country}&image_type=photo&orientation=horizontal`;
@@ -28,20 +28,20 @@ const fetchPixabayApi = async (city = '', country = '', pixabayApiKey) => {
       if (updatedData.hits.length >= 10) {
         console.log(updatedUrl);
         let updatedImageUrl = updatedData.hits[Math.floor(Math.random() * 10)].webformatURL// Random number => different city's img
-        return updatedImageUrl
+        return updatedImageUrl;
       } else if (updatedData.hits.length > 0 && updatedData.hits.length < 10) {
         console.log(updatedUrl);
-        let updatedImageUrl = updatedData.hits[0].webformatURL
-        return updatedImageUrl
+        let updatedImageUrl = updatedData.hits[0].webformatURL;
+        return updatedImageUrl;
       } else {
         // if there is no images return undefined so you can fetch another link for images
-        return undefined
-      }
-    }
+        return undefined;
+      };
+    };
   } else {
       // Appropriately handle the error
       console.log(`Error: ${response.status} ${response.statusText}!!!`);
-      return 'no data'
+      return 'no data';
     };
 };
 

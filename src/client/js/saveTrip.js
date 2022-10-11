@@ -13,18 +13,17 @@ const saveTrip = () => {
   // Function to add text in "status" for save trip
   function statusText () {
     if (searchResult.daysToGo > 0) {
-      return searchResult.status = 'upcoming'
+      return searchResult.status = 'upcoming';
     } else if (searchResult.daysToGo == 0) {
-      return searchResult.status = 'current'
+      return searchResult.status = 'current';
     } else {
-      return searchResult.status = 'archived'
-    }
-  }
+      return searchResult.status = 'archived';
+    };
+  };
   // Set variable for ID
   let id = searchResult.daysToGo + '-' + searchResult.destination.city.replace(/ /g,'') + '-' + searchResult.departure.city.replace(/ /g,'');
   // Replace spaces " " in name of city and country with underscore "_"
   // city = city.replace(/ /g,'');
-
   // Set "ID" for saved trip
   searchResult.id = id;
   // Set variable to store saved trips in an array
@@ -33,7 +32,7 @@ const saveTrip = () => {
   if (localStorage.getItem('trips')) {
     savedTripArray = JSON.parse(localStorage.getItem('trips'))
   } else {
-    savedTripArray = []
+    savedTripArray = [];
   };
   // Push new saved trip into the saved trip array
   savedTripArray.push(searchResult);

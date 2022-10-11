@@ -29,17 +29,17 @@ const displayNewSearch = (trip) => {
       let weekday = new Array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
       let dayOfWeek = weekday[d.getDay()];
       let newDate = curMonth + ' ' + curDay + ', ' + curYear + ' (' + dayOfWeek + ')';
-      return newDate
+      return newDate;
     };
 
     // Function to add text in daysToGo
     function daysToGoText() {
       if (trip.daysToGo > 0) {
-        return `${trip.daysToGo} days left. Be Ready!`
+        return `${trip.daysToGo} days left. Be Ready!`;
       } else if (trip.daysToGo == 0) {
-        return `Today! Are You Ready?`
+        return `Today! Are You Ready?`;
       } else {
-        return `Your trip was ${trip.daysToGo * -1} days ago!`
+        return `Your trip was ${trip.daysToGo * -1} days ago!`;
       }
     };
 

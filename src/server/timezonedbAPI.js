@@ -11,19 +11,18 @@ const fetchTimezonedbApi = async (latitude, longitude, timezonedbApiKey) => {
 
   if (response.ok) {
     let data = await response.json();
-  
     return {
       abbreviation: data.abbreviation, // Abbreviation of the time zone
       gmtOffset: (data.gmtOffset / 60 / 60).toString(), // The time offset in hours (seconds / 60 / 60) based on UTC time
     };
   } else {
-    // Appropriately handle the error
+      // Appropriately handle the error
       console.log(`Error: code ${response.status} ${response.statusText}!!!`);
       return {
         abbreviation: 'no data',
         gmtOffset: 'no data'
       };
-    }
+    };
 };
 
 // Export js file

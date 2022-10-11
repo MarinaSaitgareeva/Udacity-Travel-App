@@ -6,12 +6,6 @@ const fetch = (...args) =>
 const fetchWeatherbitHistoricalApi = async (latitude, longitude, date, weatherbitApiKey) => {
   // Set variable to store url to fetch API data
   let historicalUrl = 'https://api.weatherbit.io/v2.0/history/hourly?';
-  // Set variable to store date
-  // let currentDate = new Date(date);
-  // Set variable to calculate last year date
-  // let lastYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear()-1));
-  // Convert last year date to format "2022-01-01" (without time)
-  // lastYearDate = lastYearDate.toISOString().split('T')[0];
   // Create array with year, month and day
   let [year, month, day] = date.split('-');
   // Change current year on last year
@@ -57,7 +51,7 @@ const fetchWeatherbitHistoricalApi = async (latitude, longitude, date, weatherbi
 function getCardinalDirection(angle) {
   const directions = ['↑ N', '↗ NE', '→ E', '↘ SE', '↓ S', '↙ SW', '← W', '↖ NW'];
   return directions[Math.round(angle / 45) % 8];
-}
+};
 
 // Export js file
 module.exports = fetchWeatherbitHistoricalApi;
