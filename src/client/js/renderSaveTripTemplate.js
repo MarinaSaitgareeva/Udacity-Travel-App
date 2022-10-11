@@ -190,6 +190,10 @@ const renderSavedTripTemplate = (trip) => {
         console.log('Delete trip: ', trip);
         // Log with updated saved trips from the Local Storage
         console.log('Updated saved trips: ', savedTripArray);
+        // Set variable to store "saved-destination-info" <div> for the saved trip
+        let destinationInfoDiv = this.parentElement.nextSibling;
+        // Clear Interval for rendering of real time for the saved trip
+        clearInterval(destinationInfoDiv._someInterval);
         // Remove "saved-trip-container" <div> with deleted saved trip from the DOM
         savedTripContainer.remove();
         // Hide empty saved trip <div>
