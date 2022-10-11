@@ -146,14 +146,24 @@ function renderCurrentTime(id) {
 };
 
 // Function to refresh current weather for saved trip from the Local Storage
-async function refreshCurrentWeather(trip) {
+async function refreshCurrentWeather(id) {
+  // Set variable to store saved trips in an array
+  let savedTripArray = [];
+  // A conditional statement that checks if Local Storage already exists (otherwise after closing the browser or reloading the page, all the existing information in Local Storage is gone, and nothing remains on the front end)
+  if (localStorage.getItem('trips')) {
+    savedTripArray = JSON.parse(localStorage.getItem('trips'))
+  } else {
+    savedTripArray = []
+  };
+  // Set variable to store saved trip which is selected based on it's ID from savedTripArray
+  let selectedTrip = savedTripArray.find(array => array.id === id);
   // Set variables for destination: city, country, latitude, longitude; startDate and endDate
-  let destinationCity = savedTrip.destination.city;
-  let destinationCountry = savedTrip.destination.country;
-  let destinationLatitude = savedTrip.destination.latitude;
-  let destinationLongitude = savedTrip.destination.longitude;
-  let startDate = savedTrip.startDate;
-  let endDate = savedTrip.endDate;
+  let destinationCity = selectedTrip.destination.city;
+  let destinationCountry = selectedTrip.destination.country;
+  let destinationLatitude = selectedTrip.destination.latitude;
+  let destinationLongitude = selectedTrip.destination.longitude;
+  let startDate = selectedTrip.startDate;
+  let endDate = selectedTrip.endDate;
   // Store variables in object for sending to server
   let destinationData = {
     city: destinationCity,
@@ -163,22 +173,48 @@ async function refreshCurrentWeather(trip) {
     startDate: startDate,
     endDate: endDate,
   };
-  // Fetch Weather API for updated current weather data
-  let response = await fetch('/weather', {
-    method: 'POST',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    mode: 'cors',
-    body: JSON.stringify(destinationData)
-  });
-  // Set variable to store fetch weather data for the saved trip
-  let weatherData = await response.json(); 
-  // TO_DO : add updated weather data to saved trips
-  
-  // Log with message
-  console.log('Current weather for the saved trips was updated');
+  // Set variable to store current weather date for the saved trip
+  let weatherDate = selectedTrip.current_weather.date;
+  // Create array with year, month and day for current weather date of the saved trip
+  let [yearWeather, monthWeather, dayWeather] = weatherDate.split('-');
+  // Set variables to store today date: UTC year, UTC month and UTC day
+  let today = new Date();
+  let yearToday = today.getUTCFullYear;
+  let monthToday = today.getUTCMonth + 1;
+  let dayToday = today.getUTCDate()
+  // Check if weather date does not equal to current date then fetch new weather data and update current weather for the saved trip
+  if (yearWeather != yearToday && monthWeather != monthToday && dayWeather != dayToday) {
+    // Fetch Weather API for updated current weather data
+    let response = await fetch('/weather', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+      body: JSON.stringify(destinationData)
+    });
+    // Set variable to store fetch weather data for the saved trip
+    let weatherData = await response.json(); 
+    // Update current weather data
+    selectedTrip.current_weather.date = weatherData.current_weather.date;
+    selectedTrip.current_weather.temp = weatherData.current_weather.temp;
+    selectedTrip.current_weather.uv = weatherData.current_weather.uv;
+    selectedTrip.current_weather.humidity = weatherData.current_weather.humidity;
+    selectedTrip.current_weather.pressure = weatherData.current_weather.pressure;
+    selectedTrip.current_weather.wind_speed = weatherData.current_weather.wind_speed;
+    selectedTrip.current_weather.wind_dir = weatherData.current_weather.wind_dir;
+    selectedTrip.current_weather.icon = weatherData.current_weather.icon;
+    selectedTrip.current_weather.description = weatherData.current_weather.description;
+    // Update saved trips in the Local Storage
+    localStorage.setItem('trips', JSON.stringify(savedTripArray));
+    // Log with message
+    console.log('Current weather for the saved trips was updated', selectedTrip);
+  } else {
+    // Log with message
+    console.log('Current weather is up-to-date', , selectedTrip);
+  };
+
 };
 
 // Export js file

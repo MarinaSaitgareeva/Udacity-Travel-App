@@ -1,4 +1,4 @@
-import { calculateCurrentTime, renderCurrentTime } from "./refreshApiData";
+import { calculateCurrentTime, renderCurrentTime, refreshCurrentWeather } from "./refreshApiData";
 
 // Function to render saved trip template
 const renderSavedTripTemplate = (trip) => {
@@ -107,6 +107,12 @@ const renderSavedTripTemplate = (trip) => {
     </table>
   `;
 
+  // Update current weather for saved trips from the Local Storage (if weather date does not equal to current date)
+  if (trip.status === 'current') {
+    let id = trip.id;
+    refreshCurrentWeather(id);
+  };
+
   // Add current weather in destination
   templateCopy.querySelector('.saved-weather-current').innerHTML = `
     ${trip.current_weather.temp}, uv = ${trip.current_weather.uv}, rh = ${trip.current_weather.humidity}, wind = ${trip.current_weather.wind_speed} (${trip.current_weather.wind_dir}), 
@@ -159,6 +165,17 @@ const renderSavedTripTemplate = (trip) => {
       });
       // Set Interval for rendering of real time for the saved trip
       destinationInfoDiv._someInterval = setInterval(renderCurrentTime, 1000, savedTripId);
+      // Function to refresh current weather for saved trip from the Local Storage
+      refreshCurrentWeather(savedTripId);
+      // Update HTML
+      // Add current weather in destination
+      this.parentElement.parentElement.parentElement.querySelector('.saved-weather-current').innerHTML = `
+        ${trip.current_weather.temp}, uv = ${trip.current_weather.uv}, rh = ${trip.current_weather.humidity}, wind = ${trip.current_weather.wind_speed} (${trip.current_weather.wind_dir}), 
+        <span class="saved-weather-current-description">
+          ${trip.current_weather.description} 
+          <img class="saved-weather-icon" src="${trip.current_weather.icon}" alt="weather icon">
+        </span>
+      `;
     } else {
       // Change background-image in "show-destination-info" <button> when click on it
       this.firstChild.style.backgroundImage = 'url("http://localhost:8080/open-info.png")';
