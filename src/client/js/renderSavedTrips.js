@@ -19,7 +19,9 @@ const renderSavedTrips = () => {
   savedTripArray.forEach(calculateDaysToGo);
   // Update ID for each saved trip from Local Storage
   savedTripArray.forEach((trip) => {
-    return trip.id = trip.daysToGo + '-' + trip.destination.city.replace(/ /g,'') + '-' + trip.departure.city.replace(/ /g,'');
+    let destinationCity = trip.destination.city.replace(/ /g,'');
+    let departureCity = trip.departure.city.replace(/ /g,'');
+    trip.id = trip.daysToGo + '-' + destinationCity + '-' + departureCity;
     // Replace spaces " " in name of city and country with underscore "_"
     // city = city.replace(/ /g,'');
   });
