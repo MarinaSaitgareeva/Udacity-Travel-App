@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-// const WorkboxPlugin = require('workbox-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -39,6 +39,6 @@ module.exports = {
       filename: './index.html',
       favicon: './src/client/assets/favicon.png'
     }),
-    // new WorkboxPlugin.GenerateSW()
+    new WorkboxPlugin.GenerateSW()
   ]
 }
