@@ -94,6 +94,7 @@ let trip = {
     description: ''
   },
   startDateLastYear_weather: {
+    date: '',
     temp: '',
     uv: '',
     humidity: '',
@@ -104,6 +105,7 @@ let trip = {
     description: ''
   },
   endDateLastYear_weather: {
+    date: '',
     temp: '',
     uv: '',
     humidity: '',
@@ -173,6 +175,7 @@ app.post('/tripInfo', async (req, res) => {
     trip.startDate,
     process.env.WEATHERBIT_API_KEY
   );
+  trip.startDateLastYear_weather.date = weatherStartDateLastYear.date;
   trip.startDateLastYear_weather.temp = weatherStartDateLastYear.temp;
   trip.startDateLastYear_weather.uv = weatherStartDateLastYear.uv;
   trip.startDateLastYear_weather.humidity = weatherStartDateLastYear.humidity;
@@ -190,6 +193,7 @@ let weatherEndDateLastYear = await fetchWeatherbitHistoricalApi(
   trip.endDate,
   process.env.WEATHERBIT_API_KEY
 );
+  trip.endDateLastYear_weather.date = weatherEndDateLastYear.date;
   trip.endDateLastYear_weather.temp = weatherEndDateLastYear.temp;
   trip.endDateLastYear_weather.uv = weatherEndDateLastYear.uv;
   trip.endDateLastYear_weather.humidity = weatherEndDateLastYear.humidity;
@@ -265,7 +269,19 @@ app.post('/weather', async (req, res) => {
     longitude: '',
     startDate: '',
     endDate: '',
+    current_weather: {
+      date: '',
+      temp: '',
+      uv: '',
+      humidity: '',
+      pressure: '',
+      wind_speed: '',
+      wind_dir: '',
+      icon: '',
+      description: ''
+    },
     startDateLastYear_weather: {
+      date: '',
       temp: '',
       uv: '',
       humidity: '',
@@ -276,16 +292,7 @@ app.post('/weather', async (req, res) => {
       description: ''
     },
     endDateLastYear_weather: {
-      temp: '',
-      uv: '',
-      humidity: '',
-      pressure: '',
-      wind_speed: '',
-      wind_dir: '',
-      icon: '',
-      description: ''
-    },
-    current_weather: {
+      date: '',
       temp: '',
       uv: '',
       humidity: '',
@@ -313,6 +320,7 @@ app.post('/weather', async (req, res) => {
     updatedWeatherData.startDate,
     process.env.WEATHERBIT_API_KEY
   );
+    updatedWeatherData.startDateLastYear_weather.date = weatherStartDateLastYear.date;
     updatedWeatherData.startDateLastYear_weather.temp = weatherStartDateLastYear.temp;
     updatedWeatherData.startDateLastYear_weather.uv = weatherStartDateLastYear.uv;
     updatedWeatherData.startDateLastYear_weather.humidity = weatherStartDateLastYear.humidity;
@@ -325,11 +333,12 @@ app.post('/weather', async (req, res) => {
 
   // Fetch weather data from Watherbit API (historical end-date last year)
   let weatherEndDateLastYear = await fetchWeatherbitHistoricalApi(
-  updatedWeatherData.destination.latitude,
-  updatedWeatherData.destination.longitude,
+  updatedWeatherData.latitude,
+  updatedWeatherData.longitude,
   updatedWeatherData.endDate,
   process.env.WEATHERBIT_API_KEY
   );
+    updatedWeatherData.endDateLastYear_weather.date = weatherEndDateLastYear.date;
     updatedWeatherData.endDateLastYear_weather.temp = weatherEndDateLastYear.temp;
     updatedWeatherData.endDateLastYear_weather.uv = weatherEndDateLastYear.uv;
     updatedWeatherData.endDateLastYear_weather.humidity = weatherEndDateLastYear.humidity;

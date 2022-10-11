@@ -13,7 +13,7 @@ const fetchWeatherbitCurrentApi = async (latitude, longitude, weatherbitApiKey) 
   if (response.ok) {
     let data = await response.json();
     return {
-      date: data.data[0].ob_time.slice(0, 10),
+      date: data.data[0].datetime.slice(0, 10),
       temp: `${data.data[0].temp}℃`,
       uv: data.data[0].uv.toFixed(1), // UV Index (0-11+)
       humidity: `${data.data[0].rh}%`, // Relative humidity (%)

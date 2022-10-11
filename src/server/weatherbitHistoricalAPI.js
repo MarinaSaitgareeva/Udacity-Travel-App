@@ -7,13 +7,19 @@ const fetchWeatherbitHistoricalApi = async (latitude, longitude, date, weatherbi
   // Set variable to store url to fetch API data
   let historicalUrl = 'https://api.weatherbit.io/v2.0/history/hourly?';
   // Set variable to store date
-  let currentDate = new Date(date);
+  // let currentDate = new Date(date);
   // Set variable to calculate last year date
-  let lastYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear()-1));
+  // let lastYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear()-1));
   // Convert last year date to format "2022-01-01" (without time)
-  lastYearDate = lastYearDate.toISOString().split('T')[0];
+  // lastYearDate = lastYearDate.toISOString().split('T')[0];
+  // Create array with year, month and day
+  let [year, month, day] = date.split('-');
+  // Change current year on last year
+  year = year - 1;
+  // Transform array into string with last year date
+  let lastYearDate = [year, month, day].join('-');
   // // Update url to fetch API data
-  historicalUrl = `${historicalUrl}key=${weatherbitApiKey}&lat=${latitude}&lon=${longitude}&start_date=${lastYearDate}:12&end_date=${lastYearDate}:13`;
+  historicalUrl = `${historicalUrl}key=${weatherbitApiKey}&lat=${latitude}&lon=${longitude}&start_date=${lastYearDate}:8&end_date=${lastYearDate}:9`; // 8 and 9 means that weather data for 12:00 pm
   // Fetch API data with update url
   let response = await fetch(historicalUrl);
   console.log('Weatherbit API (historical copy):', response.status, response.statusText, response.ok);
@@ -21,6 +27,7 @@ const fetchWeatherbitHistoricalApi = async (latitude, longitude, date, weatherbi
   if (response.ok) {
     let data = await response.json();
     return {
+      date: data.data[0].datetime.slice(0, 10),
       temp: `${data.data[0].temp}℃`,
       uv: data.data[0].uv.toFixed(1), // Maximum UV Index (0-11+)
       humidity: `${data.data[0].rh}%`, // Relative humidity (%)
@@ -33,6 +40,7 @@ const fetchWeatherbitHistoricalApi = async (latitude, longitude, date, weatherbi
   } else {
     console.log(`Error: code ${response.status} ${response.statusText}!!!`);
     return {
+      date: 'no data',
       temp: 'no data',
       uv: 'no data',
       humidity: 'no data',
